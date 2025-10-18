@@ -1,0 +1,18 @@
+## Interface: 11200
+## Title: Tradesman's Guide
+## Notes: Efficient leveling of all your trades!
+## Author: trashcanhands
+## Version: 1.0.0
+## SavedVariables: TradeGuideDB
+
+Alchemy.lua
+Blacksmithing.lua
+Cooking.lua
+Enchanting.lua
+Engineering.lua
+Firstaid.lua
+Leatherworking.lua
+Herbalism.lua
+Mining.lua
+
+TradeGuide.lua
