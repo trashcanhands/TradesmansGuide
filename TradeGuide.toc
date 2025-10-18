@@ -12,6 +12,7 @@ Enchanting.lua
 Engineering.lua
 Firstaid.lua
 Leatherworking.lua
+Tailoring.lua
 Herbalism.lua
 Mining.lua
 

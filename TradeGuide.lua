@@ -649,6 +649,23 @@ leatherworkingButton:SetScript("OnClick", function()
     end
 end)
 
+-- Tailoring button
+local tailoringButton = CreateFrame("Button", "TailoringButton", guideFrame, "UIPanelButtonTemplate")
+tailoringButton:SetWidth(120)
+tailoringButton:SetHeight(30)
+tailoringButton:SetPoint("TOP", leatherworkingButton, "BOTTOM", 0, -10)
+tailoringButton:SetText("Tailoring")
+tailoringButton:SetScript("OnClick", function()
+        ClearHerbalismUI()
+        ClearMiningUI()
+        contentFrame:SetVerticalScroll(0)
+    if Tailoring and Tailoring.content then
+        DisplayContent(Tailoring.content, Tailoring)
+    else
+        print("ERROR: Tailoring data not found!")
+    end
+end)
+
 local gatherHeader = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 gatherHeader:SetPoint("CENTER", leatherworkingButton, "CENTER", 0, -50)
 gatherHeader:SetText("GATHERING:")

@@ -102,6 +102,7 @@ content = {
 "     Requires: |cFFFFFFFF[Stranglekelp]|r, |cFFFFFFFF[Goldthorn]|r, |cFF9D9D9D[Leaded Vial]|r",
 "     |cFFFFFFFF[Nature Protection Potion]|r",
 "     Requires: |cFFFFFFFF[Stranglekelp]|r, |cFFFFFFFF[Liferoot]|r, |cFF9D9D9D[Leaded Vial]|r",
+"",
 "------------------------------------------------------------------------------------------------",
 "",
 "ACQUIRE:",
