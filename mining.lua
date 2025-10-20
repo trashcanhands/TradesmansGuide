@@ -160,7 +160,7 @@ Black Diamonds - Rare drop from Rich Thorium
 Azerothian Diamonds - Rare gem drops
 ]],
             zones = {
-                {name = "Un'Goro Crater", map = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCrater.blp"},
+                {name = "Un'Goro Crater", map = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCraterRich.blp"},
                 {name = "Eastern Plaguelands", map = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\EasternPlaguelands.blp"},
                 {name = "Winterspring", map = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Winterspring.blp"},
                 {name = "Burning Steppes", map = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BurningSteppes.blp"}

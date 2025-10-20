@@ -29,7 +29,7 @@ content = {
 "|cFF66B2FF[A]|r: Friendly with Alliance",
 "|cFFFFD700[N]|r: Neutral",
 "",
-"Some |cFF1EFF00Recipes|r may require completing |cFFFFD700[! Quests]|r or are of |cFFFF8000[Limited supply]|r",
+"Some |cFF1EFF00Patterns|r may require completing |cFFFFD700[! Quests]|r or are of |cFFFF8000[Limited supply]|r",
 "so you will have to either camp their vendor or purchase from the |cFFFFFF00[Auction House]|r",
 "",
 "If an |cFFB2FF66Alternative Recipes|r is more expensive to craft, you can recoup gold in the |cFFFFFF00[Auction House]|r",

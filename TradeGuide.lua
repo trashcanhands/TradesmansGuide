@@ -667,17 +667,17 @@ tailoringButton:SetScript("OnClick", function()
 end)
 
 local gatherHeader = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-gatherHeader:SetPoint("CENTER", leatherworkingButton, "CENTER", 0, -50)
+gatherHeader:SetPoint("CENTER", leatherworkingButton, "CENTER", 0, -70)
 gatherHeader:SetText("GATHERING:")
 local gatherHeaderBreak = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-gatherHeaderBreak:SetPoint("CENTER", leatherworkingButton, "CENTER", 0, -70)
+gatherHeaderBreak:SetPoint("CENTER", leatherworkingButton, "CENTER", 0, -90)
 gatherHeaderBreak:SetText("============")
 
 -- Herbalism button
 local herbalismButton = CreateFrame("Button", "HerbalismButton", guideFrame, "UIPanelButtonTemplate")
 herbalismButton:SetWidth(120)
 herbalismButton:SetHeight(30)
-herbalismButton:SetPoint("TOP", leatherworkingButton, "BOTTOM", 0, -70)
+herbalismButton:SetPoint("TOP", leatherworkingButton, "BOTTOM", 0, -90)
 herbalismButton:SetText("Herbalism")
 
 herbalismButton:SetScript("OnClick", function()

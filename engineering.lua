@@ -35,7 +35,7 @@ content = {
 "Gnome characters get +15 Engineering skill from racial bonus",
 "Pair with Mining to save gold on materials",
 "",
-"Some |cFF1EFF00Recipes|r may require completing |cFFFFD700[! Quests]|r or are of |cFFFF8000[Limited supply]|r",
+"Some |cFF1EFF00Schematics|r may require completing |cFFFFD700[! Quests]|r or are of |cFFFF8000[Limited supply]|r",
 "so you will have to either camp their vendor or purchase from the |cFFFFFF00[Auction House]|r",
 "",
 "------------------------------------------------------------------------------------------------",
