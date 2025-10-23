@@ -48,7 +48,7 @@ contentFrame:SetScrollChild(contentChild)
 -- After creating contentChild, add a header
 local headerText = contentChild:CreateFontString(nil, "OVERLAY", "CombatLogFont")
 headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
-headerText:SetText("")  -- Start emptys
+headerText:SetText("")
 
 -- Get the scrollbar
 local scrollBar = getglobal("ProfGuideScrollFrameScrollBar")
@@ -81,6 +81,47 @@ local function ClearContent()
     textLines = {}
 end
 
+-- Helper function to display maps (handles both single and multi-tile)
+local function DisplayMap(mapFrame, mapData)
+    -- Clear existing textures
+    if mapFrame.textures then
+        for i, tex in ipairs(mapFrame.textures) do
+            tex:Hide()
+        end
+    end
+    mapFrame.textures = {}
+    
+    -- Check if multi-tile (table) or single (string)
+    if type(mapData) == "table" then
+        -- Multi-tile map
+        local tileWidth = mapFrame:GetWidth() / table.getn(mapData)
+        local tileHeight = mapFrame:GetHeight()
+        
+        for i, tilePath in ipairs(mapData) do
+            local tile = mapFrame:CreateTexture(nil, "ARTWORK")
+            tile:SetWidth(tileWidth)
+            tile:SetHeight(tileHeight)
+            
+            if i == 1 then
+                tile:SetPoint("LEFT", mapFrame, "LEFT", 0, 0)
+            else
+                tile:SetPoint("LEFT", mapFrame.textures[i-1], "RIGHT", 0, 0)
+            end
+            
+            tile:SetTexture(tilePath)
+            tile:Show()
+            table.insert(mapFrame.textures, tile)
+        end
+    else
+        -- Single tile map
+        local tile = mapFrame:CreateTexture(nil, "ARTWORK")
+        tile:SetAllPoints(mapFrame)
+        tile:SetTexture(mapData)
+        tile:Show()
+        table.insert(mapFrame.textures, tile)
+    end
+end
+
 local function DisplayContent(contentTable, professionData)
     ClearContent()
     
@@ -92,7 +133,7 @@ local function DisplayContent(contentTable, professionData)
         headerText:Hide()
     end
     
-    local yOffset = -40  -- Start lower to make room for header
+    local yOffset = -40
     for i, text in ipairs(contentTable) do
         local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
@@ -110,41 +151,38 @@ local function DisplayContent(contentTable, professionData)
     contentFrame:UpdateScrollChildRect()
 end
 
-
-
 -- Store herbalism UI elements
-    local herbalismUI = {
+local herbalismUI = {
     textFrame = nil,
     mapFrame = nil,
-    mapTexture = nil,
     zoneButtons = {},
     navButtons = {},
     currentSection = 1
 }
 
 -- Function to clear herbalism UI
-    local function ClearHerbalismUI()
-      if herbalismUI.headerText then
+local function ClearHerbalismUI()
+    if herbalismUI.headerText then
         herbalismUI.headerText:Hide()
     end
-      if herbalismUI.textFrame then
+    if herbalismUI.textFrame then
         herbalismUI.textFrame:Hide()
     end
-      if herbalismUI.mapFrame then
+    if herbalismUI.mapFrame then
         herbalismUI.mapFrame:Hide()
     end
-        if herbalismUI.sectionIndicator then
+    if herbalismUI.sectionIndicator then
         herbalismUI.sectionIndicator:Hide()
     end
-      for i, btn in ipairs(herbalismUI.zoneButtons) do
+    for i, btn in ipairs(herbalismUI.zoneButtons) do
         btn:Hide()
     end
-      for i, btn in ipairs(herbalismUI.navButtons) do
+    for i, btn in ipairs(herbalismUI.navButtons) do
         btn:Hide()
     end
-      herbalismUI.zoneButtons = {}
-      herbalismUI.navButtons = {}
-    end
+    herbalismUI.zoneButtons = {}
+    herbalismUI.navButtons = {}
+end
 
 local function ShowHerbalismSection(sectionIndex)
     if not Herbalism or not Herbalism.sections then
@@ -158,92 +196,84 @@ local function ShowHerbalismSection(sectionIndex)
     
     herbalismUI.currentSection = sectionIndex
     
--- UPDATE THE SECTION INDICATOR
     if herbalismUI.sectionIndicator then
         herbalismUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. table.getn(Herbalism.sections))
     end
     
--- Clear old zone buttons
     for i, btn in ipairs(herbalismUI.zoneButtons) do
         btn:Hide()
     end
     herbalismUI.zoneButtons = {}
     
--- Update text
     herbalismUI.textFrame:SetText(section.title .. "\n\n" .. section.description)
     
--- Create zone buttons with wrapping
-    local xOffset = 20
-    local yOffset = -280
-    local buttonWidth = 165  -- Adjust to your button width
-    local buttonSpacing = 5
-    local maxWidth = 540  -- Maximum width before wrapping
-    
-    for i, zone in ipairs(section.zones) do
-        -- Check if button would go off screen
-        if xOffset + buttonWidth > maxWidth then
-            xOffset = 20  -- Reset to left
-            yOffset = yOffset - 30  -- Move down one row
+    if section.zones then
+        local xOffset = 20
+        local yOffset = -450
+        local buttonWidth = 165
+        local buttonSpacing = 5
+        local maxWidth = 540
+        
+        for i, zone in ipairs(section.zones) do
+            if xOffset + buttonWidth > maxWidth then
+                xOffset = 20
+                yOffset = yOffset - 30
+            end
+            
+            local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+            btn:SetWidth(buttonWidth)
+            btn:SetHeight(25)
+            btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
+            btn:SetText(zone.name)
+            btn.mapPath = zone.map
+            
+            btn:SetScript("OnClick", function()
+                for j, b in ipairs(herbalismUI.zoneButtons) do
+                    b:GetNormalTexture():SetVertexColor(1, 1, 1)
+                end
+                DisplayMap(herbalismUI.mapFrame, this.mapPath)
+            end)
+            
+            btn:Show()
+            table.insert(herbalismUI.zoneButtons, btn)
+            
+            xOffset = xOffset + buttonWidth + buttonSpacing
         end
         
-        local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-        btn:SetWidth(buttonWidth)
-        btn:SetHeight(25)
-        btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
-        btn:SetText(zone.name)
-        btn.mapPath = zone.map
-        
-        btn:SetScript("OnClick", function()
-            for j, b in ipairs(herbalismUI.zoneButtons) do
-                b:GetNormalTexture():SetVertexColor(1, 1, 1)
-            end
-            herbalismUI.mapTexture:SetTexture(this.mapPath)
-        end)
-        
-        btn:Show()
-        table.insert(herbalismUI.zoneButtons, btn)
-        
-        xOffset = xOffset + buttonWidth + buttonSpacing
-    end
-    
--- Calculate how far down the buttons went
-    local buttonRowHeight = math.abs(yOffset) + 10  -- Extra padding
-    
--- Set default map
-    if section.zones[1] then
-        herbalismUI.mapTexture:SetTexture(section.zones[1].map)
+        if section.zones[1] then
+            DisplayMap(herbalismUI.mapFrame, section.zones[1].map)
+        end
     end
 end
 
 -- Function to display herbalism content
-    local function DisplayHerbalism()
+local function DisplayHerbalism()
     ClearContent()
     ClearHerbalismUI()
     
--- Hide the normal header (used by other professions)
+    -- Hide the normal header
     if headerText then
         headerText:Hide()
     end
  
--- Create herbalism-specific header if it doesn't exist
+    -- Create herbalism-specific header
     if not herbalismUI.headerText then
         herbalismUI.headerText = contentChild:CreateFontString(nil, "OVERLAY", "CombatLogFont")
         herbalismUI.headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
     end  
  
--- Set herbalism header
+    -- Set herbalism header
     if Herbalism.headerText then
         herbalismUI.headerText:SetText(Herbalism.headerText)
         herbalismUI.headerText:Show()
-        
     end
  
-   if not Herbalism or not Herbalism.sections then
+    if not Herbalism or not Herbalism.sections then
         print("ERROR: Herbalism data not found!")
         return
     end
     
--- Create text display area
+    -- Create text display area
     if not herbalismUI.textFrame then
         herbalismUI.textFrame = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         herbalismUI.textFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -40)
@@ -252,12 +282,12 @@ end
         herbalismUI.textFrame:SetJustifyV("TOP")
     end
     
--- Create map frame
+    -- Create map frame
     if not herbalismUI.mapFrame then
         herbalismUI.mapFrame = CreateFrame("Frame", nil, contentChild)
         herbalismUI.mapFrame:SetWidth(530)
         herbalismUI.mapFrame:SetHeight(400)
-        herbalismUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -415)
+        herbalismUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -545)
         herbalismUI.mapFrame:SetBackdrop({
             bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -267,16 +297,14 @@ end
             insets = { left = 4, right = 4, top = 4, bottom = 4 }
         })
         herbalismUI.mapFrame:SetBackdropColor(0, 0, 0, 1)
-        
-        herbalismUI.mapTexture = herbalismUI.mapFrame:CreateTexture(nil, "ARTWORK")
-        herbalismUI.mapTexture:SetAllPoints(herbalismUI.mapFrame)
+        herbalismUI.mapFrame.textures = {}
     end
     
--- Create navigation buttons (Previous/Next)
+    -- Create navigation buttons
     local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     prevButton:SetWidth(100)
     prevButton:SetHeight(25)
-    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -375)
+    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -510)
     prevButton:SetText("<< Previous")
     prevButton:SetScript("OnClick", function()
         if herbalismUI.currentSection > 1 then
@@ -289,7 +317,7 @@ end
     local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     nextButton:SetWidth(100)
     nextButton:SetHeight(25)
-    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -375)
+    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -510)
     nextButton:SetText("Next >>")
     nextButton:SetScript("OnClick", function()
         if herbalismUI.currentSection < table.getn(Herbalism.sections) then
@@ -299,30 +327,28 @@ end
     nextButton:Show()
     table.insert(herbalismUI.navButtons, nextButton)
     
--- Section indicator
+    -- Section indicator
     local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -380)
+    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -520)
     sectionIndicator:SetText("Section " .. herbalismUI.currentSection .. " of " .. table.getn(Herbalism.sections))
     herbalismUI.sectionIndicator = sectionIndicator
     
--- Show frames
+    -- Show frames
     herbalismUI.textFrame:Show()
     herbalismUI.mapFrame:Show()
     
--- Display first section
+    -- Display first section
     ShowHerbalismSection(1)
     
--- Adjust scroll height
+    -- Adjust scroll height
     contentChild:SetHeight(1000)
     contentFrame:UpdateScrollChildRect()
 end
-
 
 -- Store mining UI elements
 local miningUI = {
     textFrame = nil,
     mapFrame = nil,
-    mapTexture = nil,
     zoneButtons = {},
     navButtons = {},
     currentSection = 1
@@ -364,56 +390,53 @@ local function ShowMiningSection(sectionIndex)
     
     miningUI.currentSection = sectionIndex
     
-    -- UPDATE THE SECTION INDICATOR
     if miningUI.sectionIndicator then
         miningUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. table.getn(Mining.sections))
     end
     
-    -- Clear old zone buttons
     for i, btn in ipairs(miningUI.zoneButtons) do
         btn:Hide()
     end
     miningUI.zoneButtons = {}
     
-    -- Update text
     miningUI.textFrame:SetText(section.title .. "\n\n" .. section.description)
     
-    -- Create zone buttons with wrapping
-    local xOffset = 20
-    local yOffset = -450
-    local buttonWidth = 165
-    local buttonSpacing = 5
-    local maxWidth = 540
-    
-    for i, zone in ipairs(section.zones) do
-        if xOffset + buttonWidth > maxWidth then
-            xOffset = 20
-            yOffset = yOffset - 30
+    if section.zones then
+        local xOffset = 20
+        local yOffset = -600
+        local buttonWidth = 165
+        local buttonSpacing = 5
+        local maxWidth = 540
+        
+        for i, zone in ipairs(section.zones) do
+            if xOffset + buttonWidth > maxWidth then
+                xOffset = 20
+                yOffset = yOffset - 30
+            end
+            
+            local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+            btn:SetWidth(buttonWidth)
+            btn:SetHeight(25)
+            btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
+            btn:SetText(zone.name)
+            btn.mapPath = zone.map
+            
+            btn:SetScript("OnClick", function()
+                for j, b in ipairs(miningUI.zoneButtons) do
+                    b:GetNormalTexture():SetVertexColor(1, 1, 1)
+                end
+                DisplayMap(miningUI.mapFrame, this.mapPath)
+            end)
+            
+            btn:Show()
+            table.insert(miningUI.zoneButtons, btn)
+            
+            xOffset = xOffset + buttonWidth + buttonSpacing
         end
         
-        local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-        btn:SetWidth(buttonWidth)
-        btn:SetHeight(25)
-        btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
-        btn:SetText(zone.name)
-        btn.mapPath = zone.map
-        
-        btn:SetScript("OnClick", function()
-            for j, b in ipairs(miningUI.zoneButtons) do
-                b:GetNormalTexture():SetVertexColor(1, 1, 1)
-            end
-            miningUI.mapTexture:SetTexture(this.mapPath)
-        end)
-        
-        btn:Show()
-        table.insert(miningUI.zoneButtons, btn)
-        
-        xOffset = xOffset + buttonWidth + buttonSpacing
-    end
-    
-    -- Set default map
-    if section.zones[1] then
-        miningUI.mapTexture:SetTexture(section.zones[1].map)
+        if section.zones[1] then
+            DisplayMap(miningUI.mapFrame, section.zones[1].map)
+        end
     end
 end
 
@@ -459,7 +482,7 @@ local function DisplayMining()
         miningUI.mapFrame = CreateFrame("Frame", nil, contentChild)
         miningUI.mapFrame:SetWidth(530)
         miningUI.mapFrame:SetHeight(400)
-        miningUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -560)
+        miningUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -710)
         miningUI.mapFrame:SetBackdrop({
             bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -469,16 +492,14 @@ local function DisplayMining()
             insets = { left = 4, right = 4, top = 4, bottom = 4 }
         })
         miningUI.mapFrame:SetBackdropColor(0, 0, 0, 1)
-        
-        miningUI.mapTexture = miningUI.mapFrame:CreateTexture(nil, "ARTWORK")
-        miningUI.mapTexture:SetAllPoints(miningUI.mapFrame)
+        miningUI.mapFrame.textures = {}
     end
     
     -- Create navigation buttons
     local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     prevButton:SetWidth(100)
     prevButton:SetHeight(25)
-    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -515)
+    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -665)
     prevButton:SetText("<< Previous")
     prevButton:SetScript("OnClick", function()
         if miningUI.currentSection > 1 then
@@ -491,7 +512,7 @@ local function DisplayMining()
     local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     nextButton:SetWidth(100)
     nextButton:SetHeight(25)
-    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -515)
+    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -665)
     nextButton:SetText("Next >>")
     nextButton:SetScript("OnClick", function()
         if miningUI.currentSection < table.getn(Mining.sections) then
@@ -503,7 +524,7 @@ local function DisplayMining()
     
     -- Section indicator
     local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -520)
+    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -670)
     sectionIndicator:SetText("Section " .. miningUI.currentSection .. " of " .. table.getn(Mining.sections))
     miningUI.sectionIndicator = sectionIndicator
     
@@ -519,16 +540,12 @@ local function DisplayMining()
     contentFrame:UpdateScrollChildRect()
 end
 
-
-
-
 local makingHeader = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
 makingHeader:SetPoint("LEFT", guideFrame, "TOPLEFT", 45, -168)
 makingHeader:SetText("CRAFTING:")
 local makingHeaderBreak = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
 makingHeaderBreak:SetPoint("LEFT", guideFrame, "TOPLEFT", 15, -188)
 makingHeaderBreak:SetText("============")
-
 
 -- Alchemy button
 local alchemyButton = CreateFrame("Button", "AlchemyButton", guideFrame, "UIPanelButtonTemplate")
@@ -537,9 +554,9 @@ alchemyButton:SetHeight(30)
 alchemyButton:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 20, -200)
 alchemyButton:SetText("Alchemy")
 alchemyButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if Alchemy and Alchemy.content then
         DisplayContent(Alchemy.content, Alchemy)
     else
@@ -554,9 +571,9 @@ blacksmithingButton:SetHeight(30)
 blacksmithingButton:SetPoint("TOP", alchemyButton, "BOTTOM", 0, -10)
 blacksmithingButton:SetText("Blacksmithing")
 blacksmithingButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if Blacksmithing and Blacksmithing.content then
         DisplayContent(Blacksmithing.content, Blacksmithing)
     else
@@ -571,9 +588,9 @@ cookingButton:SetHeight(30)
 cookingButton:SetPoint("TOP", blacksmithingButton, "BOTTOM", 0, -10)
 cookingButton:SetText("Cooking")
 cookingButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if Cooking and Cooking.content then
         DisplayContent(Cooking.content, Cooking)
     else
@@ -588,9 +605,9 @@ enchantingButton:SetHeight(30)
 enchantingButton:SetPoint("TOP", cookingButton, "BOTTOM", 0, -10)
 enchantingButton:SetText("Enchanting")
 enchantingButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if Enchanting and Enchanting.content then
         DisplayContent(Enchanting.content, Enchanting)
     else
@@ -605,9 +622,9 @@ engineeringButton:SetHeight(30)
 engineeringButton:SetPoint("TOP", enchantingButton, "BOTTOM", 0, -10)
 engineeringButton:SetText("Engineering")
 engineeringButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if Engineering and Engineering.content then
         DisplayContent(Engineering.content, Engineering)
     else
@@ -622,9 +639,9 @@ firstaidButton:SetHeight(30)
 firstaidButton:SetPoint("TOP", engineeringButton, "BOTTOM", 0, -10)
 firstaidButton:SetText("FirstAid")
 firstaidButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if FirstAid and FirstAid.content then
         DisplayContent(FirstAid.content, FirstAid)
     else
@@ -639,9 +656,9 @@ leatherworkingButton:SetHeight(30)
 leatherworkingButton:SetPoint("TOP", firstaidButton, "BOTTOM", 0, -10)
 leatherworkingButton:SetText("Leatherworking")
 leatherworkingButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if Leatherworking and Leatherworking.content then
         DisplayContent(Leatherworking.content, Leatherworking)
     else
@@ -656,9 +673,9 @@ tailoringButton:SetHeight(30)
 tailoringButton:SetPoint("TOP", leatherworkingButton, "BOTTOM", 0, -10)
 tailoringButton:SetText("Tailoring")
 tailoringButton:SetScript("OnClick", function()
-        ClearHerbalismUI()
-        ClearMiningUI()
-        contentFrame:SetVerticalScroll(0)
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
     if Tailoring and Tailoring.content then
         DisplayContent(Tailoring.content, Tailoring)
     else
@@ -679,12 +696,10 @@ herbalismButton:SetWidth(120)
 herbalismButton:SetHeight(30)
 herbalismButton:SetPoint("TOP", leatherworkingButton, "BOTTOM", 0, -90)
 herbalismButton:SetText("Herbalism")
-
 herbalismButton:SetScript("OnClick", function()
     ClearMiningUI()
     DisplayHerbalism()
     contentFrame:SetVerticalScroll(0)
-    
 end)
 
 -- Mining button
@@ -693,7 +708,6 @@ miningButton:SetWidth(120)
 miningButton:SetHeight(30)
 miningButton:SetPoint("TOP", herbalismButton, "BOTTOM", 0, -10)
 miningButton:SetText("Mining")
-
 miningButton:SetScript("OnClick", function()
     ClearHerbalismUI()
     DisplayMining()
@@ -704,8 +718,8 @@ local function ShowFrame()
     guideFrame:Show()
 end
 
-  if Alchemy and Alchemy.content then
-   DisplayContent(Alchemy.content, Alchemy)
+if Alchemy and Alchemy.content then
+    DisplayContent(Alchemy.content, Alchemy)
 end
 
 SLASH_PROFGUIDE1 = "/profguide"
@@ -714,129 +728,66 @@ SlashCmdList["PROFGUIDE"] = function()
     ShowFrame()
 end
 
-
 -------------------------------------------------------
-
 -- MINIMAP BUTTON
-
 -------------------------------------------------------
-
-
 
 local minimapButton = CreateFrame("Button", "TG_MinimapButton", Minimap)
-
 minimapButton:SetWidth(33)
-
 minimapButton:SetHeight(33)
-
 minimapButton:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 0, 0)
-
 minimapButton:SetFrameStrata("MEDIUM")
-
 minimapButton:SetFrameLevel(8)
 
-
-
 local overlay = minimapButton:CreateTexture(nil, "OVERLAY")
-
 overlay:SetWidth(56)
-
 overlay:SetHeight(56)
-
 overlay:SetTexture("Interface\\Minimap\\MiniMap-TrackingBorder")
-
 overlay:SetPoint("TOPLEFT", 0, 0)
 
-
-
 local icon = minimapButton:CreateTexture(nil, "BACKGROUND")
-
 icon:SetWidth(20)
-
 icon:SetHeight(20)
-
 icon:SetTexture("Interface\\Icons\\Trade_Engineering")
-
 icon:SetPoint("CENTER", 0, 1)
 
-
-
 local highlight = minimapButton:CreateTexture(nil, "HIGHLIGHT")
-
 highlight:SetWidth(33)
-
 highlight:SetHeight(33)
-
 highlight:SetTexture("Interface\\Minimap\\UI-Minimap-ZoomButton-Highlight")
-
 highlight:SetBlendMode("ADD")
 
-
-
 minimapButton:SetMovable(true)
-
 minimapButton:EnableMouse(true)
-
 minimapButton:RegisterForClicks("LeftButtonUp")
-
 minimapButton:RegisterForDrag("RightButton")
 
-
-
 minimapButton:SetScript("OnClick", function()
-
     if guideFrame:IsShown() then
-
         guideFrame:Hide()
-
     else
-
         guideFrame:Show()
-
     end
-
 end)
-
-
 
 minimapButton:SetScript("OnDragStart", function()
-
     minimapButton:StartMoving()
-
 end)
-
-
 
 minimapButton:SetScript("OnDragStop", function()
-
     minimapButton:StopMovingOrSizing()
-
 end)
-
-
 
 minimapButton:SetScript("OnEnter", function()
-
     GameTooltip:SetOwner(minimapButton, "ANCHOR_RIGHT")
-
     GameTooltip:AddLine("Trader's Guide")
-
     GameTooltip:AddLine("|cFF00FF00Left-click|r to open Trader's Guide Window", 1, 1, 1)
-
     GameTooltip:AddLine("|cFF0080FFRight-click|r and drag to move", 1, 1, 1)
-
     GameTooltip:Show()
-
 end)
-
-
 
 minimapButton:SetScript("OnLeave", function()
-
     GameTooltip:Hide()
-
 end)
-
-
 
 minimapButton:Show()
