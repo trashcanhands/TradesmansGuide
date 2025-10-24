@@ -4,43 +4,46 @@ Mining = {
     
     sections = {
         {
-            title = "Levels: [1-65]",
-            description = [[
+            title = "",
+            description = [[------------------------------------------------------------------------------------------------
+Preface
 ------------------------------------------------------------------------------------------------
-Every starter zone is filled with |cFFFFFFFF[Copper Ore]|r, it doesn't really matter which one you choose.
+Don't forget to buy a |cFFFFFFFFMining Pick|r from the Mining Supply vendor near your trainer. No need to equip, just have one in your bags.
+|cFF00FF00[Enchant Gloves - Mining]|r: +5 Mining skill
+Copper Smelting grants skill points
+Check Smelting recipes at your trainer
+|cFFFF0000Red Circles|r indicate Caves where you can find good amounts of ore
+------------------------------------------------------------------------------------------------
 
-|cFFFFD700IMPORTANT: Night Elf players have to wait until they get to Darkshore before they can|r
-|cFFFFD700start leveling mining because Teldrassil doesn't have any Copper Ore.|r
-
-|cFFFFD700Don't forget to buy a Mining Pick from the Mining Supply vendor near your trainer!|r
-|cFFFFD700You don't have to equip it, but you have to have one in your inventory.|r
+Levels: [1-65]
 ------------------------------------------------------------------------------------------------
 Ore List:
 ------------------------------------------------------------------------------------------------
 |cFFFFFFFF[Copper Ore]|r
-     Requires |cFF1EFF00[Mining 1]|r
-
+     Requires |cFF33FFFF[Mining 1]|r
+------------------------------------------------------------------------------------------------
 ZONE OPTIONS:
+------------------------------------------------------------------------------------------------
+|cFFFF0000[H]|r |cFF33FF99Durotar|r - Orc/Troll starting zone
+|cFFFF0000[H]|r |cFF33FF99Mulgore|r - Tauren starting zone
+|cFFFF0000[H]|r |cFF33FF99Tirisfal Glades|r - Undead starting zone
 
-HORDE ZONES:
-|cFF66B2FFDurotar|r - Orc/Troll starting zone
-|cFF66B2FFMulgore|r - Tauren starting zone
-|cFF66B2FFTirisfal Glades|r - Undead starting zone
+|cFF66B2FF[A]|r |cFF33FF99Elwynn Forest|r - Human starting zone (Low level players: skip both caves)
+|cFF66B2FF[A]|r |cFF33FF99Dun Morogh|r - Dwarf/Gnome starting zone
+|cFF66B2FF[A]|r |cFF33FF99Darkshore|r - Night Elf alternative, as |cFF33FF99Teldrassil|r has no copper
 
-ALLIANCE ZONES:
-|cFF66B2FFElwynn Forest|r - Human starting zone
-|cFF66B2FFDun Morogh|r - Dwarf/Gnome starting zone
-|cFF66B2FFDarkshore|r - Night Elf alternative (no copper in Teldrassil!)
+NOTE: All |cFF33FF99Starter Zones|r have similar copper density
+Mine every Copper node you see (stockpile for later)
 
-NOTE: All |cFF66B2FFStarter Zones|r have similar copper density
-Mine every Copper node you see - stockpile for later use
 
-TIPS & BONUSES:
-|cFF00FF00[Enchant Gloves - Mining]|r: +5 Mining skill
-Copper smelting grants skill points
-Check smelting recipes at your trainer!
-Always carry extra Mining Picks!
-]],
+
+
+
+
+
+------------------------------------------------------------------------------------------------
+Farming Route Maps:
+------------------------------------------------------------------------------------------------]],
             zones = {
                 {name = "Durotar", map = {
                     "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Durotar_1",
@@ -70,8 +73,7 @@ Always carry extra Mining Picks!
         },
         {
             title = "Levels: [65-125]",
-            description = [[
-------------------------------------------------------------------------------------------------
+            description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Journeyman Miner]|r (Requires character level 10, Mining 50; Raises Cap [75] > [150])
 WHERE: 
@@ -81,27 +83,34 @@ WHERE:
 Ore List:
 ------------------------------------------------------------------------------------------------
 |cFFFFFFFF[Tin Ore]|r
-     Requires |cFF1EFF00[Mining 65]|r
+     Requires |cFF33FFFF[Mining 65]|r
 |cFFFFFFFF[Copper Ore]|r
-     Requires |cFF1EFF00[Mining 1]|r
+     Requires |cFF33FFFF[Mining 1]|r
 |cFF00FF00[Silver Ore]|r
-     Requires |cFF1EFF00[Mining 75]|r (uncommon spawns)
+     Requires |cFF33FFFF[Mining 75]|r (uncommon spawns)
 
-|cFFFFD700At 75 you can learn how to smelt Silver Ore, this will help you get to 125.|r
-|cFFFFD700Silver Ore and bars sell for roughly the same - buy the ore and sell the bars|r
-|cFFFFD700at the Auction House.|r
+At 75 you can learn how to smelt Silver Ore, this will help you get to 125
+Silver Ore and bars sell for roughly the same - buy the ore and sell the bars|r at [|cFFFFFF00Auction House|r]
 
 ZONE OPTIONS:
-|cFF66B2FFHillsbrad Foothills|r - Large zone, many caves
-|cFF66B2FFRedridge Mountains|r - Good ore density
-|cFF66B2FFAshenvale|r - Compact and efficient
-|cFF66B2FFThe Barrens|r - Coastal zone with caves
-
-|cFFFFD700Low level players should skip the two caves marked with red circles.|r
+|cFF33FF99Hillsbrad Foothills|r - Large zone, many caves
+|cFF33FF99Redridge Mountains|r - Good ore density
+|cFF33FF99Ashenvale|r - Compact and efficient
+|cFF33FF99The Barrens|r - Coastal zone with caves
 
 TIP: Save Silver Ore for crafting or selling
 TIP: Mine Copper nodes if no Tin available
-]],
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------
+Farming Route Maps:
+------------------------------------------------------------------------------------------------]],
             zones = {
                 {name = "Hillsbrad Foothills", map = {
                     "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Hillsbrad_1",
@@ -123,8 +132,7 @@ TIP: Mine Copper nodes if no Tin available
         },
         {
             title = "Levels: [125-175]",
-            description = [[
-------------------------------------------------------------------------------------------------
+            description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Expert Miner]|r (Requires character level 20, Mining 125; Raises Cap [150] > [225])
 WHERE: 
@@ -134,31 +142,32 @@ WHERE:
 Ore List:
 ------------------------------------------------------------------------------------------------
 |cFFFFFFFF[Iron Ore]|r
-     Requires |cFF1EFF00[Mining 125]|r
+     Requires |cFF33FFFF[Mining 125]|r
 |cFFFFFFFF[Tin Ore]|r
-     Requires |cFF1EFF00[Mining 65]|r
+     Requires |cFF33FFFF[Mining 65]|r
 |cFF00FF00[Gold Ore]|r
-     Requires |cFF1EFF00[Mining 155]|r (uncommon spawns)
+     Requires |cFF33FFFF[Mining 155]|r (uncommon spawns)
 
-|cFFFFD700At 155 you can learn how to smelt Gold Ore. Buy around 30 Gold Ore then smelt them,|r
-|cFFFFD700this should get you to around 175. Same as with Silver Ore - buy them, smelt them,|r
-|cFFFFD700and sell the bars at the Auction House.|r
+At 155 you can learn how to smelt Gold Ore. Buy around 30 Gold Ore then smelt them,this should get you to around 175
+Same as with Silver Ore - buy them, smelt them, and sell the bars at the [|cFFFFFF00Auction House|r]
 
+------------------------------------------------------------------------------------------------
 ZONE OPTIONS:
-|cFF66B2FFArathi Highlands|r - Excellent ore variety
+------------------------------------------------------------------------------------------------
+|cFF33FF99Arathi Highlands|r - Excellent ore variety
+There are 4 caves, make sure to go all the way to the end of each cave because you won't see all veins from the entrance
+Low level players: skip all 4 caves
+Low level Alliance players should take a detour and go south of |cFF33FF99Hammerfall|r
 
-|cFFFFD700There are 4 caves marked with red circles on the map - make sure to go all the way|r
-|cFFFFD700to the end of each cave because you won't see all veins from the entrance.|r
-
-|cFFFFD700Low level players should skip all 4 caves!|r
-|cFFFF0000Low level Alliance players should take a detour and go south of Hammerfall!|r
-
-|cFF66B2FFDesolace|r - Many caves and cliffs
-|cFF66B2FFThousand Needles|r - Desert zone with cliffs
+|cFF33FF99Desolace|r - Many caves and cliffs
+|cFF33FF99Thousand Needles|r - Desert zone with cliffs
 
 TIP: Save Gold Ore - very valuable
 ------------------------------------------------------------------------------------------------
-]],
+
+------------------------------------------------------------------------------------------------
+Farming Route Maps:
+------------------------------------------------------------------------------------------------]],
             zones = {
                 {name = "Arathi Highlands", map = {
                     "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Arathi_1",
@@ -176,8 +185,7 @@ TIP: Save Gold Ore - very valuable
         },
         {
             title = "Levels: [175-245]",
-            description = [[
-------------------------------------------------------------------------------------------------
+            description = [[------------------------------------------------------------------------------------------------
 TRAIN:
       |cFF1EFF00[Artisan Miner]|r (Requires character level 35, Mining 220; Raises Cap [225] > [300])
 WHERE:
@@ -187,23 +195,35 @@ WHERE:
 Ore List:
 ------------------------------------------------------------------------------------------------
 |cFFFFFFFF[Mithril Ore]|r
-     Requires |cFF1EFF00[Mining 175]|r
+     Requires |cFF33FFFF[Mining 175]|r
 |cFF00FF00[Truesilver Ore]|r
-     Requires |cFF1EFF00[Mining 230]|r (rare spawns)
+     Requires |cFF33FFFF[Mining 230]|r (rare spawns)
 
+------------------------------------------------------------------------------------------------
 ZONE OPTIONS:
-|cFF66B2FFHinterlands|r - Excellent Mithril density
+------------------------------------------------------------------------------------------------
+|cFF33FF99Hinterlands|r - Excellent Mithril density
+Low level players: skip red route (filled with level 62 elites)
+Low level players: skip the caves (depends on your gear/class)
 
-|cFFFFD700The red route should be skipped by lower level players because the area is filled|r
-|cFFFFD700with level 62 elites. Lower level players might also want to consider skipping the|r
-|cFFFFD700cave marked with a red circle on the map. (depends on your gear/class)|r
-
-|cFF66B2FFTanaris|r - Large desert zone
+|cFF33FF99Tanaris|r - Large desert zone
 
 TIP: Truesilver spawns where Mithril spawns
 TIP: Check cave systems thoroughly
 ------------------------------------------------------------------------------------------------
-]],
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------
+Farming Route Maps:
+------------------------------------------------------------------------------------------------]],
             zones = {
                 {name = "Hinterlands", map = {
                     "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Hinterlands_1",
@@ -217,32 +237,46 @@ TIP: Check cave systems thoroughly
         },
         {
             title = "Levels: [245-275]",
-            description = [[
-------------------------------------------------------------------------------------------------
+            description = [[------------------------------------------------------------------------------------------------
 Ore List:
 ------------------------------------------------------------------------------------------------
 |cFFFFFFFF[Mithril Ore]|r
-     Requires |cFF1EFF00[Mining 175]|r
+     Requires |cFF33FFFF[Mining 175]|r
 |cFF00FF00[Truesilver Ore]|r
-     Requires |cFF1EFF00[Mining 230]|r (rare spawns)
+     Requires |cFF33FFFF[Mining 230]|r (rare spawns)
 |cFFFFFFFF[Thorium Ore]|r
-     Requires |cFF1EFF00[Mining 245]|r
+     Requires |cFF33FFFF[Mining 245]|r
 |cFF9D9D9D[Small Thorium Vein]|r
-     Requires |cFF1EFF00[Mining 245]|r (easier to find)
+     Requires |cFF33FFFF[Mining 245]|r (easier to find)
 
+------------------------------------------------------------------------------------------------
 ZONE OPTIONS:
-|cFF66B2FFUn'Goro Crater|r - Small Thorium veins
-
-|cFFFFD700There are 2-3 mineral veins in the two caves marked with red circles on the map.|r
-|cFFFFD700Lower level players should probably skip the cave to the south.|r
-|cFFFFD700It really depends on your level/gear/class.|r
-
+------------------------------------------------------------------------------------------------
+|cFF33FF99Un'Goro Crater|r - Small Thorium veins
+There are 2-3 mineral veins in the two caves marked with red circles on the map
+Low level players: skip both cave (depends on your gear/class)
 Route: Circle the outer rim of Un'Goro
 
-|cFF66B2FFBlasted Lands|r - Mixed Thorium spawns
-|cFF66B2FFFelwood|r - Rich Thorium density
+|cFF33FF99Blasted Lands|r - Mixed Thorium spawns
+|cFF33FF99Felwood|r - Rich Thorium density
 ------------------------------------------------------------------------------------------------
-]],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------------------------------
+Farming Route Maps:
+------------------------------------------------------------------------------------------------]],
             zones = {
                 {name = "Un'Goro Crater", map = {
                     "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCrater_1",
@@ -265,34 +299,40 @@ Route: Circle the outer rim of Un'Goro
 Ore List:
 ------------------------------------------------------------------------------------------------
 |cFFFFFFFF[Thorium Ore]|r
-     Requires |cFF1EFF00[Mining 245]|r
+     Requires |cFF33FFFF[Mining 245]|r
 |cFFFFFFFF[Mithril Ore]|r
-     Requires |cFF1EFF00[Mining 175]|r
+     Requires |cFF33FFFF[Mining 175]|r
 |cFFFFFFFF[Rich Thorium Vein]|r
-     Requires |cFF1EFF00[Mining 275]|r
+     Requires |cFF33FFFF[Mining 275]|r
 
 |cFFFFD700Now you can mine Rich Thorium Veins too.|r
 Focus on Rich Thorium for faster skill gains
 
-BEST ZONES:
-|cFF66B2FFUn'Goro Crater|r - Rich Thorium on outer rim
+------------------------------------------------------------------------------------------------
+ZONE OPTIONS:
+------------------------------------------------------------------------------------------------
+|cFF33FF99Un'Goro Crater|r - Rich Thorium on outer rim
+Almost the same as the previous Un'Goro route, but now it includes Rich Thorium Veins
 
-|cFFFFD700Almost the same as the previous Un'Goro route, but now it includes Rich Thorium Veins.|r
-
-|cFF66B2FFEastern Plaguelands|r - Excellent Rich Thorium
+|cFF33FF99Eastern Plaguelands|r - Excellent Rich Thorium
 Route: Full zone circles
 
-|cFF66B2FFWinterspring|r - High-level zone
+|cFF33FF99Winterspring|r - High-level zone
 Route: Follow mountain paths
 
-RECOMMENDED: Eastern Plaguelands for 275-300
+RECOMMENDED: |cFF33FF99Eastern Plaguelands|r for 275-300
 
 VALUABLE ORES:
 Arcane Crystals - Rare drop from Rich Thorium
 Black Diamonds - Rare drop from Rich Thorium
 Azerothian Diamonds - Rare gem drops
 ------------------------------------------------------------------------------------------------
-]],
+
+
+
+------------------------------------------------------------------------------------------------
+Farming Route Maps:
+------------------------------------------------------------------------------------------------]],
             zones = {
                 {name = "Un'Goro Crater", map = {
                     "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCraterRich_1",

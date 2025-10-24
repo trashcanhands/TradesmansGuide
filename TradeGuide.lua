@@ -42,7 +42,7 @@ contentFrame:SetPoint("BOTTOMRIGHT", guideFrame, "BOTTOMRIGHT", -30, 10)
 -- Create a child frame for the scroll frame
 local contentChild = CreateFrame("Frame", "ProfGuideScrollChild", contentFrame)
 contentChild:SetWidth(550)
-contentChild:SetHeight(100)
+contentChild:SetHeight(500)
 contentFrame:SetScrollChild(contentChild)
 
 -- After creating contentChild, add a header
@@ -209,7 +209,7 @@ local function ShowHerbalismSection(sectionIndex)
     
     if section.zones then
         local xOffset = 20
-        local yOffset = -450
+        local yOffset = -480
         local buttonWidth = 165
         local buttonSpacing = 5
         local maxWidth = 540
@@ -287,7 +287,7 @@ local function DisplayHerbalism()
         herbalismUI.mapFrame = CreateFrame("Frame", nil, contentChild)
         herbalismUI.mapFrame:SetWidth(530)
         herbalismUI.mapFrame:SetHeight(400)
-        herbalismUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -545)
+        herbalismUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -580)
         herbalismUI.mapFrame:SetBackdrop({
             bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -304,7 +304,7 @@ local function DisplayHerbalism()
     local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     prevButton:SetWidth(100)
     prevButton:SetHeight(25)
-    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -510)
+    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -550)
     prevButton:SetText("<< Previous")
     prevButton:SetScript("OnClick", function()
         if herbalismUI.currentSection > 1 then
@@ -317,7 +317,7 @@ local function DisplayHerbalism()
     local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     nextButton:SetWidth(100)
     nextButton:SetHeight(25)
-    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -510)
+    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -550)
     nextButton:SetText("Next >>")
     nextButton:SetScript("OnClick", function()
         if herbalismUI.currentSection < table.getn(Herbalism.sections) then
@@ -329,7 +329,7 @@ local function DisplayHerbalism()
     
     -- Section indicator
     local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -520)
+    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -555)
     sectionIndicator:SetText("Section " .. herbalismUI.currentSection .. " of " .. table.getn(Herbalism.sections))
     herbalismUI.sectionIndicator = sectionIndicator
     
@@ -403,7 +403,7 @@ local function ShowMiningSection(sectionIndex)
     
     if section.zones then
         local xOffset = 20
-        local yOffset = -600
+        local yOffset = -550
         local buttonWidth = 165
         local buttonSpacing = 5
         local maxWidth = 540
@@ -482,7 +482,7 @@ local function DisplayMining()
         miningUI.mapFrame = CreateFrame("Frame", nil, contentChild)
         miningUI.mapFrame:SetWidth(530)
         miningUI.mapFrame:SetHeight(400)
-        miningUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -710)
+        miningUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -650)
         miningUI.mapFrame:SetBackdrop({
             bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
             edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
@@ -499,7 +499,7 @@ local function DisplayMining()
     local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     prevButton:SetWidth(100)
     prevButton:SetHeight(25)
-    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -665)
+    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -620)
     prevButton:SetText("<< Previous")
     prevButton:SetScript("OnClick", function()
         if miningUI.currentSection > 1 then
@@ -512,7 +512,7 @@ local function DisplayMining()
     local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
     nextButton:SetWidth(100)
     nextButton:SetHeight(25)
-    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -665)
+    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -620)
     nextButton:SetText("Next >>")
     nextButton:SetScript("OnClick", function()
         if miningUI.currentSection < table.getn(Mining.sections) then
@@ -524,7 +524,7 @@ local function DisplayMining()
     
     -- Section indicator
     local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -670)
+    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -625)
     sectionIndicator:SetText("Section " .. miningUI.currentSection .. " of " .. table.getn(Mining.sections))
     miningUI.sectionIndicator = sectionIndicator
     
