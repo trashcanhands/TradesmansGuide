@@ -9,7 +9,7 @@ Mining = {
 Preface
 ------------------------------------------------------------------------------------------------
 Don't forget to buy a |cFFFFFFFFMining Pick|r from the Mining Supply vendor near your trainer. No need to equip, just have one in your bags.
-|cFF00FF00[Enchant Gloves - Mining]|r: +5 Mining skill
+|cFF00FF00[Enchant Gloves - Mining]|r: +2 Mining skill, |cFF00FF00[Enchant Gloves - Advanced Mining]|r: +5
 Copper Smelting grants skill points
 Check Smelting recipes at your trainer
 |cFFFF0000Red Circles|r indicate Caves where you can find good amounts of ore

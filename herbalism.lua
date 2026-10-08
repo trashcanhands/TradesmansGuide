@@ -235,6 +235,8 @@ Herb List:
      Requires |cFF33FFFF[Herbalism 210]|r
 |cFFFFFFFF[Firebloom]|r
      Requires |cFF33FFFF[Herbalism 205]|r
+|cFFFFFFFF[Wintersbite]|r
+     Only in the snow of |cFF33FF99Alterac Mountains|r (no map yet)
 
 ------------------------------------------------------------------------------------------------
 ZONE OPTIONS:
