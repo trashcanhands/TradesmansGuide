@@ -1,4 +1,4 @@
-local guideFrame = CreateFrame("Frame", "GuideFrame", UIParent)
+local guideFrame = CreateFrame("Frame", "GuideFrame", UIParent, "BackdropTemplate")
 guideFrame:SetWidth(750)
 guideFrame:SetHeight(800)
 guideFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
@@ -46,20 +46,21 @@ contentChild:SetHeight(500)
 contentFrame:SetScrollChild(contentChild)
 
 -- After creating contentChild, add a header
-local headerText = contentChild:CreateFontString(nil, "OVERLAY", "CombatLogFont")
+local headerFont = _G["CombatLogFont"] and "CombatLogFont" or "GameFontNormalLarge"
+local headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
 headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
 headerText:SetText("")
 
 -- Get the scrollbar
-local scrollBar = getglobal("ProfGuideScrollFrameScrollBar")
+local scrollBar = contentFrame.ScrollBar or _G["ProfGuideScrollFrameScrollBar"]
 
 -- Enable mouse wheel scrolling
 contentFrame:EnableMouseWheel(true)
-contentFrame:SetScript("OnMouseWheel", function()
+contentFrame:SetScript("OnMouseWheel", function(self, delta)
     local current = contentFrame:GetVerticalScroll()
     local maxScroll = contentFrame:GetVerticalScrollRange()
     
-    if arg1 > 0 then
+    if delta > 0 then
         contentFrame:SetVerticalScroll(math.max(0, current - 30))
     else
         contentFrame:SetVerticalScroll(math.min(maxScroll, current + 30))
@@ -94,7 +95,7 @@ local function DisplayMap(mapFrame, mapData)
     -- Check if multi-tile (table) or single (string)
     if type(mapData) == "table" then
         -- Multi-tile map
-        local tileWidth = mapFrame:GetWidth() / table.getn(mapData)
+        local tileWidth = mapFrame:GetWidth() / #mapData
         local tileHeight = mapFrame:GetHeight()
         
         for i, tilePath in ipairs(mapData) do
@@ -197,7 +198,7 @@ local function ShowHerbalismSection(sectionIndex)
     herbalismUI.currentSection = sectionIndex
     
     if herbalismUI.sectionIndicator then
-        herbalismUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. table.getn(Herbalism.sections))
+        herbalismUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. #Herbalism.sections)
     end
     
     for i, btn in ipairs(herbalismUI.zoneButtons) do
@@ -227,11 +228,8 @@ local function ShowHerbalismSection(sectionIndex)
             btn:SetText(zone.name)
             btn.mapPath = zone.map
             
-            btn:SetScript("OnClick", function()
-                for j, b in ipairs(herbalismUI.zoneButtons) do
-                    b:GetNormalTexture():SetVertexColor(1, 1, 1)
-                end
-                DisplayMap(herbalismUI.mapFrame, this.mapPath)
+            btn:SetScript("OnClick", function(self)
+                DisplayMap(herbalismUI.mapFrame, self.mapPath)
             end)
             
             btn:Show()
@@ -258,7 +256,7 @@ local function DisplayHerbalism()
  
     -- Create herbalism-specific header
     if not herbalismUI.headerText then
-        herbalismUI.headerText = contentChild:CreateFontString(nil, "OVERLAY", "CombatLogFont")
+        herbalismUI.headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
         herbalismUI.headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
     end  
  
@@ -284,7 +282,7 @@ local function DisplayHerbalism()
     
     -- Create map frame
     if not herbalismUI.mapFrame then
-        herbalismUI.mapFrame = CreateFrame("Frame", nil, contentChild)
+        herbalismUI.mapFrame = CreateFrame("Frame", nil, contentChild, "BackdropTemplate")
         herbalismUI.mapFrame:SetWidth(530)
         herbalismUI.mapFrame:SetHeight(400)
         herbalismUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -580)
@@ -320,7 +318,7 @@ local function DisplayHerbalism()
     nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -550)
     nextButton:SetText("Next >>")
     nextButton:SetScript("OnClick", function()
-        if herbalismUI.currentSection < table.getn(Herbalism.sections) then
+        if herbalismUI.currentSection < #Herbalism.sections then
             ShowHerbalismSection(herbalismUI.currentSection + 1)
         end
     end)
@@ -330,7 +328,7 @@ local function DisplayHerbalism()
     -- Section indicator
     local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -555)
-    sectionIndicator:SetText("Section " .. herbalismUI.currentSection .. " of " .. table.getn(Herbalism.sections))
+    sectionIndicator:SetText("Section " .. herbalismUI.currentSection .. " of " .. #Herbalism.sections)
     herbalismUI.sectionIndicator = sectionIndicator
     
     -- Show frames
@@ -391,7 +389,7 @@ local function ShowMiningSection(sectionIndex)
     miningUI.currentSection = sectionIndex
     
     if miningUI.sectionIndicator then
-        miningUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. table.getn(Mining.sections))
+        miningUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. #Mining.sections)
     end
     
     for i, btn in ipairs(miningUI.zoneButtons) do
@@ -421,11 +419,8 @@ local function ShowMiningSection(sectionIndex)
             btn:SetText(zone.name)
             btn.mapPath = zone.map
             
-            btn:SetScript("OnClick", function()
-                for j, b in ipairs(miningUI.zoneButtons) do
-                    b:GetNormalTexture():SetVertexColor(1, 1, 1)
-                end
-                DisplayMap(miningUI.mapFrame, this.mapPath)
+            btn:SetScript("OnClick", function(self)
+                DisplayMap(miningUI.mapFrame, self.mapPath)
             end)
             
             btn:Show()
@@ -453,7 +448,7 @@ local function DisplayMining()
  
     -- Create mining-specific header
     if not miningUI.headerText then
-        miningUI.headerText = contentChild:CreateFontString(nil, "OVERLAY", "CombatLogFont")
+        miningUI.headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
         miningUI.headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
     end  
  
@@ -479,7 +474,7 @@ local function DisplayMining()
     
     -- Create map frame
     if not miningUI.mapFrame then
-        miningUI.mapFrame = CreateFrame("Frame", nil, contentChild)
+        miningUI.mapFrame = CreateFrame("Frame", nil, contentChild, "BackdropTemplate")
         miningUI.mapFrame:SetWidth(530)
         miningUI.mapFrame:SetHeight(400)
         miningUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -650)
@@ -515,7 +510,7 @@ local function DisplayMining()
     nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -620)
     nextButton:SetText("Next >>")
     nextButton:SetScript("OnClick", function()
-        if miningUI.currentSection < table.getn(Mining.sections) then
+        if miningUI.currentSection < #Mining.sections then
             ShowMiningSection(miningUI.currentSection + 1)
         end
     end)
@@ -525,7 +520,7 @@ local function DisplayMining()
     -- Section indicator
     local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -625)
-    sectionIndicator:SetText("Section " .. miningUI.currentSection .. " of " .. table.getn(Mining.sections))
+    sectionIndicator:SetText("Section " .. miningUI.currentSection .. " of " .. #Mining.sections)
     miningUI.sectionIndicator = sectionIndicator
     
     -- Show frames
