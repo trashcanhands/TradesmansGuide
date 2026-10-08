@@ -4,7 +4,7 @@ Herbalism = {
     
     sections = {
         {
-            title = "Levels: [1-70]",
+            title = "Levels: [1-70]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 ------------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [70-115]",
+            title = "Levels: [70-115]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Journeyman Herbalist]|r (Requires character level 10; Raises Cap [75] > [150])
@@ -122,7 +122,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [115-170]",
+            title = "Levels: [115-170]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Expert Herbalist]|r (Requires character level 20; Raises Cap [150] > [225])
@@ -174,7 +174,7 @@ Farming Route Maps:
         },
         
         {
-            title = "Levels: [170-205]",
+            title = "Levels: [170-205]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 ------------------------------------------------------------------------------------------------
@@ -221,7 +221,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [205-230]",
+            title = "Levels: [205-230]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
             description = [[
 ------------------------------------------------------------------------------------------------
 TRAIN:
@@ -269,7 +269,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [230-270]",
+            title = "Levels: [230-270]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 ------------------------------------------------------------------------------------------------
@@ -312,7 +312,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [270-300]",
+            title = "Levels: [270-300]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 ------------------------------------------------------------------------------------------------
