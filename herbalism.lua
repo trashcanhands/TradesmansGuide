@@ -4,7 +4,7 @@ Herbalism = {
     
     sections = {
         {
-            title = "Levels: [1-70]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [1-70]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 ------------------------------------------------------------------------------------------------
@@ -67,7 +67,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [70-115]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [70-115]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Journeyman Herbalist]|r (Requires character level 10; Raises Cap [75] > [150])
@@ -122,7 +122,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [115-170]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [115-170]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Expert Herbalist]|r (Requires character level 20; Raises Cap [150] > [225])
@@ -133,7 +133,7 @@ WHERE:
 Herb List:
 ------------------------------------------------------------------------------------------------
 |cFFFFFFFF[Bruiseweed]|r
-     Requires |cFF33FFFF[Herbalism 100]|r
+     Requires |cFF33FFFF[Herbalism 115]|r
 |cFFFFFFFF[Wild Steelbloom]|r
      Requires |cFF33FFFF[Herbalism 115]|r
 |cFFFFFFFF[Stranglekelp]|r (underwater)
@@ -174,7 +174,7 @@ Farming Route Maps:
         },
         
         {
-            title = "Levels: [170-205]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [170-205]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 ------------------------------------------------------------------------------------------------
@@ -221,7 +221,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [205-230]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [205-230]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[
 ------------------------------------------------------------------------------------------------
 TRAIN:

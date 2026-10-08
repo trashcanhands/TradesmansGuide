@@ -77,7 +77,7 @@ The window and minimap button positions are not saved between sessions.
 ## Notes
 
 - Requires a WoW: Forever client (Interface `16001`, the beta value). The interface number may need to change when Forever releases.
-- Every section is stamped in-game. **VERIFIED** means checked against Wowhead's Forever guides (currently First Aid and Cooking, skill 1-225). **UNVERIFIED** means the data is carried over from Vanilla WoW (or taken from third-party guides) and has not been checked for Forever.
+- Every section is stamped in-game. **VERIFIED** means checked against Wowhead's Forever guides (currently First Aid and Cooking, skill 1-225). **PARTLY VERIFIED** means the skill bracket matches Wowhead but some details (extra zones, skill numbers) are not confirmed. **UNVERIFIED** means the data is carried over from Vanilla WoW (or taken from third-party guides) and has not been checked for Forever.
 - This guide was originally written for Turtle WoW. Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
 - The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever.
 

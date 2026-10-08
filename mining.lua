@@ -4,7 +4,7 @@ Mining = {
     
     sections = {
         {
-            title = "|cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "|cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 Preface
 ------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [65-125]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [65-125]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Journeyman Miner]|r (Requires character level 10, Mining 50; Raises Cap [75] > [150])
@@ -131,7 +131,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [125-175]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [125-175]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
       |cFF1EFF00[Expert Miner]|r (Requires character level 20, Mining 125; Raises Cap [150] > [225])
@@ -184,7 +184,7 @@ Farming Route Maps:
             }
         },
         {
-            title = "Levels: [175-245]  |cFFFF8000UNVERIFIED: Vanilla WoW data, not checked for Forever|r",
+            title = "Levels: [175-245]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN:
       |cFF1EFF00[Artisan Miner]|r (Requires character level 35, Mining 200; Raises Cap [225] > [300])
