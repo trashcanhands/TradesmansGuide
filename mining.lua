@@ -187,7 +187,7 @@ Farming Route Maps:
             title = "Levels: [175-245]",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN:
-      |cFF1EFF00[Artisan Miner]|r (Requires character level 35, Mining 220; Raises Cap [225] > [300])
+      |cFF1EFF00[Artisan Miner]|r (Requires character level 35, Mining 200; Raises Cap [225] > [300])
 WHERE:
       Any major city Mining trainer
 ------------------------------------------------------------------------------------------------

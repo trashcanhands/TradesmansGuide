@@ -164,7 +164,7 @@ Cooking = {
 "ACQUIRE:",
 "      |cFF1EFF00[Artisan Cook]|r (Requires Character Level 35; Raises Cap [225] > [300])",
 "WHERE:",
-"      |cFFFF0000[H]|r |cFF33FF99[Zamja]|r / |cFF33FF99[Orgrimmar, Durator]|r: |cFFFFD700[! To Gadgetzan You Go!]|r",
+"      |cFFFF0000[H]|r |cFF33FF99[Zamja]|r / |cFF33FF99[Orgrimmar, Durotar]|r: |cFFFFD700[! To Gadgetzan You Go!]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Daryl Riknussun]|r / |cFF33FF99[Ironforge, Dun Morogh]|r: |cFFFFD700[! I Know A Guy]|r",
 "",
 "      Both quests will lead to:",
