@@ -8,7 +8,7 @@ Built for **WoW: Forever**.
 
 ## Features
 
-- **Eight crafting guides:** Alchemy, Blacksmithing, Cooking, Enchanting, Engineering, First Aid, Leatherworking and Tailoring.
+- **Nine profession guides:** Alchemy, Blacksmithing, Cooking, Enchanting, Engineering, First Aid, Fishing, Leatherworking and Tailoring.
 - **Full material lists** up front, so you know what to gather or buy before you start.
 - **Step-by-step skill ranges** showing what to craft and the materials each range needs.
 - **Trainer locations**, marked by faction: `[H]` Horde, `[A]` Alliance, `[N]` Neutral.
@@ -46,6 +46,7 @@ AddOns/
     enchanting.lua
     engineering.lua
     firstaid.lua
+    fishing.lua
     herbalism.lua
     leatherworking.lua
     mining.lua

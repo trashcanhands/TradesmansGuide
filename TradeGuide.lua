@@ -644,11 +644,28 @@ firstaidButton:SetScript("OnClick", function()
     end
 end)
 
+-- Fishing button
+local fishingButton = CreateFrame("Button", "FishingButton", guideFrame, "UIPanelButtonTemplate")
+fishingButton:SetWidth(120)
+fishingButton:SetHeight(30)
+fishingButton:SetPoint("TOP", firstaidButton, "BOTTOM", 0, -10)
+fishingButton:SetText("Fishing")
+fishingButton:SetScript("OnClick", function()
+    ClearHerbalismUI()
+    ClearMiningUI()
+    contentFrame:SetVerticalScroll(0)
+    if Fishing and Fishing.content then
+        DisplayContent(Fishing.content, Fishing)
+    else
+        print("ERROR: Fishing data not found!")
+    end
+end)
+
 -- Leatherworking button
 local leatherworkingButton = CreateFrame("Button", "LeatherworkingButton", guideFrame, "UIPanelButtonTemplate")
 leatherworkingButton:SetWidth(120)
 leatherworkingButton:SetHeight(30)
-leatherworkingButton:SetPoint("TOP", firstaidButton, "BOTTOM", 0, -10)
+leatherworkingButton:SetPoint("TOP", fishingButton, "BOTTOM", 0, -10)
 leatherworkingButton:SetText("Leatherworking")
 leatherworkingButton:SetScript("OnClick", function()
     ClearHerbalismUI()

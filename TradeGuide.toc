@@ -11,6 +11,7 @@ cooking.lua
 enchanting.lua
 engineering.lua
 firstaid.lua
+fishing.lua
 leatherworking.lua
 tailoring.lua
 herbalism.lua

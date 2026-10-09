@@ -32,6 +32,7 @@ Cooking = {
 "",
 "NOTE: The 1-225 route is fish only, verified against Wowhead.",
 "No spices are needed. Everything above 225 is untested.",
+"NOTE: The raw fish come from Fishing, see the Fishing guide.",
 "",
 "------------------------------------------------------------------------------------------------",
 "LEVELING COOKING",
