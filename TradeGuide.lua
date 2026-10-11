@@ -535,196 +535,146 @@ local function DisplayMining()
     contentFrame:UpdateScrollChildRect()
 end
 
-local makingHeader = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-makingHeader:SetPoint("LEFT", guideFrame, "TOPLEFT", 45, -168)
-makingHeader:SetText("CRAFTING:")
-local makingHeaderBreak = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-makingHeaderBreak:SetPoint("LEFT", guideFrame, "TOPLEFT", 15, -188)
-makingHeaderBreak:SetText("============")
+local SETS = {
+    {
+        tab = "Forever Updated",
+        tabName = "ForeverTabButton",
+        tip = "Guides checked against Wowhead's Forever pages",
+        gathering = { "Herbalism", "Mining" },
+        crafting = {
+            { "Alchemy", "Alchemy" },
+            { "Cooking", "Cooking" },
+            { "FirstAid", "First Aid" },
+            { "Fishing", "Fishing" },
+        },
+    },
+    {
+        tab = "Classic (Pending)",
+        tabName = "ClassicTabButton",
+        tip = "Classic (pending Forever update)",
+        gathering = {},
+        crafting = {
+            { "Blacksmithing", "Blacksmithing" },
+            { "Enchanting", "Enchanting" },
+            { "Engineering", "Engineering" },
+            { "Leatherworking", "Leatherworking" },
+            { "Tailoring", "Tailoring" },
+        },
+    },
+}
 
--- Alchemy button
-local alchemyButton = CreateFrame("Button", "AlchemyButton", guideFrame, "UIPanelButtonTemplate")
-alchemyButton:SetWidth(120)
-alchemyButton:SetHeight(30)
-alchemyButton:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 20, -200)
-alchemyButton:SetText("Alchemy")
-alchemyButton:SetScript("OnClick", function()
+local function ShowCraft(globalName)
     ClearHerbalismUI()
     ClearMiningUI()
     contentFrame:SetVerticalScroll(0)
-    if Alchemy and Alchemy.content then
-        DisplayContent(Alchemy.content, Alchemy)
+    local data = _G[globalName]
+    if data and data.content then
+        DisplayContent(data.content, data)
     else
-        print("ERROR: Alchemy data not found!")
+        print("ERROR: " .. globalName .. " data not found!")
     end
-end)
+end
 
--- Blacksmithing button
-local blacksmithingButton = CreateFrame("Button", "BlacksmithingButton", guideFrame, "UIPanelButtonTemplate")
-blacksmithingButton:SetWidth(120)
-blacksmithingButton:SetHeight(30)
-blacksmithingButton:SetPoint("TOP", alchemyButton, "BOTTOM", 0, -10)
-blacksmithingButton:SetText("Blacksmithing")
-blacksmithingButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if Blacksmithing and Blacksmithing.content then
-        DisplayContent(Blacksmithing.content, Blacksmithing)
-    else
-        print("ERROR: Blacksmithing data not found!")
+local gatherActions = {
+    Herbalism = function()
+        ClearMiningUI()
+        DisplayHerbalism()
+        contentFrame:SetVerticalScroll(0)
+    end,
+    Mining = function()
+        ClearHerbalismUI()
+        DisplayMining()
+        contentFrame:SetVerticalScroll(0)
+    end,
+}
+
+local function AddHeader(parent, text, y)
+    local label = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    label:SetPoint("TOP", parent, "TOPLEFT", 80, y)
+    label:SetText(text)
+    local rule = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+    rule:SetPoint("TOP", parent, "TOPLEFT", 80, y - 16)
+    rule:SetText("============")
+end
+
+local function AddButton(parent, name, text, y, onClick)
+    local btn = CreateFrame("Button", name, parent, "UIPanelButtonTemplate")
+    btn:SetWidth(120)
+    btn:SetHeight(30)
+    btn:SetPoint("TOPLEFT", parent, "TOPLEFT", 20, y)
+    btn:SetText(text)
+    btn:SetScript("OnClick", onClick)
+    return btn
+end
+
+local setFrames = {}
+local tabButtons = {}
+
+local function SelectSet(index)
+    for i, frame in ipairs(setFrames) do
+        if i == index then
+            frame:Show()
+            tabButtons[i]:Disable()
+        else
+            frame:Hide()
+            tabButtons[i]:Enable()
+        end
     end
-end)
+end
 
--- Cooking button
-local cookingButton = CreateFrame("Button", "CookingButton", guideFrame, "UIPanelButtonTemplate")
-cookingButton:SetWidth(120)
-cookingButton:SetHeight(30)
-cookingButton:SetPoint("TOP", blacksmithingButton, "BOTTOM", 0, -10)
-cookingButton:SetText("Cooking")
-cookingButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if Cooking and Cooking.content then
-        DisplayContent(Cooking.content, Cooking)
-    else
-        print("ERROR: Cooking data not found!")
+for index, set in ipairs(SETS) do
+    local frame = CreateFrame("Frame", nil, guideFrame)
+    frame:SetWidth(150)
+    frame:SetHeight(700)
+    frame:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 0, 0)
+    setFrames[index] = frame
+
+    local y = -150
+    AddHeader(frame, "GATHERING:", y)
+    y = y - 40
+    if #set.gathering == 0 then
+        local none = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        none:SetPoint("TOP", frame, "TOPLEFT", 80, y - 8)
+        none:SetText("None yet")
+        none:SetTextColor(0.6, 0.6, 0.6)
+        y = y - 40
     end
-end)
-
--- Enchanting button
-local enchantingButton = CreateFrame("Button", "EnchantingButton", guideFrame, "UIPanelButtonTemplate")
-enchantingButton:SetWidth(120)
-enchantingButton:SetHeight(30)
-enchantingButton:SetPoint("TOP", cookingButton, "BOTTOM", 0, -10)
-enchantingButton:SetText("Enchanting")
-enchantingButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if Enchanting and Enchanting.content then
-        DisplayContent(Enchanting.content, Enchanting)
-    else
-        print("ERROR: Enchanting data not found!")
+    for _, name in ipairs(set.gathering) do
+        AddButton(frame, name .. "Button", name, y, gatherActions[name])
+        y = y - 40
     end
-end)
 
--- Engineering button
-local engineeringButton = CreateFrame("Button", "EngineeringButton", guideFrame, "UIPanelButtonTemplate")
-engineeringButton:SetWidth(120)
-engineeringButton:SetHeight(30)
-engineeringButton:SetPoint("TOP", enchantingButton, "BOTTOM", 0, -10)
-engineeringButton:SetText("Engineering")
-engineeringButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if Engineering and Engineering.content then
-        DisplayContent(Engineering.content, Engineering)
-    else
-        print("ERROR: Engineering data not found!")
+    y = y - 10
+    AddHeader(frame, "CRAFTING:", y)
+    y = y - 40
+    for _, entry in ipairs(set.crafting) do
+        local globalName = entry[1]
+        AddButton(frame, globalName .. "Button", entry[2], y, function()
+            ShowCraft(globalName)
+        end)
+        y = y - 40
     end
-end)
 
--- FirstAid button
-local firstaidButton = CreateFrame("Button", "FirstAidButton", guideFrame, "UIPanelButtonTemplate")
-firstaidButton:SetWidth(120)
-firstaidButton:SetHeight(30)
-firstaidButton:SetPoint("TOP", engineeringButton, "BOTTOM", 0, -10)
-firstaidButton:SetText("FirstAid")
-firstaidButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if FirstAid and FirstAid.content then
-        DisplayContent(FirstAid.content, FirstAid)
-    else
-        print("ERROR: FirstAid data not found!")
-    end
-end)
+    local tab = CreateFrame("Button", set.tabName, guideFrame, "UIPanelButtonTemplate")
+    tab:SetWidth(120)
+    tab:SetHeight(28)
+    tab:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 20, -62 - (index - 1) * 34)
+    tab:SetText(set.tab)
+    tab:SetScript("OnClick", function()
+        SelectSet(index)
+    end)
+    tab:SetScript("OnEnter", function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+        GameTooltip:SetText(set.tip)
+        GameTooltip:Show()
+    end)
+    tab:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+    tabButtons[index] = tab
+end
 
--- Fishing button
-local fishingButton = CreateFrame("Button", "FishingButton", guideFrame, "UIPanelButtonTemplate")
-fishingButton:SetWidth(120)
-fishingButton:SetHeight(30)
-fishingButton:SetPoint("TOP", firstaidButton, "BOTTOM", 0, -10)
-fishingButton:SetText("Fishing")
-fishingButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if Fishing and Fishing.content then
-        DisplayContent(Fishing.content, Fishing)
-    else
-        print("ERROR: Fishing data not found!")
-    end
-end)
-
--- Leatherworking button
-local leatherworkingButton = CreateFrame("Button", "LeatherworkingButton", guideFrame, "UIPanelButtonTemplate")
-leatherworkingButton:SetWidth(120)
-leatherworkingButton:SetHeight(30)
-leatherworkingButton:SetPoint("TOP", fishingButton, "BOTTOM", 0, -10)
-leatherworkingButton:SetText("Leatherworking")
-leatherworkingButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if Leatherworking and Leatherworking.content then
-        DisplayContent(Leatherworking.content, Leatherworking)
-    else
-        print("ERROR: Leatherworking data not found!")
-    end
-end)
-
--- Tailoring button
-local tailoringButton = CreateFrame("Button", "TailoringButton", guideFrame, "UIPanelButtonTemplate")
-tailoringButton:SetWidth(120)
-tailoringButton:SetHeight(30)
-tailoringButton:SetPoint("TOP", leatherworkingButton, "BOTTOM", 0, -10)
-tailoringButton:SetText("Tailoring")
-tailoringButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    contentFrame:SetVerticalScroll(0)
-    if Tailoring and Tailoring.content then
-        DisplayContent(Tailoring.content, Tailoring)
-    else
-        print("ERROR: Tailoring data not found!")
-    end
-end)
-
-local gatherHeader = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-gatherHeader:SetPoint("CENTER", leatherworkingButton, "CENTER", 0, -70)
-gatherHeader:SetText("GATHERING:")
-local gatherHeaderBreak = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-gatherHeaderBreak:SetPoint("CENTER", leatherworkingButton, "CENTER", 0, -90)
-gatherHeaderBreak:SetText("============")
-
--- Herbalism button
-local herbalismButton = CreateFrame("Button", "HerbalismButton", guideFrame, "UIPanelButtonTemplate")
-herbalismButton:SetWidth(120)
-herbalismButton:SetHeight(30)
-herbalismButton:SetPoint("TOP", leatherworkingButton, "BOTTOM", 0, -90)
-herbalismButton:SetText("Herbalism")
-herbalismButton:SetScript("OnClick", function()
-    ClearMiningUI()
-    DisplayHerbalism()
-    contentFrame:SetVerticalScroll(0)
-end)
-
--- Mining button
-local miningButton = CreateFrame("Button", "MiningButton", guideFrame, "UIPanelButtonTemplate")
-miningButton:SetWidth(120)
-miningButton:SetHeight(30)
-miningButton:SetPoint("TOP", herbalismButton, "BOTTOM", 0, -10)
-miningButton:SetText("Mining")
-miningButton:SetScript("OnClick", function()
-    ClearHerbalismUI()
-    DisplayMining()
-    contentFrame:SetVerticalScroll(0)
-end)
+SelectSet(1)
 
 local function ShowFrame()
     guideFrame:Show()

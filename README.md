@@ -69,7 +69,8 @@ You can also click the minimap button. Left-click toggles the window, and right-
 
 ![Minimap button](docs/images/minimap-button.png)
 
-- Use the buttons on the left to switch professions. Crafting guides are a scrollable list; use the mouse wheel or the scroll bar.
+- Use the two tabs at the top left to switch between **Forever Updated** guides and **Classic (Pending)** guides that have not been updated for Forever yet. Each tab has its own Gathering and Crafting buttons.
+- Use the buttons on the left to pick a profession. Crafting guides are a scrollable list; use the mouse wheel or the scroll bar.
 - In **Herbalism** and **Mining**, use **Previous** and **Next** to move between skill-level sections, and the zone buttons to change the route map.
 - Drag the window by its body to move it.
 
