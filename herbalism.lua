@@ -26,7 +26,7 @@ ZONE OPTIONS:
 |cFF66B2FF[A]|r |cFF33FF99Dun Morogh|r - Dwarf/Gnome starting zone
 |cFF66B2FF[A]|r |cFF33FF99Darkshore|r - Night Elf starting zone
 
-NOTE: All |cFF33FF99Starter Zones|r have similar herb density.
+Wilted Peacebloom and Stunted Silverleaf also spawn in starter areas.
 
 
 

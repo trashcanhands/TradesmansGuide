@@ -10,7 +10,7 @@ Preface
 ------------------------------------------------------------------------------------------------
 Don't forget to buy a |cFFFFFFFFMining Pick|r from the Mining Supply vendor near your trainer. No need to equip, just have one in your bags.
 |cFF00FF00[Enchant Gloves - Mining]|r: +2 Mining skill, |cFF00FF00[Enchant Gloves - Advanced Mining]|r: +5
-Copper Smelting grants skill points
+Smelt Copper x130 (1-65). Keep 60 Copper Bars for Bronze
 Check Smelting recipes at your trainer
 |cFFFF0000Red Circles|r indicate Caves where you can find good amounts of ore
 ------------------------------------------------------------------------------------------------
@@ -89,7 +89,7 @@ Ore List:
 |cFF00FF00[Silver Ore]|r
      Requires |cFF33FFFF[Mining 75]|r (uncommon spawns)
 
-At 75 you can learn how to smelt Silver Ore, this will help you get to 125
+Smelt: Tin x60 (65-75), Bronze x60 (75-100), Silver x70 (100-125)
 Silver Ore and bars sell for roughly the same - buy the ore and sell the bars|r at [|cFFFFFF00Auction House|r]
 
 ZONE OPTIONS:
@@ -148,7 +148,7 @@ Ore List:
 |cFF00FF00[Gold Ore]|r
      Requires |cFF33FFFF[Mining 155]|r (uncommon spawns)
 
-At 155 you can learn how to smelt Gold Ore. Buy around 30 Gold Ore then smelt them,this should get you to around 175
+Smelt: Iron x35 (125-140), none 140-155, Gold x60 (155-185)
 Same as with Silver Ore - buy them, smelt them, and sell the bars at the [|cFFFFFF00Auction House|r]
 
 ------------------------------------------------------------------------------------------------
