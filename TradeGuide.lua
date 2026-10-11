@@ -93,7 +93,16 @@ local function DisplayMap(mapFrame, mapData)
     mapFrame.textures = {}
     
     -- Check if multi-tile (table) or single (string)
-    if type(mapData) == "table" then
+    if type(mapData) == "table" and mapData.path then
+        local tile = mapFrame:CreateTexture(nil, "ARTWORK")
+        tile:SetAllPoints(mapFrame)
+        tile:SetTexture(mapData.path)
+        if mapData.texCoord then
+            tile:SetTexCoord(mapData.texCoord[1], mapData.texCoord[2], mapData.texCoord[3], mapData.texCoord[4])
+        end
+        tile:Show()
+        table.insert(mapFrame.textures, tile)
+    elseif type(mapData) == "table" then
         -- Multi-tile map
         local tileWidth = mapFrame:GetWidth() / #mapData
         local tileHeight = mapFrame:GetHeight()
@@ -152,388 +161,203 @@ local function DisplayContent(contentTable, professionData)
     contentFrame:UpdateScrollChildRect()
 end
 
--- Store herbalism UI elements
-local herbalismUI = {
-    textFrame = nil,
-    mapFrame = nil,
-    zoneButtons = {},
-    navButtons = {},
-    currentSection = 1
-}
+local gatherGuides = {}
 
--- Function to clear herbalism UI
-local function ClearHerbalismUI()
-    if herbalismUI.headerText then
-        herbalismUI.headerText:Hide()
+local function ClearAllGathering()
+    for _, guide in ipairs(gatherGuides) do
+        guide.clear()
     end
-    if herbalismUI.textFrame then
-        herbalismUI.textFrame:Hide()
-    end
-    if herbalismUI.mapFrame then
-        herbalismUI.mapFrame:Hide()
-    end
-    if herbalismUI.sectionIndicator then
-        herbalismUI.sectionIndicator:Hide()
-    end
-    for i, btn in ipairs(herbalismUI.zoneButtons) do
-        btn:Hide()
-    end
-    for i, btn in ipairs(herbalismUI.navButtons) do
-        btn:Hide()
-    end
-    herbalismUI.zoneButtons = {}
-    herbalismUI.navButtons = {}
 end
 
-local function ShowHerbalismSection(sectionIndex)
-    if not Herbalism or not Herbalism.sections then
-        return
+local function NewGatheringGuide(globalName, layout)
+    local ui = {
+        textFrame = nil,
+        mapFrame = nil,
+        zoneButtons = {},
+        navButtons = {},
+        currentSection = 1
+    }
+    local guide = { ui = ui }
+
+    function guide.clear()
+        if ui.headerText then
+            ui.headerText:Hide()
+        end
+        if ui.textFrame then
+            ui.textFrame:Hide()
+        end
+        if ui.mapFrame then
+            ui.mapFrame:Hide()
+        end
+        if ui.sectionIndicator then
+            ui.sectionIndicator:Hide()
+        end
+        for _, btn in ipairs(ui.zoneButtons) do
+            btn:Hide()
+        end
+        for _, btn in ipairs(ui.navButtons) do
+            btn:Hide()
+        end
+        ui.zoneButtons = {}
+        ui.navButtons = {}
     end
-    
-    local section = Herbalism.sections[sectionIndex]
-    if not section then
-        return
-    end
-    
-    herbalismUI.currentSection = sectionIndex
-    
-    if herbalismUI.sectionIndicator then
-        herbalismUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. #Herbalism.sections)
-    end
-    
-    for i, btn in ipairs(herbalismUI.zoneButtons) do
-        btn:Hide()
-    end
-    herbalismUI.zoneButtons = {}
-    
-    herbalismUI.textFrame:SetText(section.title .. "\n\n" .. section.description)
-    
-    if section.zones then
-        local xOffset = 20
-        local yOffset = -480
-        local buttonWidth = 165
-        local buttonSpacing = 5
-        local maxWidth = 540
-        
-        for i, zone in ipairs(section.zones) do
-            if xOffset + buttonWidth > maxWidth then
-                xOffset = 20
-                yOffset = yOffset - 30
+
+    local function ShowSection(sectionIndex)
+        local data = _G[globalName]
+        if not data or not data.sections then
+            return
+        end
+
+        local section = data.sections[sectionIndex]
+        if not section then
+            return
+        end
+
+        ui.currentSection = sectionIndex
+
+        if ui.sectionIndicator then
+            ui.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. #data.sections)
+        end
+
+        for _, btn in ipairs(ui.zoneButtons) do
+            btn:Hide()
+        end
+        ui.zoneButtons = {}
+
+        ui.textFrame:SetText(section.title .. "\n\n" .. section.description)
+
+        if section.zones and #section.zones > 0 then
+            ui.mapFrame:Show()
+            local xOffset = 20
+            local yOffset = layout.zoneY
+            local buttonWidth = 165
+            local buttonSpacing = 5
+            local maxWidth = 540
+
+            for _, zone in ipairs(section.zones) do
+                if xOffset + buttonWidth > maxWidth then
+                    xOffset = 20
+                    yOffset = yOffset - 30
+                end
+
+                local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+                btn:SetWidth(buttonWidth)
+                btn:SetHeight(25)
+                btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
+                btn:SetText(zone.name)
+                btn.mapPath = zone.map
+
+                btn:SetScript("OnClick", function(self)
+                    DisplayMap(ui.mapFrame, self.mapPath)
+                end)
+
+                btn:Show()
+                table.insert(ui.zoneButtons, btn)
+
+                xOffset = xOffset + buttonWidth + buttonSpacing
             end
-            
-            local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-            btn:SetWidth(buttonWidth)
-            btn:SetHeight(25)
-            btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
-            btn:SetText(zone.name)
-            btn.mapPath = zone.map
-            
-            btn:SetScript("OnClick", function(self)
-                DisplayMap(herbalismUI.mapFrame, self.mapPath)
-            end)
-            
-            btn:Show()
-            table.insert(herbalismUI.zoneButtons, btn)
-            
-            xOffset = xOffset + buttonWidth + buttonSpacing
-        end
-        
-        if section.zones[1] then
-            DisplayMap(herbalismUI.mapFrame, section.zones[1].map)
+
+            DisplayMap(ui.mapFrame, section.zones[1].map)
+        else
+            ui.mapFrame:Hide()
         end
     end
-end
 
--- Function to display herbalism content
-local function DisplayHerbalism()
-    ClearContent()
-    ClearHerbalismUI()
-    
-    -- Hide the normal header
-    if headerText then
-        headerText:Hide()
-    end
- 
-    -- Create herbalism-specific header
-    if not herbalismUI.headerText then
-        herbalismUI.headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
-        herbalismUI.headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
-    end  
- 
-    -- Set herbalism header
-    if Herbalism.headerText then
-        herbalismUI.headerText:SetText(Herbalism.headerText)
-        herbalismUI.headerText:Show()
-    end
- 
-    if not Herbalism or not Herbalism.sections then
-        print("ERROR: Herbalism data not found!")
-        return
-    end
-    
-    -- Create text display area
-    if not herbalismUI.textFrame then
-        herbalismUI.textFrame = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        herbalismUI.textFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -40)
-        herbalismUI.textFrame:SetWidth(530)
-        herbalismUI.textFrame:SetJustifyH("LEFT")
-        herbalismUI.textFrame:SetJustifyV("TOP")
-    end
-    
-    -- Create map frame
-    if not herbalismUI.mapFrame then
-        herbalismUI.mapFrame = CreateFrame("Frame", nil, contentChild, "BackdropTemplate")
-        herbalismUI.mapFrame:SetWidth(530)
-        herbalismUI.mapFrame:SetHeight(400)
-        herbalismUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -580)
-        herbalismUI.mapFrame:SetBackdrop({
-            bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            tile = true,
-            tileSize = 16,
-            edgeSize = 16,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 }
-        })
-        herbalismUI.mapFrame:SetBackdropColor(0, 0, 0, 1)
-        herbalismUI.mapFrame.textures = {}
-    end
-    
-    -- Create navigation buttons
-    local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-    prevButton:SetWidth(100)
-    prevButton:SetHeight(25)
-    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -550)
-    prevButton:SetText("<< Previous")
-    prevButton:SetScript("OnClick", function()
-        if herbalismUI.currentSection > 1 then
-            ShowHerbalismSection(herbalismUI.currentSection - 1)
+    function guide.display()
+        ClearContent()
+        ClearAllGathering()
+
+        if headerText then
+            headerText:Hide()
         end
-    end)
-    prevButton:Show()
-    table.insert(herbalismUI.navButtons, prevButton)
-    
-    local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-    nextButton:SetWidth(100)
-    nextButton:SetHeight(25)
-    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -550)
-    nextButton:SetText("Next >>")
-    nextButton:SetScript("OnClick", function()
-        if herbalismUI.currentSection < #Herbalism.sections then
-            ShowHerbalismSection(herbalismUI.currentSection + 1)
+
+        local data = _G[globalName]
+        if not data or not data.sections then
+            print("ERROR: " .. globalName .. " data not found!")
+            return
         end
-    end)
-    nextButton:Show()
-    table.insert(herbalismUI.navButtons, nextButton)
-    
-    -- Section indicator
-    local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -555)
-    sectionIndicator:SetText("Section " .. herbalismUI.currentSection .. " of " .. #Herbalism.sections)
-    herbalismUI.sectionIndicator = sectionIndicator
-    
-    -- Show frames
-    herbalismUI.textFrame:Show()
-    herbalismUI.mapFrame:Show()
-    
-    -- Display first section
-    ShowHerbalismSection(1)
-    
-    -- Adjust scroll height
-    contentChild:SetHeight(1000)
-    contentFrame:UpdateScrollChildRect()
-end
 
--- Store mining UI elements
-local miningUI = {
-    textFrame = nil,
-    mapFrame = nil,
-    zoneButtons = {},
-    navButtons = {},
-    currentSection = 1
-}
+        if not ui.headerText then
+            ui.headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
+            ui.headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
+        end
+        if data.headerText then
+            ui.headerText:SetText(data.headerText)
+            ui.headerText:Show()
+        end
 
--- Function to clear mining UI
-local function ClearMiningUI()
-    if miningUI.headerText then
-        miningUI.headerText:Hide()
-    end
-    if miningUI.textFrame then
-        miningUI.textFrame:Hide()
-    end
-    if miningUI.mapFrame then
-        miningUI.mapFrame:Hide()
-    end
-    if miningUI.sectionIndicator then
-        miningUI.sectionIndicator:Hide()
-    end
-    for i, btn in ipairs(miningUI.zoneButtons) do
-        btn:Hide()
-    end
-    for i, btn in ipairs(miningUI.navButtons) do
-        btn:Hide()
-    end
-    miningUI.zoneButtons = {}
-    miningUI.navButtons = {}
-end
+        if not ui.textFrame then
+            ui.textFrame = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            ui.textFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -40)
+            ui.textFrame:SetWidth(530)
+            ui.textFrame:SetJustifyH("LEFT")
+            ui.textFrame:SetJustifyV("TOP")
+        end
 
-local function ShowMiningSection(sectionIndex)
-    if not Mining or not Mining.sections then
-        return
-    end
-    
-    local section = Mining.sections[sectionIndex]
-    if not section then
-        return
-    end
-    
-    miningUI.currentSection = sectionIndex
-    
-    if miningUI.sectionIndicator then
-        miningUI.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. #Mining.sections)
-    end
-    
-    for i, btn in ipairs(miningUI.zoneButtons) do
-        btn:Hide()
-    end
-    miningUI.zoneButtons = {}
-    
-    miningUI.textFrame:SetText(section.title .. "\n\n" .. section.description)
-    
-    if section.zones then
-        local xOffset = 20
-        local yOffset = -550
-        local buttonWidth = 165
-        local buttonSpacing = 5
-        local maxWidth = 540
-        
-        for i, zone in ipairs(section.zones) do
-            if xOffset + buttonWidth > maxWidth then
-                xOffset = 20
-                yOffset = yOffset - 30
+        if not ui.mapFrame then
+            ui.mapFrame = CreateFrame("Frame", nil, contentChild, "BackdropTemplate")
+            ui.mapFrame:SetWidth(530)
+            ui.mapFrame:SetHeight(layout.mapHeight)
+            ui.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, layout.mapY)
+            ui.mapFrame:SetBackdrop({
+                bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
+                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
+                tile = true,
+                tileSize = 16,
+                edgeSize = 16,
+                insets = { left = 4, right = 4, top = 4, bottom = 4 }
+            })
+            ui.mapFrame:SetBackdropColor(0, 0, 0, 1)
+            ui.mapFrame.textures = {}
+        end
+
+        local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+        prevButton:SetWidth(100)
+        prevButton:SetHeight(25)
+        prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, layout.navY)
+        prevButton:SetText("<< Previous")
+        prevButton:SetScript("OnClick", function()
+            if ui.currentSection > 1 then
+                ShowSection(ui.currentSection - 1)
             end
-            
-            local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-            btn:SetWidth(buttonWidth)
-            btn:SetHeight(25)
-            btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
-            btn:SetText(zone.name)
-            btn.mapPath = zone.map
-            
-            btn:SetScript("OnClick", function(self)
-                DisplayMap(miningUI.mapFrame, self.mapPath)
-            end)
-            
-            btn:Show()
-            table.insert(miningUI.zoneButtons, btn)
-            
-            xOffset = xOffset + buttonWidth + buttonSpacing
-        end
-        
-        if section.zones[1] then
-            DisplayMap(miningUI.mapFrame, section.zones[1].map)
-        end
+        end)
+        prevButton:Show()
+        table.insert(ui.navButtons, prevButton)
+
+        local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+        nextButton:SetWidth(100)
+        nextButton:SetHeight(25)
+        nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, layout.navY)
+        nextButton:SetText("Next >>")
+        nextButton:SetScript("OnClick", function()
+            if ui.currentSection < #data.sections then
+                ShowSection(ui.currentSection + 1)
+            end
+        end)
+        nextButton:Show()
+        table.insert(ui.navButtons, nextButton)
+
+        local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, layout.navY - 5)
+        sectionIndicator:SetText("Section " .. ui.currentSection .. " of " .. #data.sections)
+        ui.sectionIndicator = sectionIndicator
+
+        ui.textFrame:Show()
+        ui.mapFrame:Show()
+
+        ShowSection(1)
+
+        contentChild:SetHeight(1000)
+        contentFrame:UpdateScrollChildRect()
     end
+
+    table.insert(gatherGuides, guide)
+    return guide
 end
 
--- Function to display mining content
-local function DisplayMining()
-    ClearContent()
-    ClearHerbalismUI()
-    ClearMiningUI()
-    
-    -- Hide the normal header
-    if headerText then
-        headerText:Hide()
-    end
- 
-    -- Create mining-specific header
-    if not miningUI.headerText then
-        miningUI.headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
-        miningUI.headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
-    end  
- 
-    -- Set mining header
-    if Mining.headerText then
-        miningUI.headerText:SetText(Mining.headerText)
-        miningUI.headerText:Show()
-    end
- 
-    if not Mining or not Mining.sections then
-        print("ERROR: Mining data not found!")
-        return
-    end
-    
-    -- Create text display area
-    if not miningUI.textFrame then
-        miningUI.textFrame = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        miningUI.textFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -40)
-        miningUI.textFrame:SetWidth(530)
-        miningUI.textFrame:SetJustifyH("LEFT")
-        miningUI.textFrame:SetJustifyV("TOP")
-    end
-    
-    -- Create map frame
-    if not miningUI.mapFrame then
-        miningUI.mapFrame = CreateFrame("Frame", nil, contentChild, "BackdropTemplate")
-        miningUI.mapFrame:SetWidth(530)
-        miningUI.mapFrame:SetHeight(400)
-        miningUI.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -650)
-        miningUI.mapFrame:SetBackdrop({
-            bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-            edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-            tile = true,
-            tileSize = 16,
-            edgeSize = 16,
-            insets = { left = 4, right = 4, top = 4, bottom = 4 }
-        })
-        miningUI.mapFrame:SetBackdropColor(0, 0, 0, 1)
-        miningUI.mapFrame.textures = {}
-    end
-    
-    -- Create navigation buttons
-    local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-    prevButton:SetWidth(100)
-    prevButton:SetHeight(25)
-    prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -620)
-    prevButton:SetText("<< Previous")
-    prevButton:SetScript("OnClick", function()
-        if miningUI.currentSection > 1 then
-            ShowMiningSection(miningUI.currentSection - 1)
-        end
-    end)
-    prevButton:Show()
-    table.insert(miningUI.navButtons, prevButton)
-    
-    local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-    nextButton:SetWidth(100)
-    nextButton:SetHeight(25)
-    nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -620)
-    nextButton:SetText("Next >>")
-    nextButton:SetScript("OnClick", function()
-        if miningUI.currentSection < #Mining.sections then
-            ShowMiningSection(miningUI.currentSection + 1)
-        end
-    end)
-    nextButton:Show()
-    table.insert(miningUI.navButtons, nextButton)
-    
-    -- Section indicator
-    local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -625)
-    sectionIndicator:SetText("Section " .. miningUI.currentSection .. " of " .. #Mining.sections)
-    miningUI.sectionIndicator = sectionIndicator
-    
-    -- Show frames
-    miningUI.textFrame:Show()
-    miningUI.mapFrame:Show()
-    
-    -- Display first section
-    ShowMiningSection(1)
-    
-    -- Adjust scroll height
-    contentChild:SetHeight(1000)
-    contentFrame:UpdateScrollChildRect()
-end
+local herbalismGuide = NewGatheringGuide("Herbalism", { zoneY = -480, navY = -550, mapY = -580, mapHeight = 400 })
+local miningGuide = NewGatheringGuide("Mining", { zoneY = -550, navY = -620, mapY = -650, mapHeight = 400 })
+local skinningGuide = NewGatheringGuide("Skinning", { zoneY = -480, navY = -550, mapY = -580, mapHeight = 355 })
 
 local SETS = {
     {
@@ -564,8 +388,7 @@ local SETS = {
 }
 
 local function ShowCraft(globalName)
-    ClearHerbalismUI()
-    ClearMiningUI()
+    ClearAllGathering()
     contentFrame:SetVerticalScroll(0)
     local data = _G[globalName]
     if data and data.content then
@@ -575,18 +398,13 @@ local function ShowCraft(globalName)
     end
 end
 
-local gatherActions = {
-    Herbalism = function()
-        ClearMiningUI()
-        DisplayHerbalism()
+local gatherActions = {}
+for name, guide in pairs({ Herbalism = herbalismGuide, Mining = miningGuide, Skinning = skinningGuide }) do
+    gatherActions[name] = function()
+        guide.display()
         contentFrame:SetVerticalScroll(0)
-    end,
-    Mining = function()
-        ClearHerbalismUI()
-        DisplayMining()
-        contentFrame:SetVerticalScroll(0)
-    end,
-}
+    end
+end
 
 local function AddHeader(parent, text, y)
     local label = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -640,9 +458,7 @@ for index, set in ipairs(SETS) do
         y = y - 40
     end
     for _, name in ipairs(set.gathering) do
-        AddButton(frame, name .. "Button", name, y, gatherActions[name] or function()
-            ShowCraft(name)
-        end)
+        AddButton(frame, name .. "Button", name, y, gatherActions[name])
         y = y - 40
     end
 

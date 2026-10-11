@@ -12,8 +12,8 @@ Built for **WoW: Forever**.
 - **Full material lists** up front, so you know what to gather or buy before you start.
 - **Step-by-step skill ranges** showing what to craft and the materials each range needs.
 - **Trainer locations**, marked by faction: `[H]` Horde, `[A]` Alliance, `[N]` Neutral.
-- **Gathering guides** for Herbalism and Mining, split into sections by skill level, and a Skinning guide.
-- **Farming route maps** for 19 Herbalism zones and 22 Mining zones, switchable with one click.
+- **Gathering guides** for Herbalism, Mining and Skinning, split into sections by skill level.
+- **Farming route maps** for 19 Herbalism zones, 22 Mining zones and 9 Skinning zones, switchable with one click.
 
 ![Gathering view](docs/images/gathering-view.png)
 
@@ -55,6 +55,7 @@ AddOns/
     Maps/
       Herbalism/
       Mining/
+      Skinning/
 ```
 
 ## Usage
@@ -83,6 +84,8 @@ The window and minimap button positions are not saved between sessions.
 - Every section is stamped in-game. **VERIFIED** means checked against Wowhead's Forever guides (currently First Aid and Cooking, skill 1-225). **PARTLY VERIFIED** means the skill bracket matches Wowhead but some details (extra zones, skill numbers) are not confirmed. **UNVERIFIED** means the data is carried over from Vanilla WoW (or taken from third-party guides) and has not been checked for Forever.
 - This guide was originally written for Turtle WoW. Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
 - The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever.
+
+- The Skinning route maps come from Wowhead's WoW: Forever Skinning guide (wowhead.com/forever). They are Wowhead's work, used here for reference.
 
 ## Author
 
