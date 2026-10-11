@@ -540,7 +540,7 @@ local SETS = {
         tab = "Forever Updated",
         tabName = "ForeverTabButton",
         tip = "Guides checked against Wowhead's Forever pages",
-        gathering = { "Herbalism", "Mining" },
+        gathering = { "Herbalism", "Mining", "Skinning" },
         crafting = {
             { "Alchemy", "Alchemy" },
             { "Cooking", "Cooking" },
@@ -640,7 +640,9 @@ for index, set in ipairs(SETS) do
         y = y - 40
     end
     for _, name in ipairs(set.gathering) do
-        AddButton(frame, name .. "Button", name, y, gatherActions[name])
+        AddButton(frame, name .. "Button", name, y, gatherActions[name] or function()
+            ShowCraft(name)
+        end)
         y = y - 40
     end
 

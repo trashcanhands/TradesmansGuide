@@ -16,5 +16,6 @@ leatherworking.lua
 tailoring.lua
 herbalism.lua
 mining.lua
+skinning.lua
 
 TradeGuide.lua

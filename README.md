@@ -12,7 +12,7 @@ Built for **WoW: Forever**.
 - **Full material lists** up front, so you know what to gather or buy before you start.
 - **Step-by-step skill ranges** showing what to craft and the materials each range needs.
 - **Trainer locations**, marked by faction: `[H]` Horde, `[A]` Alliance, `[N]` Neutral.
-- **Gathering guides** for Herbalism and Mining, split into sections by skill level.
+- **Gathering guides** for Herbalism and Mining, split into sections by skill level, and a Skinning guide.
 - **Farming route maps** for 19 Herbalism zones and 22 Mining zones, switchable with one click.
 
 ![Gathering view](docs/images/gathering-view.png)
@@ -50,6 +50,7 @@ AddOns/
     herbalism.lua
     leatherworking.lua
     mining.lua
+    skinning.lua
     tailoring.lua
     Maps/
       Herbalism/
