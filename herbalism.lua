@@ -353,6 +353,26 @@ Farming Route Maps:
                     "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Felwood_2"
                 }}
             }
+        },
+        {
+            title = "New Herbs in Forever  |cFF1EFF00VERIFIED: Wowhead Forever guide|r",
+            description = [[------------------------------------------------------------------------------------------------
+New endgame herbs:
+|cFFFFFFFF[Marefoil]|r, |cFFFFFFFF[Demonsage]|r, |cFFFFFFFF[Death Lotus]|r
+They are used in endgame recipes. Their locations and skill
+requirements are not yet known.
+------------------------------------------------------------------------------------------------
+Extra items while gathering:
+Herbs have a chance to give extra items along with the herb.
+Wowhead does not yet know which herbs give each.
+
+Seeds: |cFFFFFFFF[Commonplace Herb Seeds]|r, |cFFFFFFFF[Uncommon Herb Seeds]|r,
+      |cFFFFFFFF[Unusual Herb Seeds]|r, |cFFFFFFFF[Scarce Herb Seeds]|r
+Scarce materials: |cFFFFFFFF[Frilled Lichen]|r, |cFFFFFFFF[Rosecap]|r, |cFFFFFFFF[Stranglevine]|r
+
+Legacy perk |cFF33FF99Bountiful Harvest|r (5 ranks): +20% Scarce materials
+from Mining, Herbalism and Skinning.
+------------------------------------------------------------------------------------------------]]
         }
     }
 }
