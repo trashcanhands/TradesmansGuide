@@ -69,9 +69,11 @@ Farming Route Maps:
         {
             title = "Levels: [70-115]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
-TRAIN: 
-      |cFF1EFF00[Journeyman Herbalist]|r (Requires character level 10; Raises Cap [75] > [150])
-WHERE: 
+TRAIN:
+      |cFF1EFF00[Journeyman Herbalist]|r (Requires Herbalism 50; Raises Cap [75] > [150])
+      NOTE: No character level is required for this rank on gathering
+      professions (per icy-veins.com's Forever professions overview).
+WHERE:
       Any major city Herbalism trainer
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
@@ -125,7 +127,7 @@ Farming Route Maps:
             title = "Levels: [115-170]  |cFFFF8000PARTLY VERIFIED: bracket matches Wowhead, details unconfirmed|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: 
-      |cFF1EFF00[Expert Herbalist]|r (Requires character level 20; Raises Cap [150] > [225])
+      |cFF1EFF00[Expert Herbalist]|r (Requires character level 10, Herbalism 125; Raises Cap [150] > [225])
 WHERE: 
       Any major city Herbalism trainer
 ------------------------------------------------------------------------------------------------
@@ -225,7 +227,7 @@ Farming Route Maps:
             description = [[
 ------------------------------------------------------------------------------------------------
 TRAIN:
-      |cFF1EFF00[Artisan Herbalist]|r (Requires character level 35; Raises Cap [225] > [300])
+      |cFF1EFF00[Artisan Herbalist]|r (Requires character level 25, Herbalism 200; Raises Cap [225] > [300])
 WHERE:
       Any major city Herbalism trainer
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

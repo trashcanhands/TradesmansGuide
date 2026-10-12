@@ -24,6 +24,8 @@ TRAIN: |cFF1EFF00[Apprentice Skinning]|r or quest |cFFFFD700[! Pelt Collecting f
 TRAIN: |cFF1EFF00[Journeyman Skinning]|r (Raises Cap [75] > [150])
 Wowhead says learn it at 50 in one step and 75 in another.
 Learn it at 50. Trainers: see the Trainers section.
+NOTE: No character level is required for this rank on gathering
+professions (per icy-veins.com's Forever professions overview).
 ------------------------------------------------------------------------------------------------
 ZONE OPTIONS:
 |cFFFF0000[H]|r |cFF33FF99Durotar|r - Start south around Valley of Trials, head north
@@ -39,7 +41,7 @@ ZONE OPTIONS:
             title = "Levels: [75-125]  |cFF1EFF00VERIFIED: Wowhead Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN:
-      |cFF1EFF00[Expert Skinning]|r (Learn at skill 125; Raises Cap [150] > [225])
+      |cFF1EFF00[Expert Skinning]|r (Requires character level 10; Learn at skill 125; Raises Cap [150] > [225])
 WHERE:
       |cFFFF0000[H]|r |cFF33FF99[Dranh]|r / |cFF33FF99[Camp Taurajo, The Barrens]|r
       |cFF66B2FF[A]|r |cFF33FF99[Balthus Stoneflayer]|r / |cFF33FF99[The Great Forge, Ironforge]|r
@@ -75,7 +77,7 @@ ZONE OPTIONS:
             title = "Levels: [175-225]  |cFF1EFF00VERIFIED: Wowhead Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN:
-      |cFF1EFF00[Artisan Skinning]|r (Learn at skill 200; Raises Cap [225] > [300])
+      |cFF1EFF00[Artisan Skinning]|r (Requires character level 25; Learn at skill 200; Raises Cap [225] > [300])
 WHERE:
       Any Journeyman-to-Artisan trainer, see the Trainers section.
 ------------------------------------------------------------------------------------------------
