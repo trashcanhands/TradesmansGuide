@@ -370,6 +370,7 @@ local SETS = {
             { "Cooking", "Cooking" },
             { "FirstAid", "First Aid" },
             { "Fishing", "Fishing" },
+            { "Tailoring", "Tailoring" },
         },
     },
     {
@@ -382,7 +383,6 @@ local SETS = {
             { "Enchanting", "Enchanting" },
             { "Engineering", "Engineering" },
             { "Leatherworking", "Leatherworking" },
-            { "Tailoring", "Tailoring" },
         },
     },
 }
