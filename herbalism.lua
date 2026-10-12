@@ -74,7 +74,7 @@ TRAIN:
       NOTE: No character level is required for this rank on gathering
       professions (per icy-veins.com's Forever professions overview).
 WHERE:
-      Any major city Herbalism trainer
+      See the Trainers section.
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 Herb List:
@@ -129,7 +129,7 @@ Farming Route Maps:
 TRAIN: 
       |cFF1EFF00[Expert Herbalist]|r (Requires character level 10, Herbalism 125; Raises Cap [150] > [225])
 WHERE: 
-      Any major city Herbalism trainer
+      See the Trainers section.
 ------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------
 Herb List:
@@ -229,7 +229,7 @@ Farming Route Maps:
 TRAIN:
       |cFF1EFF00[Artisan Herbalist]|r (Requires character level 25, Herbalism 200; Raises Cap [225] > [300])
 WHERE:
-      Any major city Herbalism trainer
+      See the Trainers section.
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Herb List:
 ------------------------------------------------------------------------------------------------
@@ -357,6 +357,49 @@ Farming Route Maps:
             }
         },
         {
+            title = "Trainers  |cFF1EFF00VERIFIED: Wowhead Forever guide|r",
+            description = [[------------------------------------------------------------------------------------------------
+Apprentice-only trainers (starting zones):
+------------------------------------------------------------------------------------------------
+      |cFF66B2FF[A]|r |cFF33FF99[Nancy Songflower]|r / |cFF33FF99[Northshire, Elwynn Forest]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Emrys Flintbeard]|r / |cFF33FF99[Coldridge Valley, Dun Morogh]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Eleyna Duskbreeze]|r / |cFF33FF99[Shadowglen, Teldrassil]|r
+
+      |cFFFF0000[H]|r |cFF33FF99[Zor'la]|r / |cFF33FF99[Valley of Trials, Durotar]|r
+      |cFFFF0000[H]|r |cFF33FF99[Garan Sunstrider]|r / |cFF33FF99[Red Cloud Mesa, Mulgore]|r
+      |cFFFF0000[H]|r |cFF33FF99[Florence Nightshade]|r / |cFF33FF99[Death Knell, Tirisfal Glades]|r
+------------------------------------------------------------------------------------------------
+Journeyman, Expert and Artisan trainers:
+------------------------------------------------------------------------------------------------
+      |cFF66B2FF[A]|r |cFF33FF99[Firodren Mooncaller]|r / |cFF33FF99[Temple Gardens, Darnassus]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Reyna Stonebranch]|r / |cFF33FF99[Great Forge, Ironforge]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Tannysa]|r / |cFF33FF99[Mage Quarter, Stormwind City]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Shylamiir]|r / |cFF33FF99[The Park, Stormwind City]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Malorne Bladeleaf]|r / |cFF33FF99[Dolanaar, Teldrassil]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Herbalist Pomeroy]|r / |cFF33FF99[Elwynn Forest]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Kali Healtouch]|r / |cFF33FF99[Thelsamar, Loch Modan]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Alma Jainrose]|r / |cFF33FF99[Lakeshire, Redridge Mountains]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Cylania Rootstalker]|r / |cFF33FF99[Silverwind Refuge, Ashenvale]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Telurinon Moonshadow]|r / |cFF33FF99[Menethil Harbor, Wetlands]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Brant Jasperbloom]|r / |cFF33FF99[Theramore Isle, Dustwallow Marsh]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Edward Egan]|r / |cFF33FF99[Dalaran, Alterac Mountains]|r
+
+      |cFFFF0000[H]|r |cFF33FF99[Jandi]|r / |cFF33FF99[The Drag, Orgrimmar]|r
+      |cFFFF0000[H]|r |cFF33FF99[Komin Winterhoof]|r / |cFF33FF99[Thunder Bluff]|r
+      |cFFFF0000[H]|r |cFF33FF99[Martha Alliestar]|r / |cFF33FF99[Apothecarium, Undercity]|r
+      |cFFFF0000[H]|r |cFF33FF99[Mishiki]|r / |cFF33FF99[Sen'Jin Village, Durotar]|r
+      |cFFFF0000[H]|r |cFF33FF99[Faruza]|r / |cFF33FF99[Brill, Tirisfal Glades]|r
+      |cFFFF0000[H]|r |cFF33FF99[Aranae Venomblood]|r / |cFF33FF99[Tarren Mill, Hillsbrad Foothills]|r
+      |cFFFF0000[H]|r |cFF33FF99[Angrun]|r / |cFF33FF99[Grom'gol Base Camp, Stranglethorn Vale]|r
+      |cFFFF0000[H]|r |cFF33FF99[Ruw]|r / |cFF33FF99[Camp Mojache, Feralas]|r
+
+      |cFFFFD700[N]|r |cFF33FF99[Halassa Fernbreeze]|r / |cFF33FF99[Shen'dar Village, Zephras Isle]|r
+      |cFFFFD700[N]|r |cFF33FF99[Syriel Nightrain]|r / |cFF33FF99[Valanaar, Zephras Isle]|r
+      |cFFFFD700[N]|r |cFF33FF99[Flora Silverwind]|r / |cFF33FF99[Booty Bay, Stranglethorn Vale]|r
+      |cFFFFD700[N]|r |cFF33FF99[Malvor]|r / |cFF33FF99[Nighthaven, Moonglade]|r
+------------------------------------------------------------------------------------------------]]
+        },
+        {
             title = "New Herbs in Forever  |cFF1EFF00VERIFIED: Wowhead Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
 New endgame herbs:
@@ -372,8 +415,28 @@ Seeds: |cFFFFFFFF[Commonplace Herb Seeds]|r, |cFFFFFFFF[Uncommon Herb Seeds]|r,
       |cFFFFFFFF[Unusual Herb Seeds]|r, |cFFFFFFFF[Scarce Herb Seeds]|r
 Scarce materials: |cFFFFFFFF[Frilled Lichen]|r, |cFFFFFFFF[Rosecap]|r, |cFFFFFFFF[Stranglevine]|r
 
-Legacy perk |cFF33FF99Bountiful Harvest|r (5 ranks): +20% Scarce materials
-from Mining, Herbalism and Skinning.
+Herbalism Legacy Perks:
+      |cFF1EFF00[Bountiful Harvest]|r (5 ranks): +20% Scarce materials
+      from Mining, Herbalism and Skinning
+      |cFF1EFF00[Performance Bonus]|r (5 ranks): 5% chance for 100% extra
+      Merchant's Favor on supply crate turn-in
+      |cFF1EFF00[Working Overtime]|r (5 ranks): +4% chance to gain a skill
+      point from primary, secondary and class tradeskills
+      |cFF1EFF00[Dedicated Study]|r (1 rank): Raises your lowest primary or
+      secondary tradeskill by 1 (25s cast, 23hr cooldown)
+
+NOTE: Wowhead states there are no Herbalism Legacy Challenges.
+------------------------------------------------------------------------------------------------
+Herbalism Recipes in Forever:
+------------------------------------------------------------------------------------------------
+|cFF1EFF00[Incense Candle]|r (skill 20, from trainer)
+      Placed at a Campfire, gives seated players an Arcane
+      Intellect-like buff
+|cFF1EFF00[Greenhouse]|r (skill 140, drops from Shadetooth,
+      Excavation Site, Wetlands)
+      Same Campfire buff as Incense Candle
+|cFF1EFF00[Seed Hybridizer]|r (skill 300, from Blueprint: Seed Hybridizer)
+      Same Campfire buff as Incense Candle
 ------------------------------------------------------------------------------------------------]]
         }
     }
