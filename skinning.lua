@@ -132,6 +132,11 @@ Journeyman, Expert and Artisan trainers:
         {
             title = "Forever Additions  |cFF1EFF00VERIFIED: Wowhead Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
+New Skinning Materials:
+|cFFFFFFFF[Fel Leather]|r and |cFFFFFFFF[Fel Hide]|r are used in endgame recipes.
+Locations and skill requirements are not yet known. (Wowhead's page
+calls these "herbs," which looks like a copy-paste error.)
+
 Pristine Leather, Pristine Hide and Pristine Scale can drop while skinning.
 Drop rates and requirements are unknown.
 
@@ -140,8 +145,15 @@ Camping items for Campfires:
       |cFFFFFFFF[Field Guide]|r: skill 140, drops from Lady Anacondra in Wailing Caverns
       |cFFFFFFFF[Trapper's Workbench]|r: skill 300, from a Blueprint
 
-Legacy perk Bountiful Harvest: +20% Scarce materials from Mining,
-Herbalism and Skinning.
+Skinning Legacy Perks:
+|cFF1EFF00[Bountiful Harvest]|r (5 ranks): +20% Scarce materials from
+      Mining, Herbalism and Skinning
+|cFF1EFF00[Performance Bonus]|r (5 ranks): 5% chance for 100% extra
+      Merchant's Favor on supply crate turn-in
+|cFF1EFF00[Working Overtime]|r (5 ranks): +4% chance to gain a skill
+      point from primary, secondary and class tradeskills
+|cFF1EFF00[Dedicated Study]|r (1 rank): Raises your lowest primary or
+      secondary tradeskill by 1 (25s cast, 23hr cooldown)
 ------------------------------------------------------------------------------------------------]]
         }
     }

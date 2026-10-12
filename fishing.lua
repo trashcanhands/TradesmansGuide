@@ -193,6 +193,19 @@ Fishing = {
 "Master Angler (Stranglethorn Vale): the first 50 players to",
 "finish win, and the quest always rewards an Arcanite Fishing",
 "Pole and an Extravagant Extravaganza Coin.",
-"Shamans can use Far Sight and Water Walking to reach schools."
+"The coin can be exchanged for one of 5 items: |cFFFFFFFF[Hook of the",
+"Master Angler]|r, |cFFFFFFFF[Surfer Shoes]|r, |cFFFFFFFF[Master Angler's Fishing Hat]|r,",
+"|cFFFFFFFF[Empty Fish Bucket]|r, or |cFFFFFFFF[Bitter Baitling]|r.",
+"Shamans can use Far Sight and Water Walking to reach schools.",
+"",
+"------------------------------------------------------------------------------------------------",
+"Fishing Legacy Perks",
+"------------------------------------------------------------------------------------------------",
+"|cFF1EFF00[Working Overtime]|r (5 ranks): +4% chance to gain skill from tradeskills",
+"|cFF1EFF00[Luremaster]|r (5 ranks): while using a fishing lure, 25% chance to",
+"catch an additional fish",
+"|cFF1EFF00[Dedicated Study]|r (1 rank): Raises your lowest primary/secondary",
+"tradeskill by 1 (25s cast, 23hr cooldown)",
+"------------------------------------------------------------------------------------------------"
   }
 }

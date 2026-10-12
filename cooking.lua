@@ -159,6 +159,20 @@ Cooking = {
 "Craft: 35x |cFFFFFFFF[Nightfin Soup]|r",
 "Ingredients: 35 |cFFFFFFFF[Raw Nightfin Snapper]|r",
 "",
-"Source: (Both) |cFFFFD700[N]|r |cFF33FF99[Gikkix]|r / |cFF33FF99[Steamwheedle Port, Tanaris]|r"
+"Source: (Both) |cFFFFD700[N]|r |cFF33FF99[Gikkix]|r / |cFF33FF99[Steamwheedle Port, Tanaris]|r",
+"",
+"------------------------------------------------------------------------------------------------",
+"Forever Additions",
+"------------------------------------------------------------------------------------------------",
+"|cFF1EFF00VERIFIED: Wowhead Forever guide|r",
+"------------------------------------------------------------------------------------------------",
+"Cooking needs a nearby fire (build one, or use an inn/trainer fire).",
+"|cFFFFFFFF[Cookie's Stirring Rod]|r increases Cooking speed by 25%.",
+"Over 100 recipes exist; trainers teach only about a dozen. The rest",
+"come from vendors, drops, and the Azeroth Commerce Authority.",
+"",
+"NOTE: Wowhead's Forever page does not list a Cooking Legacy System",
+"section at all (unlike every other profession checked so far).",
+"------------------------------------------------------------------------------------------------"
     }
 }

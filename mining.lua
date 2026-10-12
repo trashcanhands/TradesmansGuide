@@ -353,6 +353,94 @@ Farming Route Maps:
                     "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BurningSteppes_2"
                 }}
             }
+        },
+        {
+            title = "Forever Additions  |cFF1EFF00VERIFIED: Wowhead Forever guide|r",
+            description = [[------------------------------------------------------------------------------------------------
+Mining Boosting Equipment and Enchants
+------------------------------------------------------------------------------------------------
+|cFFFFFFFF[Miner's Cape]|r: +2 effective skill
+|cFFFFFFFF[Goblin Mining Helmet]|r: +5 effective skill
+|cFF00FF00[Enchant Gloves - Mining]|r: +2 effective skill
+|cFF00FF00[Enchant Gloves - Advanced Mining]|r: +5 effective skill
+------------------------------------------------------------------------------------------------
+Other Mining Equipment
+------------------------------------------------------------------------------------------------
+|cFFFFFFFF[Smelting Pants]|r: -25% crafting time for Smelt Copper, Tin,
+      Bronze and Silver
+|cFFFFFFFF[Rockslicer]|r: lets non-Miners mine Copper, Tin, Silver and Iron
+      Veins; drops with 30 charges
+------------------------------------------------------------------------------------------------
+Where to Find Ore Veins (skill breakpoints)
+------------------------------------------------------------------------------------------------
+|cFFFFFFFF[Copper Vein]|r: 25/50/100 - Rough Stone, Malachite, Tigerseye,
+      Shadowgem (20+ zones, from starter areas to Zephras Isle)
+|cFFFFFFFF[Tin Vein]|r: 65/90/115/165 - Coarse Stone, Moss Agate,
+      Shadowgem, Jade, Lesser Moonstone
+|cFFFFFFFF[Silver Vein]|r: 75/100/125/175 - Moss Agate, Shadowgem,
+      Lesser Moonstone
+|cFFFFFFFF[Iron Deposit]|r: 125/150/175/225 - Heavy Stone, Jade,
+      Lesser Moonstone, Citrine, Aquamarine
+|cFFFFFFFF[Gold Vein]|r: 155/180/205/255 - Jade, Lesser Moonstone, Citrine
+|cFFFFFFFF[Mithril Deposit]|r (incl. Ooze Covered): 175/200/225/275 -
+      Solid Stone, Citrine, Aquamarine, Star Ruby, Black Vitriol
+|cFFFFFFFF[Truesilver Deposit]|r (incl. Ooze Covered): 230/255/280/330 -
+      Citrine, Aquamarine, Star Ruby
+|cFFFFFFFF[Dark Iron Deposit]|r: 230/255/280/330 - Black Vitriol, Blood of
+      the Mountain, Black Diamond
+|cFFFFFFFF[Small Thorium Vein]|r (incl. Ooze Covered): 245/270/295/345 -
+      Dense Stone, Star Ruby, Black Vitriol, Blue Sapphire, Large Opal,
+      Azerothian Diamond
+|cFFFFFFFF[Rich Thorium Vein]|r (incl. Ooze Covered): 275/300/325/375 -
+      Dense Stone, Star Ruby, Blue Sapphire, Large Opal, Arcane Crystal,
+      Huge Emerald, Azerothian Diamond
+------------------------------------------------------------------------------------------------
+Smelting Bars (skill-up thresholds)
+------------------------------------------------------------------------------------------------
+|cFF1EFF00[Smelt Copper]|r: 1/25/47/70 - 1 Copper Ore -> 1 Copper Bar
+|cFF1EFF00[Smelt Tin]|r: 65/75 - 1 Tin Ore -> 1 Tin Bar
+|cFF1EFF00[Smelt Bronze]|r: 65/90/115 - 1 Copper Bar + 1 Tin Bar -> 2 Bronze Bar
+|cFF1EFF00[Smelt Silver]|r: 75/100/112/125 - 1 Silver Ore -> 1 Silver Bar
+|cFF1EFF00[Smelt Iron]|r: 125/130/135/140 - 1 Iron Ore -> 1 Iron Bar
+|cFF1EFF00[Smelt Gold]|r: 155/170/177/185 - 1 Gold Ore -> 1 Gold Bar
+|cFF1EFF00[Smelt Steel]|r: 165 - 1 Iron Bar + 1 Coal -> 1 Steel Bar
+|cFF1EFF00[Smelt Mithril]|r: 175 - 1 Mithril Ore -> 1 Mithril Bar
+|cFF1EFF00[Smelt Truesilver]|r: 230 - 1 Truesilver Ore -> 1 Truesilver Bar
+|cFF1EFF00[Smelt Dark Iron]|r: 230 - 8 Dark Iron Ore -> 1 Dark Iron Bar
+|cFF1EFF00[Smelt Thorium]|r: 250 - 1 Thorium Ore -> 1 Thorium Bar
+NOTE: These are Wowhead's Forever thresholds; may differ from the
+      Vanilla smelting route earlier in this guide.
+------------------------------------------------------------------------------------------------
+New Ores and Bars
+------------------------------------------------------------------------------------------------
+New endgame bars: |cFFFFFFFF[Legionite Bar]|r, |cFFFFFFFF[Heavy Thorium Bar]|r,
+      |cFFFFFFFF[Azerothium Bar]|r
+Legionite Bar currently comes only from Alchemists transmuting Heavy
+      Thorium Bars.
+New ore: |cFFFFFFFF[Heavy Thorium Ore]|r - locations/requirements unknown.
+Bonus drops while mining: |cFFFFFFFF[Pyrite]|r, |cFFFFFFFF[Bauxite]|r,
+      |cFFFFFFFF[Pitchblende]|r - odds and Scarce material ties unknown.
+------------------------------------------------------------------------------------------------
+New Mining Recipes
+------------------------------------------------------------------------------------------------
+|cFF1EFF00[Lodestone]|r: skill 20, trainer
+|cFF1EFF00[Rock Garden]|r: skill 140, drops from Relic Guardian
+      (Excavation Site: Wetlands)
+|cFF1EFF00[Smelt Azerothium]|r: skill 275, trainer
+|cFF1EFF00[Smelt Heavy Thorium]|r: skill 300, trainer
+|cFF1EFF00[Molten Foundry]|r: skill 300, from Blueprint: Molten Foundry
+------------------------------------------------------------------------------------------------
+Mining Legacy Perks
+------------------------------------------------------------------------------------------------
+|cFF1EFF00[Bountiful Harvest]|r (5 ranks): +20% Scarce materials from
+      Mining, Herbalism and Skinning
+|cFF1EFF00[Performance Bonus]|r (5 ranks): 5% chance for 100% extra
+      Merchant's Favor on supply crate turn-in
+|cFF1EFF00[Working Overtime]|r (5 ranks): +4% chance to gain a skill
+      point from primary, secondary and class tradeskills
+|cFF1EFF00[Dedicated Study]|r (1 rank): Raises your lowest primary or
+      secondary tradeskill by 1 (25s cast, 23hr cooldown)
+------------------------------------------------------------------------------------------------]]
         }
     }
 }
