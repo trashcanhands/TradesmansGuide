@@ -81,7 +81,9 @@ The window and minimap button positions are not saved between sessions.
 ## Notes
 
 - Requires a WoW: Forever client (Interface `16001`, the beta value). The interface number may need to change when Forever releases.
-- Every section is stamped in-game. **VERIFIED** means checked against either Wowhead's Forever guides or wow-professions.com's Forever guides (the latter are built from beta-client testing, not reused Classic data, so they count as an independent verification). **PARTLY VERIFIED** means the skill bracket matches Wowhead but some details (extra zones, skill numbers) are not confirmed. **UNVERIFIED** means the data is carried over from Vanilla WoW (or taken from third-party guides) and has not been checked for Forever, or is untested in the Forever beta above the brackets either site has confirmed so far.
+- **wow-professions.com is this guide's source of truth.** Until the official wiki covers Forever, every crafting page (Alchemy, Blacksmithing, Cooking, Enchanting, Engineering, First Aid, Fishing, Leatherworking, Tailoring) is built from wow-professions.com's Forever leveling guides. Every section is stamped in-game: **VERIFIED** means the content matches wow-professions.com's Forever guide (occasionally alongside Wowhead, where the two independently agree). **UNVERIFIED** means wow-professions.com itself calls that range untested in the Forever beta, and the route shown is a Classic-era carryover until it's confirmed.
+- **Herbalism and Mining** have no Forever guide on wow-professions.com yet, so those two pages use wow-professions.com's Classic guide instead, stamped **SOURCE: wow-professions.com (Classic guide)**, until a Forever version exists.
+- **Skinning** has no guide of any kind on wow-professions.com, so that page keeps its original Wowhead-sourced route and map data unchanged.
 - This guide was originally written for Turtle WoW. Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
 - The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever.
 
