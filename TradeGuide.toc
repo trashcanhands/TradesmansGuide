@@ -7,11 +7,13 @@
 
 alchemy.lua
 blacksmithing.lua
+camping.lua
 cooking.lua
 enchanting.lua
 engineering.lua
 firstaid.lua
 fishing.lua
+fishingcooking.lua
 leatherworking.lua
 tailoring.lua
 herbalism.lua

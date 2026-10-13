@@ -363,8 +363,8 @@ local SETS = {
     {
         tab = "Forever Updated",
         tabName = "ForeverTabButton",
-        tip = "Guides checked against Forever sources (Wowhead / wow-professions.com)",
-        gathering = { "Herbalism", "Mining", "Skinning" },
+        tip = "Guides built from wow-professions.com's Forever leveling guides",
+        gathering = { "Herbalism", "Mining" },
         crafting = {
             { "Alchemy", "Alchemy" },
             { "Blacksmithing", "Blacksmithing" },
@@ -373,15 +373,18 @@ local SETS = {
             { "Engineering", "Engineering" },
             { "FirstAid", "First Aid" },
             { "Fishing", "Fishing" },
+            { "FishingCooking", "Fishing+Cooking" },
             { "Leatherworking", "Leatherworking" },
             { "Tailoring", "Tailoring" },
+            { "Camping", "Camping" },
         },
+        craftingDividerBefore = "Camping",
     },
     {
         tab = "Classic (Pending)",
         tabName = "ClassicTabButton",
-        tip = "Classic (pending Forever update)",
-        gathering = {},
+        tip = "Not yet covered by wow-professions.com - 100% unverified for Forever",
+        gathering = { "Skinning" },
         crafting = {},
     },
 }
@@ -473,6 +476,14 @@ for index, set in ipairs(SETS) do
     end
     for _, entry in ipairs(set.crafting) do
         local globalName = entry[1]
+        if set.craftingDividerBefore == globalName then
+            y = y - 14
+            local divider = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+            divider:SetPoint("TOP", frame, "TOPLEFT", 80, y - 2)
+            divider:SetText("------------")
+            divider:SetTextColor(0.5, 0.5, 0.5)
+            y = y - 20
+        end
         AddButton(frame, globalName .. "Button", entry[2], y, function()
             ShowCraft(globalName)
         end)

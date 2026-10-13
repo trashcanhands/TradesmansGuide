@@ -9,11 +9,13 @@ Built for **WoW: Forever**.
 ## Features
 
 - **Nine profession guides:** Alchemy, Blacksmithing, Cooking, Enchanting, Engineering, First Aid, Fishing, Leatherworking and Tailoring.
+- **Fishing+Cooking guide:** wow-professions.com's combined route for leveling both at once, alongside the standalone Fishing and Cooking pages.
+- **Camping guide:** the shared campfire/camp-item system, covering every profession's camp items and crafting stations in one reference page.
 - **Full material lists** up front, so you know what to gather or buy before you start.
 - **Step-by-step skill ranges** showing what to craft and the materials each range needs.
 - **Trainer locations**, marked by faction: `[H]` Horde, `[A]` Alliance, `[N]` Neutral.
-- **Gathering guides** for Herbalism, Mining and Skinning, split into sections by skill level.
-- **Farming route maps** for 19 Herbalism zones, 22 Mining zones and 9 Skinning zones, switchable with one click.
+- **Gathering guides** for Herbalism and Mining, split into sections by skill level. (Skinning is gathered under the Classic tab - see Notes.)
+- **Farming route maps** for 19 Herbalism zones and 22 Mining zones, switchable with one click.
 
 ![Gathering view](docs/images/gathering-view.png)
 
@@ -42,11 +44,13 @@ AddOns/
     TradeGuide.lua
     alchemy.lua
     blacksmithing.lua
+    camping.lua
     cooking.lua
     enchanting.lua
     engineering.lua
     firstaid.lua
     fishing.lua
+    fishingcooking.lua
     herbalism.lua
     leatherworking.lua
     mining.lua
@@ -71,8 +75,8 @@ You can also click the minimap button. Left-click toggles the window, and right-
 
 ![Minimap button](docs/images/minimap-button.png)
 
-- Use the two tabs at the top left to switch between **Forever Updated** guides and **Classic (Pending)** guides that have not been updated for Forever yet. Each tab has its own Gathering and Crafting buttons.
-- Use the buttons on the left to pick a profession. Crafting guides are a scrollable list; use the mouse wheel or the scroll bar.
+- Use the two tabs at the top left to switch between **Forever Updated** guides (built from wow-professions.com's Forever guides) and **Classic (Pending)** guides that aren't sourced from wow-professions.com yet, and are treated as 100% unverified for Forever until they are. Each tab has its own Gathering and Crafting buttons.
+- Use the buttons on the left to pick a profession. Crafting guides are a scrollable list; use the mouse wheel or the scroll bar. **Camping** sits at the bottom of the Crafting list on the Forever Updated tab, set off by a divider since it's a cross-profession reference page rather than a profession of its own.
 - In **Herbalism** and **Mining**, use **Previous** and **Next** to move between skill-level sections, and the zone buttons to change the route map.
 - Drag the window by its body to move it.
 
@@ -81,9 +85,9 @@ The window and minimap button positions are not saved between sessions.
 ## Notes
 
 - Requires a WoW: Forever client (Interface `16001`, the beta value). The interface number may need to change when Forever releases.
-- **wow-professions.com is this guide's source of truth.** Until the official wiki covers Forever, every crafting page (Alchemy, Blacksmithing, Cooking, Enchanting, Engineering, First Aid, Fishing, Leatherworking, Tailoring) is built from wow-professions.com's Forever leveling guides. Every section is stamped in-game: **VERIFIED** means the content matches wow-professions.com's Forever guide (occasionally alongside Wowhead, where the two independently agree). **UNVERIFIED** means wow-professions.com itself calls that range untested in the Forever beta, and the route shown is a Classic-era carryover until it's confirmed.
-- **Herbalism and Mining** have no Forever guide on wow-professions.com yet, so those two pages use wow-professions.com's Classic guide instead, stamped **SOURCE: wow-professions.com (Classic guide)**, until a Forever version exists.
-- **Skinning** has no guide of any kind on wow-professions.com, so that page keeps its original Wowhead-sourced route and map data unchanged.
+- **wow-professions.com is this guide's source of truth.** Until the official wiki covers Forever, every page on the Forever Updated tab (Alchemy, Blacksmithing, Camping, Cooking, Enchanting, Engineering, First Aid, Fishing, Fishing+Cooking, Leatherworking, Tailoring) is built from wow-professions.com's Forever leveling guides. Every section is stamped in-game: **VERIFIED** means the content matches wow-professions.com's Forever guide. **UNVERIFIED** means wow-professions.com itself calls that range untested in the Forever beta, and the route shown is a Classic-era carryover until it's confirmed.
+- **Herbalism and Mining** have no Forever guide on wow-professions.com yet, so those two pages use wow-professions.com's Classic guide instead, stamped **SOURCE: wow-professions.com (Classic guide)**. They still stay on the Forever Updated tab, since the content is genuinely wow-professions.com's, just not the Forever-specific version yet.
+- **Skinning** has no guide of any kind on wow-professions.com, so that page keeps its original Wowhead-sourced route and map data, and lives on the **Classic (Pending)** tab as 100% unverified for Forever until wow-professions.com covers it.
 - This guide was originally written for Turtle WoW. Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
 - The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever.
 
