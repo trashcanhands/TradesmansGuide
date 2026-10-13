@@ -68,6 +68,7 @@ content = {
 "      |cFFFF0000[H]|r |cFF33FF99[Snarl]|r / |cFF33FF99[Orgrimmar, Durotar]|r",
 "      |cFFFF0000[H]|r |cFF33FF99[James Van Brunt]|r / |cFF33FF99[Undercity]|r",
 "      |cFFFF0000[H]|r |cFF33FF99[Karn Stonehoof]|r / |cFF33FF99[Thunder Bluff, Mulgore]|r",
+"      |cFFFF0000[H]|r |cFF33FF99[Angus Hammerhand]|r / |cFF33FF99[Tirisfal Glades]|r",
 "",
 "      |cFF66B2FF[A]|r |cFF33FF99[Rotgath Stonebeard]|r / |cFF33FF99[Ironforge, Dun Morogh]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Therum Deepforge]|r / |cFF33FF99[Stormwind City, Elwynn Forest]|r",
