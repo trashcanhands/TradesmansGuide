@@ -363,13 +363,17 @@ local SETS = {
     {
         tab = "Forever Updated",
         tabName = "ForeverTabButton",
-        tip = "Guides checked against Wowhead's Forever pages",
+        tip = "Guides checked against Forever sources (Wowhead / wow-professions.com)",
         gathering = { "Herbalism", "Mining", "Skinning" },
         crafting = {
             { "Alchemy", "Alchemy" },
+            { "Blacksmithing", "Blacksmithing" },
             { "Cooking", "Cooking" },
+            { "Enchanting", "Enchanting" },
+            { "Engineering", "Engineering" },
             { "FirstAid", "First Aid" },
             { "Fishing", "Fishing" },
+            { "Leatherworking", "Leatherworking" },
             { "Tailoring", "Tailoring" },
         },
     },
@@ -378,12 +382,7 @@ local SETS = {
         tabName = "ClassicTabButton",
         tip = "Classic (pending Forever update)",
         gathering = {},
-        crafting = {
-            { "Blacksmithing", "Blacksmithing" },
-            { "Enchanting", "Enchanting" },
-            { "Engineering", "Engineering" },
-            { "Leatherworking", "Leatherworking" },
-        },
+        crafting = {},
     },
 }
 
@@ -465,6 +464,13 @@ for index, set in ipairs(SETS) do
     y = y - 10
     AddHeader(frame, "CRAFTING:", y)
     y = y - 40
+    if #set.crafting == 0 then
+        local none = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        none:SetPoint("TOP", frame, "TOPLEFT", 80, y - 8)
+        none:SetText("None yet")
+        none:SetTextColor(0.6, 0.6, 0.6)
+        y = y - 40
+    end
     for _, entry in ipairs(set.crafting) do
         local globalName = entry[1]
         AddButton(frame, globalName .. "Button", entry[2], y, function()

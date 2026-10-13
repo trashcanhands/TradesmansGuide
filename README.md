@@ -81,7 +81,7 @@ The window and minimap button positions are not saved between sessions.
 ## Notes
 
 - Requires a WoW: Forever client (Interface `16001`, the beta value). The interface number may need to change when Forever releases.
-- Every section is stamped in-game. **VERIFIED** means checked against Wowhead's Forever guides. **PARTLY VERIFIED** means either the skill bracket matches Wowhead but some details (extra zones, skill numbers) are not confirmed, or the trainers are confirmed on Wowhead but the leveling route itself is third-party. **UNVERIFIED** means the data is carried over from Vanilla WoW (or taken from third-party guides) and has not been checked for Forever, or (for Alchemy and Tailoring above skill 225) is untested in the Forever beta.
+- Every section is stamped in-game. **VERIFIED** means checked against either Wowhead's Forever guides or wow-professions.com's Forever guides (the latter are built from beta-client testing, not reused Classic data, so they count as an independent verification). **PARTLY VERIFIED** means the skill bracket matches Wowhead but some details (extra zones, skill numbers) are not confirmed. **UNVERIFIED** means the data is carried over from Vanilla WoW (or taken from third-party guides) and has not been checked for Forever, or is untested in the Forever beta above the brackets either site has confirmed so far.
 - This guide was originally written for Turtle WoW. Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
 - The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever.
 
