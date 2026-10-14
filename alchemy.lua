@@ -74,6 +74,7 @@ content = {
 "      |cFF66B2FF[A]|r |cFF33FF99[Lilyssia Nightbreeze]|r / |cFF33FF99[Stormwind City, Elwynn Forest]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Kylanna]|r / |cFF33FF99[Ashenvale]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Tally Berryfizz]|r / |cFF33FF99[Ironforge, Dun Morogh]|r",
+"      |cFF66B2FF[A]|r |cFF33FF99[Sylvanna Forestmoon]|r / |cFF33FF99[Darnassus, Teldrassil]|r",
 "",
 "      |cFFFFD700[N]|r |cFF33FF99[Jaxin Chong]|r / |cFF33FF99[Booty Bay, Stranglethorn Vale]|r",
 "------------------------------------------------------------------------------------------------",
