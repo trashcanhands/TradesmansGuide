@@ -363,8 +363,8 @@ local SETS = {
     {
         tab = "Forever Updated",
         tabName = "ForeverTabButton",
-        tip = "Guides built from wow-professions.com's Forever leveling guides",
-        gathering = { "Herbalism", "Mining" },
+        tip = "Guides verified or sourced specifically for Forever",
+        gathering = { "Skinning" },
         crafting = {
             { "Alchemy", "Alchemy" },
             { "Blacksmithing", "Blacksmithing" },
@@ -383,8 +383,8 @@ local SETS = {
     {
         tab = "Classic (Pending)",
         tabName = "ClassicTabButton",
-        tip = "Not yet covered by wow-professions.com - 100% unverified for Forever",
-        gathering = { "Skinning" },
+        tip = "Carried over from Classic, pending confirmation for Forever",
+        gathering = { "Herbalism", "Mining" },
         crafting = {},
     },
 }
