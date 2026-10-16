@@ -249,9 +249,9 @@ content = {
 "Other options grey out at 295.",
 "------------------------------------------------------------------------------------------------",
 "ACQUIRE:",
-"      |cFF1EFF00[Recipe: Major Frenzy Potion]|r (240 Merchant's Favor)",
+"      |cFF1EFF00[Recipe: Major Frenzy Potion]|r (Merchant's Favor; exact cost not stated)",
 "WHERE:",
-"      |cFFFF0000[H]|r |cFF33FF99[Apothecary Durelle]|r / |cFF33FF99[Durotar]|r",
+"      |cFFFF0000[H]|r |cFF33FF99[Apothecary Durelle]|r / |cFF33FF99[Durotar Supply and Logistics camp, The Barrens]|r",
 "",
 "      |cFF66B2FF[A]|r |cFF33FF99[Nina Surefire]|r / |cFF33FF99[Redridge Mountains]|r",
 "------------------------------------------------------------------------------------------------"
