@@ -253,7 +253,7 @@ content = {
 "WHERE:",
 "      |cFFFF0000[H]|r |cFF33FF99[Apothecary Durelle]|r / |cFF33FF99[Durotar Supply and Logistics camp, The Barrens]|r",
 "",
-"      |cFF66B2FF[A]|r |cFF33FF99[Nina Surefire]|r / |cFF33FF99[Redridge Mountains]|r",
+"      |cFF66B2FF[A]|r |cFF33FF99[Nina Surefire]|r / |cFF33FF99[Three Corners, Redridge Mountains]|r",
 "------------------------------------------------------------------------------------------------"
 }
 }
