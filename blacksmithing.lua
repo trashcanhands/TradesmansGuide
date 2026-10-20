@@ -105,6 +105,8 @@ content = {
 "      |cFF66B2FF[A]|r |cFF33FF99[Therum Deepforge]|r / |cFF33FF99[Stormwind City, Elwynn Forest]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Clarise Gnarltree]|r / |cFF33FF99[Darkshire, Duskwood]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Alard Schmied]|r / |cFF33FF99[Dalaran, Alterac Mountains]|r",
+"",
+"      |cFFFFD700[N]|r |cFF33FF99[Daeann Steelwind]|r / |cFF33FF99[Valanaar, Zephras Isle]|r",
 "------------------------------------------------------------------------------------------------",
 "",
 "------------------------------------------------------------------------------------------------",
