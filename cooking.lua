@@ -106,7 +106,7 @@ Cooking = {
 "      |cFF33FF99[Abigail Shiel]|r / |cFF33FF99[Tirisfal Glades]|r",
 "      |cFFFF0000[H]|r |cFFFFFFFF[Scorpid Surprise]|r: 55 |cFFFFFFFF[Scorpid Stinger]|r, recipe from |cFF33FF99[Grimtak]|r / |cFF33FF99[Durotar]|r",
 "      |cFF66B2FF[A]|r |cFFFFFFFF[Kaldorei Spider Kabob]|r: 55 |cFFFFFFFF[Small Spider Leg]|r, recipe",
-"      from |cFFFFD700[! Recipe of the Kaldorei]|r (|cFF33FF99[Zarrin]|r / |cFF33FF99[Teldrassil]|r)",
+"      from |cFFFFD700[! Recipe of the Kaldorei]|r (|cFF33FF99[Zarrin]|r / |cFF33FF99[Dolanaar, Teldrassil]|r)",
 "",
 "------------------------------------------------------------------------------------------------",
 "TRAIN:",
