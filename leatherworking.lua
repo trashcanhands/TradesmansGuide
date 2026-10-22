@@ -298,7 +298,7 @@ content = {
 "      |cFF1EFF00[Pattern: Runic Leather Gauntlets]|r",
 "",
 "      WHERE:",
-"      |cFFFFFF00[Auction House]|r / |cFF0070DD[World Drop <1%]|rs",
+"      |cFFFFFF00[Auction House]|r / |cFF0070DD[World Drop <1%]|r",
 "------------------------------------------------------------------------------------------------",
 "      Craft: 10x |cFFFFFFFF[Runic Leather Belt]|r",
 "      Requires: 120 |cFFFFFFFF[Rugged Leather]|r, 100 |cFFFFFFFF[Runecloth]|r, 10 |cFF9D9D9D[Rune Thread]|r",
