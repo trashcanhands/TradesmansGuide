@@ -58,7 +58,7 @@ content = {
 "      |cFFFF0000[H]|r |cFF33FF99[Mot Dawnstrider]|r / |cFF33FF99[Thunder Bluff, Mulgore]|r",
 "      |cFFFF0000[H]|r |cFF33FF99[Malcomb Wynn]|r / |cFF33FF99[Undercity, Tirisfal Glades]|r",
 "      |cFFFF0000[H]|r |cFF33FF99[Pa'zula]|r / |cFF33FF99[Sen'jin Village, Durotar]|r",
-"      |cFFFF0000[H]|r |cFF33FF99[Vance Undergloom]|r / |cFF33FF99[Gallows' End Tavern, Tirisfal Glades]|r",
+"      |cFFFF0000[H]|r |cFF33FF99[Vance Undergloom]|r / |cFF33FF99[Brill, Tirisfal Glades]|r",
 "",
 "      |cFF66B2FF[A]|r |cFF33FF99[Betty Quin]|r / |cFF33FF99[Stormwind City, Elwynn Forest]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Thonys Pillarstone]|r / |cFF33FF99[Ironforge, Dun Morogh]|r",

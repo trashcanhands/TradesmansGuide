@@ -58,7 +58,7 @@ content = {
 "      |cFFFF0000[H]|r |cFF33FF99[Mak]|r / |cFF33FF99[Thunder Bluff, Mulgore]|r",
 "      |cFFFF0000[H]|r |cFF33FF99[Dan Golthas]|r / |cFF33FF99[Undercity, Tirisfal Glades]|r (Rogues' Quarter)",
 "      |cFFFF0000[H]|r |cFF33FF99[Chaw Stronghide]|r / |cFF33FF99[Bloodhoof Village, Mulgore]|r",
-"      |cFFFF0000[H]|r |cFF33FF99[Shelene Rhobart]|r / |cFF33FF99[Tirisfal Glades]|r",
+"      |cFFFF0000[H]|r |cFF33FF99[Shelene Rhobart]|r / |cFF33FF99[Death's Watch Waystation, Tirisfal Glades]|r",
 "",
 "WHERE (Alliance):",
 "      |cFF66B2FF[A]|r |cFF33FF99[Darianna]|r / |cFF33FF99[Darnassus, Teldrassil]|r",

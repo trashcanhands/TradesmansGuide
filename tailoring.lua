@@ -263,7 +263,7 @@ content = {
 "      Requires: 24 |cFFFFFFFF[Bolt of Runecloth]|r, 8 |cFF9D9D9D[Rune Thread]|r",
 "------------------------------------------------------------------------------------------------",
 "ACQUIRE:",
-"|cFF1EFF00[Pattern: Runecloth Gloves]|r |cFFFF8000[Limited supply]|r",
+"      |cFF1EFF00[Pattern: Runecloth Gloves]|r |cFFFF8000[Limited supply]|r",
 "WHERE:",
 "      |cFFFFD700[N]|r |cFF33FF99[Qia]|r / |cFF33FF99[Everlook, Winterspring]|r",
 "------------------------------------------------------------------------------------------------",

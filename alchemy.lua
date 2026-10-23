@@ -74,6 +74,8 @@ content = {
 "Craft: 9x |cFFFFFFFF[Minor Arcane Elixir]|r",
 "Requires: 9 |cFFFFFFFF[Peacebloom]|r, 9 |cFF9D9D9D[Empty Vial]|r",
 "",
+"NOTE: Empty Vials sold near start: Algernon (Undercity), Narret Shadowgrove (Dolanaar).",
+"",
 "|cFFB2FF66Alternative Recipes|r:",
 "      |cFFFFFFFF[Elixir of Minor Force]|r",
 "      Requires: 9 |cFFFFFFFF[Silverleaf]|r, 9 |cFF9D9D9D[Empty Vial]|r",

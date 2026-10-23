@@ -208,7 +208,7 @@ content = {
 "Not covered here (wow-professions.com defers these recipes to its Classic",
 "guide) - trainers: |cFF1EFF00[Tinkmaster Overspark]|r / |cFF33FF99[Ironforge, Dun Morogh]|r,",
 "|cFF1EFF00[Oglethorpe Obnoticus]|r / |cFF33FF99[Booty Bay, Stranglethorn Vale]|r (Gnomish);",
-"|cFF1EFF00[Melbin Powderfuse]|r / |cFF33FF99[Riverglades]|r, |cFF1EFF00[Nixx Sprocketspring]|r /",
+"|cFF1EFF00[Melbin Powderfuse]|r / |cFF33FF99[Powderfuse Port, Riverglades]|r, |cFF1EFF00[Nixx Sprocketspring]|r /",
 "|cFF33FF99[Gadgetzan, Tanaris]|r, |cFF1EFF00[Vazario Linkgrease]|r / |cFF33FF99[Ratchet, The Barrens]|r (Goblin)",
 "",
 "------------------------------------------------------------------------------------------------",
