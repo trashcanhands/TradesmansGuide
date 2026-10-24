@@ -177,6 +177,7 @@ content = {
 "Craft: 10x |cFFFFFFFF[Golden Scale Bracers]|r",
 "Requires: 50 |cFFFFFFFF[Steel Bar]|r, 20 |cFFFFFFFF[Heavy Grinding Stone]|r",
 "NOTE: Uses the Heavy Grinding Stone made at skill 100",
+"NOTE: With Mining 165, smelt your own Steel Bar; Coal sold by the Supply vendor",
 "",
 "[|cFF33FFFF185-215|r]",
 "Craft: 36x |cFFFFFFFF[Mithril Plate Pants]|r",

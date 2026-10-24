@@ -156,7 +156,7 @@ FirstAid = {
 "",
 "------------------------------------------------------------------------------------------------",
 "TRAIN:",
-"      |cFF1EFF00[Artisan First Aid]|r (Requires Character Level 35; Raises Cap [225] > [300])",
+"      |cFF1EFF00[Artisan First Aid]|r (Requires First Aid 225, Character Level 35; Raises Cap [225] > [300])",
 "------------------------------------------------------------------------------------------------",
 "ACQUIRE:",
 "      |cFFFFD700[! Triage]|r quest",

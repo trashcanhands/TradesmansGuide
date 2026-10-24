@@ -100,7 +100,7 @@ FishingCooking = {
 "~30 Raw Bristle Whisker Catfish.",
 "      |cFFFF0000[H]|r Thunder Bluff: pond near the Auction House",
 "      |cFFFF0000[H]|r Undercity: canals (about a third of catches are junk)",
-"      |cFFFF0000[H]|r Orgrimmar: pond in the Valley of Honor, by the Fishing trainer",
+"      |cFFFF0000[H]|r Orgrimmar: pond by the Fishing trainer",
 "      |cFF66B2FF[A]|r Stormwind City: the canals",
 "",
 "Recipes to buy: Recipe: Bristle Whisker Catfish (needed next bracket), and Recipe: Longjaw",
