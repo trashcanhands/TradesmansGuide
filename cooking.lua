@@ -225,7 +225,7 @@ Cooking = {
 "WHERE:",
 "      |cFFFF0000[H]|r |cFF33FF99[Wulan]|r / |cFF33FF99[Shadowprey Village, Desolace]|r",
 "",
-"      |cFF66B2FF[A]|r |cFF33FF99[Shandrina]|r / |cFF33FF99[Mystral Lake, Ashenvale]|r",
+"      |cFF66B2FF[A]|r |cFF33FF99[Shandrina]|r / |cFF33FF99[Silverwind Refuge, Ashenvale]|r",
 "------------------------------------------------------------------------------------------------",
 "",
 "------------------------------------------------------------------------------------------------",
