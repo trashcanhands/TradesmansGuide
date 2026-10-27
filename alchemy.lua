@@ -225,7 +225,7 @@ content = {
 "Requires: 40 |cFFFFFFFF[Sungrass]|r, 40 |cFFFFFFFF[Blindweed]|r, 20 |cFF9D9D9D[Crystal Vial]|r",
 "",
 "|cFFB2FF66Alternative Recipes|r:",
-"      |cFFFFFFFF[Elixir of Superior Defense]|r",
+"      |cFFFFFFFF[Elixir of Greater Defense]|r",
 "      Requires: 34 |cFFFFFFFF[Stonescale Oil]|r, 17 |cFFFFFFFF[Sungrass]|r, 17 |cFF9D9D9D[Crystal Vial]|r",
 "      |cFFFFFFFF[Elixir of Shadow Power]|r",
 "      Requires: 81 |cFFFFFFFF[Ghost Mushroom]|r, 27 |cFF9D9D9D[Crystal Vial]|r",
