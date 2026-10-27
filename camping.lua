@@ -237,6 +237,9 @@ Camping = {
 "|cFF1EFF00[Loom]|r (Tailoring, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
 "|cFF1EFF00[Molten Foundry]|r (Mining, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
 "|cFF1EFF00[Iron Oven]|r (Cooking, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
+"|cFF1EFF00[Toxin Study]|r (First Aid, skill 140):",
+"      dropped by |cFF33FF99[Commander Springvale]|r / |cFF33FF99[Shadowfang Keep]|r",
+"|cFF1EFF00[Plague Doctor's Laboratory]|r (First Aid, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
 "------------------------------------------------------------------------------------------------",
   }
 }

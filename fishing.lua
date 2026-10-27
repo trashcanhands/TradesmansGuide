@@ -6,7 +6,7 @@ Fishing = {
 "GEAR LIST",
 "------------------------------------------------------------------------------------------------",
 "|cFFFFFFFF[Fishing Pole]|r (Fishing Supply / Trade Supply vendor)",
-"|cFFFFFFFF[Shiny Bauble]|r (min skill 1, Fishing Supply / Trade Supply vendor)",
+"|cFFFFFFFF[Shiny Bauble]|r (Fishing Supply / Trade Supply vendor)",
 "|cFFFFFFFF[Nightcrawlers]|r (min skill 50, if fish keep escaping)",
 "|cFFFFFFFF[Bright Baubles]|r (needed from skill ~150 onward — Dustwallow Marsh and",
 "other Expert Fishing zones, Feralas for the Artisan quest, and all 225-300 zones)",

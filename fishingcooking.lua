@@ -6,7 +6,7 @@ FishingCooking = {
 "GEAR LIST",
 "------------------------------------------------------------------------------------------------",
 "|cFFFFFFFF[Fishing Pole]|r (Fishing Supply / Trade Supply vendor)",
-"|cFFFFFFFF[Shiny Bauble]|r (min skill 1, Fishing Supply / Trade Supply vendor)",
+"|cFFFFFFFF[Shiny Bauble]|r (Fishing Supply / Trade Supply vendor)",
 "|cFFFFFFFF[Nightcrawlers]|r (min skill 50, keep fish from escaping; buy more as you go)",
 "|cFFFFFFFF[Bright Baubles]|r / |cFFFFFFFF[Aquadynamic Fish Attractor]|r (buy any you see and keep them for later)",
 "",
