@@ -192,11 +192,11 @@ Camping = {
 "      Materials: 3 |cFFFFFFFF[Linen Bandage]|r, 1 |cFF9D9D9D[Refreshing Spring Water]|r",
 "      Source: trainer or the Camping 101 quest",
 "",
-"      [140] |cFF1EFF00[Toxin Study]|r: crafting station; healing potions and anti-venoms",
+"      [140] |cFF1EFF00[Toxin Study]|r: lets you craft healing potions and anti-venoms",
 "      Materials: 1 |cFFFFFFFF[Anti-Venom]|r, 2 |cFFFFFFFF[Mageweave Bandage]|r, 2 |cFFFFFFFF[Simple Wood]|r",
 "      Blueprint dropped by |cFF33FF99[Commander Springvale]|r / |cFF33FF99[Shadowfang Keep]|r",
 "",
-"      [300] |cFF1EFF00[Plague Doctor's Laboratory]|r: crafting station; healing potions and poultices",
+"      [300] |cFF1EFF00[Plague Doctor's Laboratory]|r: lets you craft healing potions and poultices",
 "      Materials: 2 |cFFFFFFFF[Simple Wood]|r, 2 |cFFFFFFFF[Strong Anti-Venom]|r, 5 |cFFFFFFFF[Heavy Runecloth Bandage]|r",
 "      |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
 "",
@@ -237,9 +237,6 @@ Camping = {
 "|cFF1EFF00[Loom]|r (Tailoring, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
 "|cFF1EFF00[Molten Foundry]|r (Mining, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
 "|cFF1EFF00[Iron Oven]|r (Cooking, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
-"|cFF1EFF00[Toxin Study]|r (First Aid, skill 140):",
-"      dropped by |cFF33FF99[Commander Springvale]|r / |cFF33FF99[Shadowfang Keep]|r",
-"|cFF1EFF00[Plague Doctor's Laboratory]|r (First Aid, skill 300): |cFFFF8000UNCONFIRMED: Blueprint source unknown|r",
 "------------------------------------------------------------------------------------------------",
   }
 }
