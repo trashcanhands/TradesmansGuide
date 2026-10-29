@@ -96,7 +96,7 @@ content = {
 "      |cFFFF0000[H]|r |cFF33FF99[Serge Hinott]|r / |cFF33FF99[Tarren Mill, Hillsbrad Foothills]|r",
 "",
 "      |cFF66B2FF[A]|r |cFF33FF99[Lilyssia Nightbreeze]|r / |cFF33FF99[Stormwind City, Elwynn Forest]|r",
-"      |cFF66B2FF[A]|r |cFF33FF99[Kylanna]|r / |cFF33FF99[Ashenvale]|r",
+"      |cFF66B2FF[A]|r |cFF33FF99[Kylanna]|r / |cFF33FF99[Silverwind Refuge, Ashenvale]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Tally Berryfizz]|r / |cFF33FF99[Ironforge, Dun Morogh]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Sylvanna Forestmoon]|r / |cFF33FF99[Darnassus, Teldrassil]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Linzy Blackbolt]|r / |cFF33FF99[Dalaran, Alterac Mountains]|r",
