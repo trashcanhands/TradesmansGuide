@@ -1,0 +1,22 @@
+name: Release AddOn
+
+on:
+    push:
+        tags:
+            - "**"
+
+env:
+    CF_API_KEY: ${{ secrets.CF_API_KEY }}
+    GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+    package:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository with full history
+              uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Build and upload with the BigWigs packager
+              uses: BigWigsMods/packager@v2
