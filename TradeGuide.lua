@@ -13,6 +13,13 @@ guideFrame:SetBackdrop({
 guideFrame:SetBackdropColor(0, 0, 0, 0.9)
 guideFrame:SetBackdropBorderColor(1, 1, 1, 1)
 
+TradeGuideDB = TradeGuideDB or {}
+
+if TradeGuideDB.point then
+    guideFrame:ClearAllPoints()
+    guideFrame:SetPoint(TradeGuideDB.point.point, UIParent, TradeGuideDB.point.relativePoint, TradeGuideDB.point.x, TradeGuideDB.point.y)
+end
+
 guideFrame:Hide()
 guideFrame:SetMovable(true)
 guideFrame:EnableMouse(true)
@@ -22,6 +29,8 @@ guideFrame:SetScript("OnDragStart", function()
 end)
 guideFrame:SetScript("OnDragStop", function()
     guideFrame:StopMovingOrSizing()
+    local point, _, relativePoint, x, y = guideFrame:GetPoint()
+    TradeGuideDB.point = { point = point, relativePoint = relativePoint, x = x, y = y }
 end)
 
 local titleText = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
@@ -497,6 +506,7 @@ for index, set in ipairs(SETS) do
     tab:SetText(set.tab)
     tab:SetScript("OnClick", function()
         SelectSet(index)
+        TradeGuideDB.selectedSet = index
     end)
     tab:SetScript("OnEnter", function(self)
         GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
@@ -509,7 +519,10 @@ for index, set in ipairs(SETS) do
     tabButtons[index] = tab
 end
 
-SelectSet(1)
+if not SETS[TradeGuideDB.selectedSet] then
+    TradeGuideDB.selectedSet = 1
+end
+SelectSet(TradeGuideDB.selectedSet)
 
 local function ShowFrame()
     guideFrame:Show()
