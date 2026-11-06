@@ -4,6 +4,7 @@
 ## Author: trashcanhands
 ## Version: 1.1.0
 ## SavedVariables: TradeGuideDB
+## X-Curse-Project-ID: 1785315
 
 alchemy.lua
 blacksmithing.lua
