@@ -79,7 +79,7 @@ Notes
 - Herbalism and Mining have no Forever guide on wow-professions.com yet, so those two pages use wow-professions.com's Classic guide instead, stamped SOURCE: wow-professions.com (Classic guide). Gathering node placements appear to have changed in Forever versus Classic, so the bundled farming route maps for these two professions aren't confirmed accurate yet - new maps will need to be built from scratch once the actual Forever node layout is known. Until then, both pages live on the Classic (Pending) tab.
 - Skinning has no guide of any kind on wow-professions.com, but its route and farming maps come from Wowhead's dedicated WoW: Forever Skinning guide (wowhead.com/forever) rather than a Classic one - that source already reflects Forever's node layout, so despite not being wow-professions.com-sourced, Skinning stays on the Forever Updated tab, stamped VERIFIED: Wowhead Forever guide.
 - This guide was originally written for Turtle WoW. Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
-- The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever.
+- The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever. RIP.
 
  Author
 
