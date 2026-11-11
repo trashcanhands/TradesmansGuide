@@ -1,17 +1,12 @@
-local guideFrame = CreateFrame("Frame", "GuideFrame", UIParent, "BackdropTemplate")
+local guideFrame = CreateFrame("Frame", "GuideFrame", UIParent, "ButtonFrameTemplate")
 guideFrame:SetWidth(750)
 guideFrame:SetHeight(800)
-guideFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, 0)
-guideFrame:SetBackdrop({
-    bgFile = "Interface\\BUTTONS\\WHITE8X8",
-    edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Gold-Border",
-    tile = false, 
-    tileSize = 16, 
-    edgeSize = 26,
-    insets = { left = 1, right = 1, top = 1, bottom = 1 }
-})
-guideFrame:SetBackdropColor(0, 0, 0, 0.9)
-guideFrame:SetBackdropBorderColor(1, 1, 1, 1)
+guideFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -16)
+guideFrame:SetPortraitToAsset("Interface\\Icons\\Trade_Engineering")
+guideFrame:SetTitle("PROFESSIONS LEVELING GUIDE")
+guideFrame.Inset:ClearAllPoints()
+guideFrame.Inset:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 150, -60)
+guideFrame.Inset:SetPoint("BOTTOMRIGHT", guideFrame, "BOTTOMRIGHT", -6, 5)
 
 TradeGuideDB = TradeGuideDB or {}
 
@@ -23,6 +18,7 @@ end
 guideFrame:Hide()
 guideFrame:SetMovable(true)
 guideFrame:EnableMouse(true)
+guideFrame:SetClampedToScreen(true)
 guideFrame:RegisterForDrag("LeftButton")
 guideFrame:SetScript("OnDragStart", function()
     guideFrame:StartMoving()
@@ -33,52 +29,20 @@ guideFrame:SetScript("OnDragStop", function()
     TradeGuideDB.point = { point = point, relativePoint = relativePoint, x = x, y = y }
 end)
 
-local titleText = guideFrame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
-titleText:SetPoint("CENTER", guideFrame, "TOP", 0, -30)
-titleText:SetText("PROFESSIONS LEVELING GUIDE")
+local contentFrame = CreateFrame("ScrollFrame", "ProfGuideScrollFrame", guideFrame, "ScrollFrameTemplate")
+contentFrame:SetPoint("TOPLEFT", guideFrame.Inset, "TOPLEFT", 4, -4)
+contentFrame:SetPoint("BOTTOMRIGHT", guideFrame.Inset, "BOTTOMRIGHT", -24, 4)
+contentFrame.ScrollBar:SetHideIfUnscrollable(true)
 
-local closeButton = CreateFrame("Button", "CloseWindowButton", guideFrame, "UIPanelCloseButton")
-closeButton:SetPoint("TOPRIGHT", guideFrame, "TOPRIGHT", -5, -5)
-closeButton:SetScript("OnClick", function()
-    guideFrame:Hide()
-end)
-
--- Content area - ScrollFrame
-local contentFrame = CreateFrame("ScrollFrame", "ProfGuideScrollFrame", guideFrame, "UIPanelScrollFrameTemplate")
-contentFrame:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 150, -60)
-contentFrame:SetPoint("BOTTOMRIGHT", guideFrame, "BOTTOMRIGHT", -30, 10)
-
--- Create a child frame for the scroll frame
 local contentChild = CreateFrame("Frame", "ProfGuideScrollChild", contentFrame)
 contentChild:SetWidth(550)
 contentChild:SetHeight(500)
 contentFrame:SetScrollChild(contentChild)
 
--- After creating contentChild, add a header
 local headerFont = _G["CombatLogFont"] and "CombatLogFont" or "GameFontNormalLarge"
 local headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
 headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
 headerText:SetText("")
-
--- Get the scrollbar
-local scrollBar = contentFrame.ScrollBar or _G["ProfGuideScrollFrameScrollBar"]
-
--- Enable mouse wheel scrolling
-contentFrame:EnableMouseWheel(true)
-contentFrame:SetScript("OnMouseWheel", function(self, delta)
-    local current = contentFrame:GetVerticalScroll()
-    local maxScroll = contentFrame:GetVerticalScrollRange()
-    
-    if delta > 0 then
-        contentFrame:SetVerticalScroll(math.max(0, current - 30))
-    else
-        contentFrame:SetVerticalScroll(math.min(maxScroll, current + 30))
-    end
-    
-    if scrollBar then
-        scrollBar:SetValue(contentFrame:GetVerticalScroll())
-    end
-end)
 
 -- Store all text lines
 local textLines = {}
@@ -100,11 +64,12 @@ local function DisplayMap(mapFrame, mapData)
         end
     end
     mapFrame.textures = {}
+    local canvas = mapFrame.canvas or mapFrame
     
     -- Check if multi-tile (table) or single (string)
     if type(mapData) == "table" and mapData.path then
-        local tile = mapFrame:CreateTexture(nil, "ARTWORK")
-        tile:SetAllPoints(mapFrame)
+        local tile = canvas:CreateTexture(nil, "ARTWORK")
+        tile:SetAllPoints(canvas)
         tile:SetTexture(mapData.path)
         if mapData.texCoord then
             tile:SetTexCoord(mapData.texCoord[1], mapData.texCoord[2], mapData.texCoord[3], mapData.texCoord[4])
@@ -113,16 +78,16 @@ local function DisplayMap(mapFrame, mapData)
         table.insert(mapFrame.textures, tile)
     elseif type(mapData) == "table" then
         -- Multi-tile map
-        local tileWidth = mapFrame:GetWidth() / #mapData
-        local tileHeight = mapFrame:GetHeight()
+        local tileWidth = canvas:GetWidth() / #mapData
+        local tileHeight = canvas:GetHeight()
         
         for i, tilePath in ipairs(mapData) do
-            local tile = mapFrame:CreateTexture(nil, "ARTWORK")
+            local tile = canvas:CreateTexture(nil, "ARTWORK")
             tile:SetWidth(tileWidth)
             tile:SetHeight(tileHeight)
             
             if i == 1 then
-                tile:SetPoint("LEFT", mapFrame, "LEFT", 0, 0)
+                tile:SetPoint("LEFT", canvas, "LEFT", 0, 0)
             else
                 tile:SetPoint("LEFT", mapFrame.textures[i-1], "RIGHT", 0, 0)
             end
@@ -133,8 +98,8 @@ local function DisplayMap(mapFrame, mapData)
         end
     else
         -- Single tile map
-        local tile = mapFrame:CreateTexture(nil, "ARTWORK")
-        tile:SetAllPoints(mapFrame)
+        local tile = canvas:CreateTexture(nil, "ARTWORK")
+        tile:SetAllPoints(canvas)
         tile:SetTexture(mapData)
         tile:Show()
         table.insert(mapFrame.textures, tile)
@@ -251,7 +216,7 @@ local function NewGatheringGuide(globalName, layout)
 
                 local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
                 btn:SetWidth(buttonWidth)
-                btn:SetHeight(25)
+                btn:SetHeight(22)
                 btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
                 btn:SetText(zone.name)
                 btn.mapPath = zone.map
@@ -304,25 +269,20 @@ local function NewGatheringGuide(globalName, layout)
         end
 
         if not ui.mapFrame then
-            ui.mapFrame = CreateFrame("Frame", nil, contentChild, "BackdropTemplate")
+            ui.mapFrame = CreateFrame("Frame", nil, contentChild, "InsetFrameTemplate")
             ui.mapFrame:SetWidth(530)
             ui.mapFrame:SetHeight(layout.mapHeight)
             ui.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, layout.mapY)
-            ui.mapFrame:SetBackdrop({
-                bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-                edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-                tile = true,
-                tileSize = 16,
-                edgeSize = 16,
-                insets = { left = 4, right = 4, top = 4, bottom = 4 }
-            })
-            ui.mapFrame:SetBackdropColor(0, 0, 0, 1)
+            ui.mapFrame.canvas = CreateFrame("Frame", nil, ui.mapFrame)
+            ui.mapFrame.canvas:SetPoint("TOPLEFT", ui.mapFrame, "TOPLEFT", 3, -3)
+            ui.mapFrame.canvas:SetWidth(524)
+            ui.mapFrame.canvas:SetHeight(layout.mapHeight - 6)
             ui.mapFrame.textures = {}
         end
 
         local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
         prevButton:SetWidth(100)
-        prevButton:SetHeight(25)
+        prevButton:SetHeight(22)
         prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, layout.navY)
         prevButton:SetText("<< Previous")
         prevButton:SetScript("OnClick", function()
@@ -335,7 +295,7 @@ local function NewGatheringGuide(globalName, layout)
 
         local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
         nextButton:SetWidth(100)
-        nextButton:SetHeight(25)
+        nextButton:SetHeight(22)
         nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, layout.navY)
         nextButton:SetText("Next >>")
         nextButton:SetScript("OnClick", function()
@@ -421,15 +381,17 @@ local function AddHeader(parent, text, y)
     local label = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
     label:SetPoint("TOP", parent, "TOPLEFT", 80, y)
     label:SetText(text)
-    local rule = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    rule:SetPoint("TOP", parent, "TOPLEFT", 80, y - 16)
-    rule:SetText("============")
+    local rule = parent:CreateTexture(nil, "ARTWORK")
+    rule:SetColorTexture(1, 0.82, 0, 0.5)
+    rule:SetWidth(120)
+    rule:SetHeight(1)
+    rule:SetPoint("TOP", parent, "TOPLEFT", 80, y - 18)
 end
 
 local function AddButton(parent, name, text, y, onClick)
     local btn = CreateFrame("Button", name, parent, "UIPanelButtonTemplate")
     btn:SetWidth(120)
-    btn:SetHeight(30)
+    btn:SetHeight(24)
     btn:SetPoint("TOPLEFT", parent, "TOPLEFT", 20, y)
     btn:SetText(text)
     btn:SetScript("OnClick", onClick)
@@ -443,12 +405,11 @@ local function SelectSet(index)
     for i, frame in ipairs(setFrames) do
         if i == index then
             frame:Show()
-            tabButtons[i]:Disable()
         else
             frame:Hide()
-            tabButtons[i]:Enable()
         end
     end
+    PanelTemplates_SetTab(guideFrame, index)
 end
 
 for index, set in ipairs(SETS) do
@@ -458,7 +419,7 @@ for index, set in ipairs(SETS) do
     frame:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 0, 0)
     setFrames[index] = frame
 
-    local y = -150
+    local y = -80
     AddHeader(frame, "GATHERING:", y)
     y = y - 40
     if #set.gathering == 0 then
@@ -487,10 +448,11 @@ for index, set in ipairs(SETS) do
         local globalName = entry[1]
         if set.craftingDividerBefore == globalName then
             y = y - 14
-            local divider = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-            divider:SetPoint("TOP", frame, "TOPLEFT", 80, y - 2)
-            divider:SetText("------------")
-            divider:SetTextColor(0.5, 0.5, 0.5)
+            local divider = frame:CreateTexture(nil, "ARTWORK")
+            divider:SetColorTexture(0.5, 0.5, 0.5, 0.6)
+            divider:SetWidth(120)
+            divider:SetHeight(1)
+            divider:SetPoint("TOP", frame, "TOPLEFT", 80, y - 6)
             y = y - 20
         end
         AddButton(frame, globalName .. "Button", entry[2], y, function()
@@ -499,10 +461,11 @@ for index, set in ipairs(SETS) do
         y = y - 40
     end
 
-    local tab = CreateFrame("Button", set.tabName, guideFrame, "UIPanelButtonTemplate")
-    tab:SetWidth(120)
-    tab:SetHeight(28)
-    tab:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 20, -62 - (index - 1) * 34)
+    local tab = CreateFrame("Button", set.tabName, guideFrame, "PanelTabButtonTemplate")
+    tab:SetID(index)
+    if index == 1 then
+        tab:SetPoint("TOPLEFT", guideFrame, "BOTTOMLEFT", 11, 2)
+    end
     tab:SetText(set.tab)
     tab:SetScript("OnClick", function()
         SelectSet(index)
@@ -518,6 +481,8 @@ for index, set in ipairs(SETS) do
     end)
     tabButtons[index] = tab
 end
+
+PanelTemplates_SetNumTabs(guideFrame, #SETS)
 
 if not SETS[TradeGuideDB.selectedSet] then
     TradeGuideDB.selectedSet = 1
