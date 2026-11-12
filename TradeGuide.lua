@@ -3,7 +3,7 @@ guideFrame:SetWidth(750)
 guideFrame:SetHeight(800)
 guideFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -16)
 guideFrame:SetPortraitToAsset("Interface\\AddOns\\TradeGuide\\icon")
-guideFrame:SetTitle("PROFESSIONS LEVELING GUIDE")
+guideFrame:SetTitle("TRADESMAN'S GUIDE")
 guideFrame.Inset:ClearAllPoints()
 guideFrame.Inset:SetPoint("TOPLEFT", guideFrame, "TOPLEFT", 150, -60)
 guideFrame.Inset:SetPoint("BOTTOMRIGHT", guideFrame, "BOTTOMRIGHT", -6, 5)
@@ -497,8 +497,8 @@ if Alchemy and Alchemy.content then
     DisplayContent(Alchemy.content, Alchemy)
 end
 
-SLASH_PROFGUIDE1 = "/profguide"
-SLASH_PROFGUIDE2 = "/pg"
+SLASH_PROFGUIDE1 = "/tradeguide"
+SLASH_PROFGUIDE2 = "/tg"
 SlashCmdList["PROFGUIDE"] = function()
     ShowFrame()
 end
@@ -555,8 +555,8 @@ end)
 
 minimapButton:SetScript("OnEnter", function()
     GameTooltip:SetOwner(minimapButton, "ANCHOR_RIGHT")
-    GameTooltip:AddLine("Trader's Guide")
-    GameTooltip:AddLine("|cFF00FF00Left-click|r to open Trader's Guide Window", 1, 1, 1)
+    GameTooltip:AddLine("Tradesman's Guide")
+    GameTooltip:AddLine("|cFF00FF00Left-click|r to open Tradesman's Guide Window", 1, 1, 1)
     GameTooltip:AddLine("|cFF0080FFRight-click|r and drag to move", 1, 1, 1)
     GameTooltip:Show()
 end)
