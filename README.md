@@ -59,8 +59,8 @@ Usage
 Open the guide with either slash command:
 
 ```
-/pg
-/profguide
+/tg
+/tradeguide
 ```
 
 You can also click the minimap button. Left-click toggles the window, and right-click and drag moves the button.
