@@ -180,11 +180,19 @@ FirstAid = {
 "Requires: 20 |cFFFFFFFF[Runecloth]|r",
 "NOTE: Taught at 260 by the same trainers",
 "",
+"------------------------------------------------------------------------------------------------",
+"ACQUIRE:",
+"      |cFF1EFF00[Manual: Major Healing Potion]|r (8 Gold)",
+"WHERE:",
+"      |cFFFFD700[N]|r |cFF33FF99[Pexmit]|r / |cFF33FF99[Dae'gun, Mount Hyjal]|r",
+"NOTE: Pexmit spawns at several spots in Dae'gun and is usually a bit hidden. He has been",
+"found inside the fallen-over house and on the 2nd floor of a small hut.",
+"NOTE: A |cFFFFFFFF/target Pexmit|r macro helps you spot him as you walk around.",
+"NOTE: Also a reward from |cFFFFD700[! A Rest Without Pain]|r in Elderwild, Mount Hyjal.",
+"------------------------------------------------------------------------------------------------",
 "[|cFF33FFFF275-300|r]",
 "Craft: 30x |cFFFFFFFF[Major Healing Potion]|r",
 "Requires: 30 |cFFFFFFFF[Golden Sansam]|r, 90 |cFF9D9D9D[Soothing Spices]|r, 30 |cFF9D9D9D[Crystal Vial]|r",
-"NOTE: Requires |cFF1EFF00[Manual: Major Healing Potion]|r, sold by |cFF33FF99[Pexmit]|r in",
-"|cFF33FF99[Mount Hyjal]|r; also a reward from |cFFFFD700[! A Rest Without Pain]|r in Elderwild, Mount Hyjal.",
 "------------------------------------------------------------------------------------------------"
   }
 }
