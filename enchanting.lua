@@ -52,7 +52,7 @@ content = {
 "------------------------------------------------------------------------------------------------",
 "TRAIN:",
 "      |cFF1EFF00[Apprentice Enchanter]|r (No level/skill requirement; Raises Cap [0] > [75])",
-"      Also requires: 10 Silver",
+"      Also requires: 10 Copper",
 "      NOTE: SOURCE: wow-professions.com's Forever guide. Apprentice has",
 "      no level/skill requirement; you must now visit a trainer for it",
 "      instead of learning it automatically as in Vanilla.",
