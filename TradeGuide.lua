@@ -176,6 +176,18 @@ local function NewGatheringGuide(globalName, layout)
         ui.navButtons = {}
     end
 
+    local function ShowMap(mapData)
+        local height = layout.mapHeight
+        if type(mapData) == "table" and mapData.aspect then
+            height = math.floor(524 / mapData.aspect) + 6
+        end
+        ui.mapFrame:SetHeight(height)
+        ui.mapFrame.canvas:SetHeight(height - 6)
+        DisplayMap(ui.mapFrame, mapData)
+        contentChild:SetHeight(math.abs(ui.mapTop) + height + 20)
+        contentFrame:UpdateScrollChildRect()
+    end
+
     local function ShowSection(sectionIndex)
         local data = _G[globalName]
         if not data or not data.sections then
@@ -200,10 +212,11 @@ local function NewGatheringGuide(globalName, layout)
 
         ui.textFrame:SetText(section.title .. "\n\n" .. section.description)
 
-        if section.zones and #section.zones > 0 then
-            ui.mapFrame:Show()
+        local y = -40 - ui.textFrame:GetStringHeight() - 14
+        local hasZones = section.zones and #section.zones > 0
+
+        if hasZones then
             local xOffset = 20
-            local yOffset = layout.zoneY
             local buttonWidth = 165
             local buttonSpacing = 5
             local maxWidth = 540
@@ -211,18 +224,18 @@ local function NewGatheringGuide(globalName, layout)
             for _, zone in ipairs(section.zones) do
                 if xOffset + buttonWidth > maxWidth then
                     xOffset = 20
-                    yOffset = yOffset - 30
+                    y = y - 27
                 end
 
                 local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
                 btn:SetWidth(buttonWidth)
                 btn:SetHeight(22)
-                btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, yOffset)
+                btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, y)
                 btn:SetText(zone.name)
                 btn.mapPath = zone.map
 
                 btn:SetScript("OnClick", function(self)
-                    DisplayMap(ui.mapFrame, self.mapPath)
+                    ShowMap(self.mapPath)
                 end)
 
                 btn:Show()
@@ -230,11 +243,29 @@ local function NewGatheringGuide(globalName, layout)
 
                 xOffset = xOffset + buttonWidth + buttonSpacing
             end
+            y = y - 36
+        end
 
-            DisplayMap(ui.mapFrame, section.zones[1].map)
+        ui.prevButton:ClearAllPoints()
+        ui.prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
+        ui.nextButton:ClearAllPoints()
+        ui.nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, y)
+        ui.sectionIndicator:ClearAllPoints()
+        ui.sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, y - 5)
+        y = y - 32
+
+        ui.mapTop = y
+        if hasZones then
+            ui.mapFrame:ClearAllPoints()
+            ui.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
+            ui.mapFrame:Show()
+            ShowMap(section.zones[1].map)
         else
             ui.mapFrame:Hide()
+            contentChild:SetHeight(math.abs(y) + 20)
+            contentFrame:UpdateScrollChildRect()
         end
+        contentFrame:SetVerticalScroll(0)
     end
 
     function guide.display()
@@ -272,7 +303,7 @@ local function NewGatheringGuide(globalName, layout)
             ui.mapFrame = CreateFrame("Frame", nil, contentChild, "InsetFrameTemplate")
             ui.mapFrame:SetWidth(530)
             ui.mapFrame:SetHeight(layout.mapHeight)
-            ui.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, layout.mapY)
+            ui.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -80)
             ui.mapFrame.canvas = CreateFrame("Frame", nil, ui.mapFrame)
             ui.mapFrame.canvas:SetPoint("TOPLEFT", ui.mapFrame, "TOPLEFT", 3, -3)
             ui.mapFrame.canvas:SetWidth(524)
@@ -283,7 +314,7 @@ local function NewGatheringGuide(globalName, layout)
         local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
         prevButton:SetWidth(100)
         prevButton:SetHeight(22)
-        prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, layout.navY)
+        prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -50)
         prevButton:SetText("<< Previous")
         prevButton:SetScript("OnClick", function()
             if ui.currentSection > 1 then
@@ -296,7 +327,7 @@ local function NewGatheringGuide(globalName, layout)
         local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
         nextButton:SetWidth(100)
         nextButton:SetHeight(22)
-        nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, layout.navY)
+        nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -50)
         nextButton:SetText("Next >>")
         nextButton:SetScript("OnClick", function()
             if ui.currentSection < #data.sections then
@@ -307,33 +338,32 @@ local function NewGatheringGuide(globalName, layout)
         table.insert(ui.navButtons, nextButton)
 
         local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, layout.navY - 5)
+        sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -55)
         sectionIndicator:SetText("Section " .. ui.currentSection .. " of " .. #data.sections)
         ui.sectionIndicator = sectionIndicator
+        ui.prevButton = prevButton
+        ui.nextButton = nextButton
 
         ui.textFrame:Show()
         ui.mapFrame:Show()
 
         ShowSection(1)
-
-        contentChild:SetHeight(1000)
-        contentFrame:UpdateScrollChildRect()
     end
 
     table.insert(gatherGuides, guide)
     return guide
 end
 
-local herbalismGuide = NewGatheringGuide("Herbalism", { zoneY = -480, navY = -550, mapY = -580, mapHeight = 400 })
-local miningGuide = NewGatheringGuide("Mining", { zoneY = -550, navY = -620, mapY = -650, mapHeight = 400 })
-local skinningGuide = NewGatheringGuide("Skinning", { zoneY = -480, navY = -550, mapY = -580, mapHeight = 355 })
+local herbalismGuide = NewGatheringGuide("Herbalism", { mapHeight = 355 })
+local miningGuide = NewGatheringGuide("Mining", { mapHeight = 355 })
+local skinningGuide = NewGatheringGuide("Skinning", { mapHeight = 355 })
 
 local SETS = {
     {
         tab = "Forever Updated",
         tabName = "ForeverTabButton",
-        tip = "Guides verified or sourced specifically for Forever",
-        gathering = { "Skinning" },
+        tip = "Guides sourced specifically for Forever",
+        gathering = { "Herbalism", "Mining", "Skinning" },
         crafting = {
             { "Alchemy", "Alchemy" },
             { "Blacksmithing", "Blacksmithing" },
@@ -344,17 +374,12 @@ local SETS = {
             { "Fishing", "Fishing" },
             { "FishingCooking", "Fishing+Cooking" },
             { "Leatherworking", "Leatherworking" },
+            { "Lockpicking", "Lockpicking" },
             { "Tailoring", "Tailoring" },
             { "Camping", "Camping" },
+            { "MerchantsFavor", "Merchant's Favor" },
         },
         craftingDividerBefore = "Camping",
-    },
-    {
-        tab = "Classic (Pending)",
-        tabName = "ClassicTabButton",
-        tip = "Carried over from Classic, pending confirmation for Forever",
-        gathering = { "Herbalism", "Mining" },
-        crafting = {},
     },
 }
 
@@ -409,7 +434,9 @@ local function SelectSet(index)
             frame:Hide()
         end
     end
-    PanelTemplates_SetTab(guideFrame, index)
+    if #SETS > 1 then
+        PanelTemplates_SetTab(guideFrame, index)
+    end
 end
 
 for index, set in ipairs(SETS) do
@@ -421,68 +448,58 @@ for index, set in ipairs(SETS) do
 
     local y = -80
     AddHeader(frame, "GATHERING:", y)
-    y = y - 40
-    if #set.gathering == 0 then
-        local none = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        none:SetPoint("TOP", frame, "TOPLEFT", 80, y - 8)
-        none:SetText("None yet")
-        none:SetTextColor(0.6, 0.6, 0.6)
-        y = y - 40
-    end
+    y = y - 34
     for _, name in ipairs(set.gathering) do
         AddButton(frame, name .. "Button", name, y, gatherActions[name])
-        y = y - 40
+        y = y - 28
     end
 
     y = y - 10
     AddHeader(frame, "CRAFTING:", y)
-    y = y - 40
-    if #set.crafting == 0 then
-        local none = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
-        none:SetPoint("TOP", frame, "TOPLEFT", 80, y - 8)
-        none:SetText("None yet")
-        none:SetTextColor(0.6, 0.6, 0.6)
-        y = y - 40
-    end
+    y = y - 34
     for _, entry in ipairs(set.crafting) do
         local globalName = entry[1]
         if set.craftingDividerBefore == globalName then
-            y = y - 14
+            y = y - 8
             local divider = frame:CreateTexture(nil, "ARTWORK")
             divider:SetColorTexture(0.5, 0.5, 0.5, 0.6)
             divider:SetWidth(120)
             divider:SetHeight(1)
-            divider:SetPoint("TOP", frame, "TOPLEFT", 80, y - 6)
-            y = y - 20
+            divider:SetPoint("TOP", frame, "TOPLEFT", 80, y)
+            y = y - 12
         end
         AddButton(frame, globalName .. "Button", entry[2], y, function()
             ShowCraft(globalName)
         end)
-        y = y - 40
+        y = y - 28
     end
 
-    local tab = CreateFrame("Button", set.tabName, guideFrame, "PanelTabButtonTemplate")
-    tab:SetID(index)
-    if index == 1 then
-        tab:SetPoint("TOPLEFT", guideFrame, "BOTTOMLEFT", 11, 2)
+    if #SETS > 1 then
+        local tab = CreateFrame("Button", set.tabName, guideFrame, "PanelTabButtonTemplate")
+        tab:SetID(index)
+        if index == 1 then
+            tab:SetPoint("TOPLEFT", guideFrame, "BOTTOMLEFT", 11, 2)
+        end
+        tab:SetText(set.tab)
+        tab:SetScript("OnClick", function()
+            SelectSet(index)
+            TradeGuideDB.selectedSet = index
+        end)
+        tab:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText(set.tip)
+            GameTooltip:Show()
+        end)
+        tab:SetScript("OnLeave", function()
+            GameTooltip:Hide()
+        end)
+        tabButtons[index] = tab
     end
-    tab:SetText(set.tab)
-    tab:SetScript("OnClick", function()
-        SelectSet(index)
-        TradeGuideDB.selectedSet = index
-    end)
-    tab:SetScript("OnEnter", function(self)
-        GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-        GameTooltip:SetText(set.tip)
-        GameTooltip:Show()
-    end)
-    tab:SetScript("OnLeave", function()
-        GameTooltip:Hide()
-    end)
-    tabButtons[index] = tab
 end
 
-PanelTemplates_SetNumTabs(guideFrame, #SETS)
+if #SETS > 1 then
+    PanelTemplates_SetNumTabs(guideFrame, #SETS)
+end
 
 if not SETS[TradeGuideDB.selectedSet] then
     TradeGuideDB.selectedSet = 1

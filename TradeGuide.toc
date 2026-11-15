@@ -16,7 +16,9 @@ firstaid.lua
 fishing.lua
 fishingcooking.lua
 leatherworking.lua
+lockpicking.lua
 tailoring.lua
+merchantsfavor.lua
 herbalism.lua
 mining.lua
 skinning.lua
