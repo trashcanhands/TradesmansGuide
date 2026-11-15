@@ -128,9 +128,13 @@ local function DisplayContent(contentTable, professionData)
         line:Show()
         
         table.insert(textLines, line)
-        yOffset = yOffset - 13
+        local lineHeight = line:GetStringHeight()
+        if lineHeight < 13 then
+            lineHeight = 13
+        end
+        yOffset = yOffset - lineHeight
     end
-    
+
     contentChild:SetHeight(math.abs(yOffset) + 20)
     contentFrame:UpdateScrollChildRect()
 end
