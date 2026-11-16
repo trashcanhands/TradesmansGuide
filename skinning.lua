@@ -54,6 +54,8 @@ ZONE OPTIONS:
       Scytheclaws, Zhevra Chargers and Ornery Plainstriders. Skin the level 16-17 mobs
       until 80, then the level 18 mobs too. You can stay until 150: the last 10 points
       are green, but respawns are fast.
+      |cFFFF0000[H]|r only: pick up |cFFFFFFFF[Keen Skinning Knife]|r (+3 Skinning) from the quest
+      |cFFFFD700[! Unwelcome Guests]|r in The Barrens.
 |cFF33FF99Loch Modan|r [75-125] - Skin Elder Mountain Boars and Black Bear Patriarchs (level
       16-17). Loch Crocolisks are skinnable too; pull them at the shore. At about 125
       head north to the Wetlands.

@@ -129,6 +129,7 @@ content = {
 "Craft: 25x |cFFFFFFFF[Bronze Tube]|r",
 "Requires: 50 |cFFFFFFFF[Bronze Bar]|r, 25 |cFF9D9D9D[Weak Flux]|r",
 "NOTE: Weak Flux sold by Engineering Supply vendors near your trainer",
+"NOTE: Keep 10 of these for the Standard Scope at 125",
 "",
 "[|cFF33FFFF125-135|r]",
 "Craft: 10x |cFFFFFFFF[Standard Scope]|r",

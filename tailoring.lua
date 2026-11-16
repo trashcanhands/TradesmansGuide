@@ -235,8 +235,9 @@ content = {
 "      Requires: 348 |cFFFFFFFF[Bolt of Runecloth]|r, 232 |cFFFFFFFF[Dream Dust]|r, 58 |cFF00FF00[Star Ruby]|r",
 "NOTE: Pattern is rare, grab it off the Auction House if you see it.",
 "",
-"NOTE: wow-professions.com says these are the only recipes it has found so far",
-"that still give points past 280; there may be more not yet discovered.",
+"NOTE: wow-professions.com lists these as the recipes it found that reach 300. It also",
+"found Runecloth Headband and Runecloth Cuffs (both 42x, 280-290) but left them out",
+"here since they stop giving points before 300. There may be more not yet discovered.",
 "------------------------------------------------------------------------------------------------",
 }
 }
