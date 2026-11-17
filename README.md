@@ -34,20 +34,22 @@ AddOns/
   TradeGuide/
     TradeGuide.toc
     TradeGuide.lua
-    alchemy.lua
-    blacksmithing.lua
-    camping.lua
-    cooking.lua
-    enchanting.lua
-    engineering.lua
-    firstaid.lua
-    fishing.lua
-    fishingcooking.lua
-    herbalism.lua
-    leatherworking.lua
-    mining.lua
-    skinning.lua
-    tailoring.lua
+	alchemy.lua
+	blacksmithing.lua
+	camping.lua
+	cooking.lua
+	enchanting.lua
+	engineering.lua
+	firstaid.lua
+	fishing.lua
+	fishingcooking.lua
+	leatherworking.lua
+	lockpicking.lua
+	tailoring.lua
+	merchantsfavor.lua
+	herbalism.lua
+	mining.lua
+	skinning.lua
     Maps/
       Herbalism/
       Mining/
@@ -78,7 +80,7 @@ Notes
 - wow-professions.com is this guide's primary source of truth. Until the official wiki covers Forever, every crafting page (Alchemy, Blacksmithing, Camping, Cooking, Enchanting, Engineering, First Aid, Fishing, Fishing+Cooking, Leatherworking, Tailoring) is built from wow-professions.com's Forever leveling guides. Every section is stamped in-game: VERIFIED means the content matches wow-professions.com's Forever guide. UNVERIFIED means wow-professions.com itself calls that range untested in the Forever beta, and the route shown is a Classic-era carryover until it's confirmed.
 - Herbalism and Mining have no Forever guide on wow-professions.com yet, so those two pages use wow-professions.com's Classic guide instead, stamped SOURCE: wow-professions.com (Classic guide). Gathering node placements appear to have changed in Forever versus Classic, so the bundled farming route maps for these two professions aren't confirmed accurate yet - new maps will need to be built from scratch once the actual Forever node layout is known. Until then, both pages live on the Classic (Pending) tab.
 - Skinning has no guide of any kind on wow-professions.com, but its route and farming maps come from Wowhead's dedicated WoW: Forever Skinning guide (wowhead.com/forever) rather than a Classic one - that source already reflects Forever's node layout, so despite not being wow-professions.com-sourced, Skinning stays on the Forever Updated tab, stamped VERIFIED: Wowhead Forever guide.
-- This guide was originally written for Turtle WoW. Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
+- This guide was originally written for Turtle WoW (Rest In Peace). Recipe, vendor and zone details may differ on Forever, so double-check anything that looks off.
 - The original Turtle WoW (1.12) version is preserved in the git history at commit `7edd6c0`. It uses a different API and will not load on Forever. RIP.
 
  Author
