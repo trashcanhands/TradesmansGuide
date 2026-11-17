@@ -17,9 +17,8 @@ Features
 
 Installation
 
-1. Download this repository (Code > Download ZIP) or clone it.
-2. Make sure the folder is named exactly `TradeGuide`. Not `TradesmansGuide`, and not a folder nested inside another folder. The map images load from `Interface\AddOns\TradeGuide\Maps`, so the name matters.
-3. Put the `TradeGuide` folder in your AddOns directory. For the Forever beta that is:
+1. Download the latest release
+2. Put the `TradeGuide` folder from the zip file in your AddOns directory. For Forever that is:
 
 ```
 World of Warcraft/_forever_/Interface/AddOns/TradeGuide
