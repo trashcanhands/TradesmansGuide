@@ -226,6 +226,33 @@ Skill bonuses:
       Cooking 175: take the left path at the start, go to the stables at the end,
       break the walls and talk to him.
 ------------------------------------------------------------------------------------------------]]
+        },
+        {
+            title = "Forever Additions  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
+            description = [[------------------------------------------------------------------------------------------------
+New Herbs:
+|cFFFFFFFF[Marefoil]|r, |cFFFFFFFF[Demonsage]|r, |cFFFFFFFF[Death Lotus]|r, |cFFFFFFFF[Frilled Lichen]|r,
+|cFFFFFFFF[Rosecap]|r, and |cFFFFFFFF[Stranglevine]|r.
+
+Death Lotus can be found on any herb in Mount Hyjal while wearing the Lotus
+Claw glove enchant. Frilled Lichen comes from Earthroot, Mageroyal,
+Briarthorn or Stranglekelp; Rosecap from Kingsblood, Fadeleaf or Goldthorn
+(the site says probably a few more). Marefoil, Demonsage and Stranglevine's
+locations are not yet known.
+
+NOTE: the site states three of these six are "Scarce" materials - a chance
+to get one while picking other herbs, rather than being picked directly -
+but does not say which three.
+
+Herb Seeds (found while picking herbs; plant in a Greenhouse or combine in
+a Seed Hybridizer): Commonplace, Uncommon, Unusual, Scarce.
+
+Camping items for Campfires:
+      |cFFFFFFFF[Incense Candle]|r: skill 20, from the trainer
+      |cFFFFFFFF[Greenhouse]|r: skill 140, blueprint dropped by |cFF33FF99[Shadetooth]|r /
+      |cFF33FF99[Excavation Site, Wetlands]|r
+      |cFFFFFFFF[Seed Hybridizer]|r: skill 300, from a Blueprint (drop source not yet known)
+------------------------------------------------------------------------------------------------]]
         }
     }
 }

@@ -275,6 +275,35 @@ Skill bonuses:
 |cFF66B2FF[A]|r only: |cFFFFFFFF[Twilight Mine Light]|r +4, reward from the quest |cFFFFD700[! A Miner Problem]|r in Riverglades
 A +5 bonus lets you mine Iron Deposits at 120 instead of 125.
 ------------------------------------------------------------------------------------------------]]
+        },
+        {
+            title = "Forever Additions  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
+            description = [[------------------------------------------------------------------------------------------------
+New Ore:
+|cFFFFFFFF[Heavy Thorium Ore]|r comes from |cFF1EFF00[Heavy Thorium Vein]|r, a rare spawn
+in Mount Hyjal.
+
+Scarce Materials:
+|cFFFFFFFF[Pyrite]|r (from Copper/Tin/Iron veins), |cFFFFFFFF[Bauxite]|r (from Mithril veins),
+and |cFFFFFFFF[Pitchblende]|r (from Thorium veins) - a chance to get one while mining
+the listed veins, rather than being mined directly.
+
+New Bars:
+|cFFFFFFFF[Heavy Thorium Bar]|r: smelted from Heavy Thorium Ore at a Molten Foundry,
+skill 300.
+|cFFFFFFFF[Azerothium Bar]|r: smelted from Pitchblende at a Forge, skill 275.
+NOTE: Alchemists can transmute Heavy Thorium Bar into the existing Legionite Bar.
+
+Other new spawns: Poor Copper Veins in the starting areas; Chunks of Amber
+on Teldrassil.
+
+Camping items for Campfires:
+      |cFFFFFFFF[Lodestone]|r: skill 20, from the trainer
+      |cFFFFFFFF[Rock Garden]|r: skill 140, blueprint dropped by |cFF33FF99[Relic Guardian]|r /
+      |cFF33FF99[Excavation Site, Wetlands]|r
+      |cFFFFFFFF[Molten Foundry]|r: skill 300, blueprint dropped by |cFF33FF99[Ambassador Flamelash]|r /
+      |cFF33FF99[Blackrock Depths]|r (also in camping.lua)
+------------------------------------------------------------------------------------------------]]
         }
     }
 }

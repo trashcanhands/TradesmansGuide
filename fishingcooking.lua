@@ -156,7 +156,7 @@ FishingCooking = {
 "------------------------------------------------------------------------------------------------",
 "|cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
 "",
-"1. If out of Nightcrawlers, buy 5 from |cFF33FF99[Kilxx]|r (The Barrens) or",
+"1. If out of Nightcrawlers, buy 5 from |cFF33FF99[Kilxx]|r (Ratchet, The Barrens) or",
 "      |cFF33FF99[Helenia Olden]|r (Dustwallow Marsh)",
 "2. Fish inland open water in |cFF33FF99[Dustwallow Marsh]|r until Fishing 225, with a Nightcrawler on",
 "      your pole at all times (fish escape until 225); don't fish the ocean",
