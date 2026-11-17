@@ -159,6 +159,7 @@ Cooking = {
 "",
 "Craft: |cFFFFFFFF[Cooked Crab Claw]|r",
 "Requires: 35 |cFFFFFFFF[Crawler Claw]|r, 35 |cFF9D9D9D[Mild Spices]|r",
+"NOTE: Sold by Cooking Supply vendors near your trainer; skip the Auction House.",
 "NOTE: Recipe from |cFF66B2FF[A]|r |cFF33FF99[Kendor Kabonka]|r / |cFF33FF99[Stormwind City, Elwynn Forest]|r (Alliance only)",
 "",
 "------------------------------------------------------------------------------------------------",

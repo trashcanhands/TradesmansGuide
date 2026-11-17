@@ -108,6 +108,7 @@ character.
             title = "Levels: [125-175]  |cFFFF8000UNVERIFIED: wow-professions.com route, not yet tested on live|r",
             description = [[------------------------------------------------------------------------------------------------
 NOTE: The site could not test Arathi Highlands or Desolace: the beta level cap was 30.
+It plans to revise this section after leveling higher on live.
 ------------------------------------------------------------------------------------------------
 Ore List:
 |cFFFFFFFF[Iron Deposit]|r (Mining 125)

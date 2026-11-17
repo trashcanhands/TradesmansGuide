@@ -157,7 +157,7 @@ FirstAid = {
 "WHERE:",
 "      |cFFFF0000[H]|r |cFF33FF99[Doctor Gregory Victor]|r / |cFF33FF99[Hammerfall, Arathi Highlands]|r",
 "",
-"      |cFF66B2FF[A]|r |cFF33FF99[Doctor Gustaf VanHowzen]|r / |cFF33FF99[Foothold Citadel, Dustwallow Marsh]|r",
+"      |cFF66B2FF[A]|r |cFF33FF99[Doctor Gustaf VanHowzen]|r / |cFF33FF99[Theramore Isle, Dustwallow Marsh]|r",
 "NOTE: Save 15 patients and turn the quest in immediately on completion,",
 "using the Triage Bandages it provides, or it can be failed.",
 "------------------------------------------------------------------------------------------------",
