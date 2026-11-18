@@ -18,7 +18,7 @@ NOTE: SOURCE: wow-professions.com's Forever guide, which is based on the Forever
 The site has not yet tested the higher levels on live.
 ------------------------------------------------------------------------------------------------
 TRAIN: |cFF1EFF00[Apprentice Skinning]|r (10 Copper)
-      |cFFFF0000[H]|r |cFF33FF99[Kagil]|r / |cFF33FF99[Valley of Trials, Durotar]|r
+      |cFFFF0000[H]|r |cFF33FF99[Kagil]|r / |cFF33FF99[The Den, Durotar]|r
       |cFFFF0000[H]|r |cFF33FF99[Nawka Wildsong]|r / |cFF33FF99[Camp Narache, Mulgore]|r
       |cFFFF0000[H]|r |cFF33FF99[Margaret Weaver]|r / |cFF33FF99[Deathknell, Tirisfal Glades]|r
 
@@ -155,7 +155,8 @@ Drop rates and requirements are unknown.
 Camping items for Campfires:
       |cFFFFFFFF[Camp Chair]|r: skill 20, from the trainer
       |cFFFFFFFF[Field Guide]|r: skill 140, drops from Lady Anacondra in Wailing Caverns
-      |cFFFFFFFF[Trapper's Workbench]|r: skill 300, from a Blueprint
+      |cFFFFFFFF[Trapper's Workbench]|r: skill 300, Blueprint dropped by The Beast
+      in Upper Blackrock Spire or Houndmaster Loksey in Scarlet Monastery
 
 Skinning Legacy Perks:
 |cFF1EFF00[Bountiful Harvest]|r (5 ranks): +20% Scarce materials from
