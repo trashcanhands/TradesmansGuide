@@ -106,9 +106,13 @@ local function DisplayMap(mapFrame, mapData)
     end
 end
 
+local function IsSeparatorLine(text)
+    return type(text) == "string" and text:match("^%-%-+$") ~= nil
+end
+
 local function DisplayContent(contentTable, professionData)
     ClearContent()
-    
+
     -- Set header if it exists
     if professionData.headerText then
         headerText:SetText(professionData.headerText)
@@ -116,29 +120,81 @@ local function DisplayContent(contentTable, professionData)
     else
         headerText:Hide()
     end
-    
-    local yOffset = -40
-    for i, text in ipairs(contentTable) do
-        local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
-        line:SetWidth(530)
-        line:SetJustifyH("LEFT")
-        line:SetText(text)
-        line:SetTextColor(1, 1, 0.6)
-        line:Show()
 
-        table.insert(textLines, line)
-        local lineHeight = line:GetStringHeight()
-        local minHeight = 15
-        if text == "" then
-            minHeight = 24
-        elseif text:match("^%-%-+$") then
-            minHeight = 19
+    local yOffset = -40
+    local i = 1
+    local total = #contentTable
+    while i <= total do
+        local text = contentTable[i]
+        local nextLine = contentTable[i + 1]
+        local afterNext = contentTable[i + 2]
+        local isBanner = IsSeparatorLine(text) and IsSeparatorLine(afterNext)
+            and type(nextLine) == "string" and nextLine ~= "" and not IsSeparatorLine(nextLine)
+
+        if isBanner then
+            local barHeight = 22
+
+            local bar = contentChild:CreateTexture(nil, "BACKGROUND")
+            bar:SetColorTexture(0, 0, 0, 0.45)
+            bar:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
+            bar:SetWidth(530)
+            bar:SetHeight(barHeight)
+            table.insert(textLines, bar)
+
+            local topBorder = contentChild:CreateTexture(nil, "ARTWORK")
+            topBorder:SetColorTexture(1, 0.82, 0, 0.7)
+            topBorder:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 0, 0)
+            topBorder:SetWidth(530)
+            topBorder:SetHeight(1)
+            table.insert(textLines, topBorder)
+
+            local bottomBorder = contentChild:CreateTexture(nil, "ARTWORK")
+            bottomBorder:SetColorTexture(1, 0.82, 0, 0.7)
+            bottomBorder:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, 0)
+            bottomBorder:SetWidth(530)
+            bottomBorder:SetHeight(1)
+            table.insert(textLines, bottomBorder)
+
+            local label = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            label:SetPoint("LEFT", bar, "LEFT", 8, 0)
+            label:SetText(nextLine)
+            label:SetTextColor(1, 1, 1)
+            label:Show()
+            table.insert(textLines, label)
+
+            yOffset = yOffset - barHeight - 6
+            i = i + 3
+        elseif IsSeparatorLine(text) then
+            local rule = contentChild:CreateTexture(nil, "ARTWORK")
+            rule:SetColorTexture(1, 0.82, 0, 0.6)
+            rule:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset - 6)
+            rule:SetWidth(530)
+            rule:SetHeight(1)
+            table.insert(textLines, rule)
+
+            yOffset = yOffset - 13
+            i = i + 1
+        else
+            local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
+            line:SetWidth(530)
+            line:SetJustifyH("LEFT")
+            line:SetText(text)
+            line:SetTextColor(1, 1, 0.6)
+            line:Show()
+
+            table.insert(textLines, line)
+            local lineHeight = line:GetStringHeight()
+            local minHeight = 15
+            if text == "" then
+                minHeight = 24
+            end
+            if lineHeight < minHeight then
+                lineHeight = minHeight
+            end
+            yOffset = yOffset - lineHeight
+            i = i + 1
         end
-        if lineHeight < minHeight then
-            lineHeight = minHeight
-        end
-        yOffset = yOffset - lineHeight
     end
 
     contentChild:SetHeight(math.abs(yOffset) + 20)
