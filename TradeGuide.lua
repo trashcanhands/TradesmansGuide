@@ -155,6 +155,17 @@ local function IsLevelsBannerStart(contentTable, i)
     return b:find("Levels:", 1, true) ~= nil
 end
 
+local function IsAnyBannerStart(contentTable, i)
+    local a, b, c = contentTable[i], contentTable[i + 1], contentTable[i + 2]
+    if not (IsSeparatorLine(a) and IsSeparatorLine(c)) then
+        return false
+    end
+    if type(b) ~= "string" or IsSeparatorLine(b) or b == "" then
+        return false
+    end
+    return true
+end
+
 local function ExtractLevelsRangeLabel(bannerText)
     local clean = bannerText:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
     local lo, hi = clean:match("(%d+)%s*%-%s*(%d+)")
@@ -208,6 +219,16 @@ local function ComputeCraftPages(contentTable)
     local pageStarts = {}
     for _, b in ipairs(bannerStarts) do
         table.insert(pageStarts, pullTarget[b] or b)
+    end
+
+    if pageStarts[1] then
+        local back = pageStarts[1] - 1
+        while contentTable[back] == "" do
+            back = back - 1
+        end
+        if back >= 3 and IsAnyBannerStart(contentTable, back - 2) then
+            pageStarts[1] = back - 2
+        end
     end
 
     local pages = {}
