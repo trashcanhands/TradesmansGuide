@@ -47,12 +47,33 @@ headerText:SetText("")
 -- Store all text lines
 local textLines = {}
 
+local craftPrevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+craftPrevButton:SetWidth(100)
+craftPrevButton:SetHeight(22)
+craftPrevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -45)
+craftPrevButton:SetText("<< Previous")
+craftPrevButton:Hide()
+
+local craftNextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+craftNextButton:SetWidth(100)
+craftNextButton:SetHeight(22)
+craftNextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -10, -45)
+craftNextButton:SetText("Next >>")
+craftNextButton:Hide()
+
+local craftPageIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+craftPageIndicator:SetPoint("TOP", contentChild, "TOP", 0, -50)
+craftPageIndicator:Hide()
+
 -- Function to clear content
 local function ClearContent()
     for i, line in ipairs(textLines) do
         line:Hide()
     end
     textLines = {}
+    craftPrevButton:Hide()
+    craftNextButton:Hide()
+    craftPageIndicator:Hide()
 end
 
 -- Helper function to display maps (handles both single and multi-tile)
@@ -110,7 +131,81 @@ local function IsSeparatorLine(text)
     return type(text) == "string" and text:match("^%-%-+$") ~= nil
 end
 
-local function DisplayContent(contentTable, professionData)
+local function IsLevelsBannerStart(contentTable, i)
+    local a, b, c = contentTable[i], contentTable[i + 1], contentTable[i + 2]
+    if not (IsSeparatorLine(a) and IsSeparatorLine(c)) then
+        return false
+    end
+    if type(b) ~= "string" or IsSeparatorLine(b) or b == "" then
+        return false
+    end
+    return b:find("Levels:", 1, true) ~= nil
+end
+
+local function ComputeCraftPages(contentTable)
+    local total = #contentTable
+    local bannerStarts = {}
+    for i = 1, total do
+        if IsLevelsBannerStart(contentTable, i) then
+            table.insert(bannerStarts, i)
+        end
+    end
+
+    if #bannerStarts == 0 then
+        return nil
+    end
+
+    local pullTarget = {}
+    for i = 1, total do
+        if contentTable[i] == "TRAIN:" then
+            local closeIdx = nil
+            for j = i + 1, total do
+                if IsSeparatorLine(contentTable[j]) then
+                    closeIdx = j
+                    break
+                end
+            end
+            if closeIdx then
+                local d = closeIdx + 1
+                while contentTable[d] == "" do
+                    d = d + 1
+                end
+                for _, b in ipairs(bannerStarts) do
+                    if d == b then
+                        pullTarget[b] = pullTarget[b] and math.min(pullTarget[b], i - 1) or (i - 1)
+                    end
+                end
+            end
+        end
+    end
+
+    local pageStarts = {}
+    for _, b in ipairs(bannerStarts) do
+        table.insert(pageStarts, pullTarget[b] or b)
+    end
+
+    local pages = {}
+    if pageStarts[1] > 1 then
+        local overview = {}
+        for i = 1, pageStarts[1] - 1 do
+            table.insert(overview, contentTable[i])
+        end
+        table.insert(pages, overview)
+    end
+
+    for k, s in ipairs(pageStarts) do
+        local e = (pageStarts[k + 1] or (total + 1)) - 1
+        local page = {}
+        for i = s, e do
+            table.insert(page, contentTable[i])
+        end
+        table.insert(pages, page)
+    end
+
+    return pages
+end
+
+local function DisplayContent(contentTable, professionData, topOffset)
     ClearContent()
 
     -- Set header if it exists
@@ -121,7 +216,7 @@ local function DisplayContent(contentTable, professionData)
         headerText:Hide()
     end
 
-    local yOffset = -40
+    local yOffset = topOffset or -40
     local i = 1
     local total = #contentTable
     while i <= total do
@@ -449,15 +544,62 @@ local SETS = {
     },
 }
 
+local craftPageCache = {}
+local currentCraftProfession = nil
+
+local function ShowCraftPage(globalName, pageIndex)
+    local data = _G[globalName]
+    if not data or not data.content then
+        print("ERROR: " .. globalName .. " data not found!")
+        return
+    end
+
+    local cached = craftPageCache[globalName]
+    if not cached then
+        cached = ComputeCraftPages(data.content)
+        craftPageCache[globalName] = cached
+    end
+
+    currentCraftProfession = globalName
+
+    if not cached then
+        DisplayContent(data.content, data)
+        contentFrame:SetVerticalScroll(0)
+        return
+    end
+
+    if pageIndex < 1 then
+        pageIndex = 1
+    elseif pageIndex > #cached then
+        pageIndex = #cached
+    end
+
+    DisplayContent(cached[pageIndex], data, -70)
+    contentFrame:SetVerticalScroll(0)
+
+    craftPrevButton.pageIndex = pageIndex
+    craftNextButton.pageIndex = pageIndex
+    craftPrevButton:Show()
+    craftNextButton:Show()
+    craftPageIndicator:Show()
+    craftPageIndicator:SetText("Page " .. pageIndex .. " of " .. #cached)
+end
+
+craftPrevButton:SetScript("OnClick", function(self)
+    if currentCraftProfession then
+        ShowCraftPage(currentCraftProfession, (self.pageIndex or 1) - 1)
+    end
+end)
+
+craftNextButton:SetScript("OnClick", function(self)
+    if currentCraftProfession then
+        ShowCraftPage(currentCraftProfession, (self.pageIndex or 1) + 1)
+    end
+end)
+
 local function ShowCraft(globalName)
     ClearAllGathering()
-    contentFrame:SetVerticalScroll(0)
-    local data = _G[globalName]
-    if data and data.content then
-        DisplayContent(data.content, data)
-    else
-        print("ERROR: " .. globalName .. " data not found!")
-    end
+    ShowCraftPage(globalName, 1)
 end
 
 local gatherActions = {}
