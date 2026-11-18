@@ -144,6 +144,8 @@ end
 
 local WHERE_CHIP_PATTERN = "^%s*|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r%s*$"
 
+local BRACKET_BANNER_MARKERS = { "Levels:", "Fishing:", "Cooking:", "Fishing Quest", "Cooking Quest" }
+
 local function IsLevelsBannerStart(contentTable, i)
     local a, b, c = contentTable[i], contentTable[i + 1], contentTable[i + 2]
     if not (IsSeparatorLine(a) and IsSeparatorLine(c)) then
@@ -152,7 +154,12 @@ local function IsLevelsBannerStart(contentTable, i)
     if type(b) ~= "string" or IsSeparatorLine(b) or b == "" then
         return false
     end
-    return b:find("Levels:", 1, true) ~= nil
+    for _, marker in ipairs(BRACKET_BANNER_MARKERS) do
+        if b:find(marker, 1, true) then
+            return true
+        end
+    end
+    return false
 end
 
 local function IsAnyBannerStart(contentTable, i)
@@ -166,8 +173,44 @@ local function IsAnyBannerStart(contentTable, i)
     return true
 end
 
+local function ExtractRangeAfter(clean, marker)
+    local idx = clean:find(marker, 1, true)
+    if not idx then
+        return nil
+    end
+    local rest = clean:sub(idx + #marker)
+    local lo, hi = rest:match("(%d+)%s*%-%s*(%d+)")
+    if lo and hi then
+        return lo .. "-" .. hi
+    end
+    local single = rest:match("(%d+)")
+    if single then
+        return single
+    end
+    return nil
+end
+
 local function ExtractLevelsRangeLabel(bannerText)
     local clean = bannerText:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+
+    local fishingRange = ExtractRangeAfter(clean, "Fishing:")
+    local cookingRange = ExtractRangeAfter(clean, "Cooking:")
+
+    if fishingRange and cookingRange then
+        return "Fishing " .. fishingRange .. " / Cooking " .. cookingRange
+    elseif fishingRange then
+        return "Fishing " .. fishingRange
+    elseif cookingRange then
+        return "Cooking " .. cookingRange
+    end
+
+    if clean:find("Fishing Quest", 1, true) then
+        return "Fishing Quest"
+    end
+    if clean:find("Cooking Quest", 1, true) then
+        return "Cooking Quest"
+    end
+
     local lo, hi = clean:match("(%d+)%s*%-%s*(%d+)")
     if lo and hi then
         return "Levels " .. lo .. "-" .. hi
