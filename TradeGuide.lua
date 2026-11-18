@@ -1,5 +1,5 @@
 local guideFrame = CreateFrame("Frame", "GuideFrame", UIParent, "ButtonFrameTemplate")
-guideFrame:SetWidth(750)
+guideFrame:SetWidth(1050)
 guideFrame:SetHeight(800)
 guideFrame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 16, -16)
 guideFrame:SetPortraitToAsset("Interface\\AddOns\\TradeGuide\\icon")
@@ -35,7 +35,7 @@ contentFrame:SetPoint("BOTTOMRIGHT", guideFrame.Inset, "BOTTOMRIGHT", -24, 4)
 contentFrame.ScrollBar:SetHideIfUnscrollable(true)
 
 local contentChild = CreateFrame("Frame", "ProfGuideScrollChild", contentFrame)
-contentChild:SetWidth(550)
+contentChild:SetWidth(850)
 contentChild:SetHeight(500)
 contentFrame:SetScrollChild(contentChild)
 
@@ -137,21 +137,21 @@ local function DisplayContent(contentTable, professionData)
             local bar = contentChild:CreateTexture(nil, "BACKGROUND")
             bar:SetColorTexture(0, 0, 0, 0.45)
             bar:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
-            bar:SetWidth(530)
+            bar:SetWidth(830)
             bar:SetHeight(barHeight)
             table.insert(textLines, bar)
 
             local topBorder = contentChild:CreateTexture(nil, "ARTWORK")
             topBorder:SetColorTexture(1, 0.82, 0, 0.7)
             topBorder:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 0, 0)
-            topBorder:SetWidth(530)
+            topBorder:SetWidth(830)
             topBorder:SetHeight(1)
             table.insert(textLines, topBorder)
 
             local bottomBorder = contentChild:CreateTexture(nil, "ARTWORK")
             bottomBorder:SetColorTexture(1, 0.82, 0, 0.7)
             bottomBorder:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, 0)
-            bottomBorder:SetWidth(530)
+            bottomBorder:SetWidth(830)
             bottomBorder:SetHeight(1)
             table.insert(textLines, bottomBorder)
 
@@ -168,7 +168,7 @@ local function DisplayContent(contentTable, professionData)
             local rule = contentChild:CreateTexture(nil, "ARTWORK")
             rule:SetColorTexture(1, 0.82, 0, 0.6)
             rule:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset - 6)
-            rule:SetWidth(530)
+            rule:SetWidth(830)
             rule:SetHeight(1)
             table.insert(textLines, rule)
 
@@ -177,7 +177,7 @@ local function DisplayContent(contentTable, professionData)
         else
             local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
             line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
-            line:SetWidth(530)
+            line:SetWidth(830)
             line:SetJustifyH("LEFT")
             line:SetText(text)
             line:SetTextColor(1, 1, 0.6)
@@ -245,7 +245,7 @@ local function NewGatheringGuide(globalName, layout)
     local function ShowMap(mapData)
         local height = layout.mapHeight
         if type(mapData) == "table" and mapData.aspect then
-            height = math.floor(524 / mapData.aspect) + 6
+            height = math.floor(824 / mapData.aspect) + 6
         end
         ui.mapFrame:SetHeight(height)
         ui.mapFrame.canvas:SetHeight(height - 6)
@@ -285,7 +285,7 @@ local function NewGatheringGuide(globalName, layout)
             local xOffset = 20
             local buttonWidth = 165
             local buttonSpacing = 5
-            local maxWidth = 540
+            local maxWidth = 840
 
             for _, zone in ipairs(section.zones) do
                 if xOffset + buttonWidth > maxWidth then
@@ -360,19 +360,19 @@ local function NewGatheringGuide(globalName, layout)
         if not ui.textFrame then
             ui.textFrame = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
             ui.textFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -40)
-            ui.textFrame:SetWidth(530)
+            ui.textFrame:SetWidth(830)
             ui.textFrame:SetJustifyH("LEFT")
             ui.textFrame:SetJustifyV("TOP")
         end
 
         if not ui.mapFrame then
             ui.mapFrame = CreateFrame("Frame", nil, contentChild, "InsetFrameTemplate")
-            ui.mapFrame:SetWidth(530)
+            ui.mapFrame:SetWidth(830)
             ui.mapFrame:SetHeight(layout.mapHeight)
             ui.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -80)
             ui.mapFrame.canvas = CreateFrame("Frame", nil, ui.mapFrame)
             ui.mapFrame.canvas:SetPoint("TOPLEFT", ui.mapFrame, "TOPLEFT", 3, -3)
-            ui.mapFrame.canvas:SetWidth(524)
+            ui.mapFrame.canvas:SetWidth(824)
             ui.mapFrame.canvas:SetHeight(layout.mapHeight - 6)
             ui.mapFrame.textures = {}
         end
