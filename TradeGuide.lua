@@ -197,7 +197,7 @@ local function ExtractLevelsRangeLabel(bannerText)
     local cookingRange = ExtractRangeAfter(clean, "Cooking:")
 
     if fishingRange and cookingRange then
-        return "Fishing " .. fishingRange .. " / Cooking " .. cookingRange
+        return "F " .. fishingRange .. " / C " .. cookingRange
     elseif fishingRange then
         return "Fishing " .. fishingRange
     elseif cookingRange then
@@ -763,7 +763,12 @@ local function BuildCraftSidebar(globalName, labels, activeIndex)
         if not btn then
             btn = CreateFrame("Button", nil, craftSidebar, "UIPanelButtonTemplate")
             btn:SetWidth(craftSidebarWidth - 16)
-            btn:SetHeight(24)
+            btn:SetHeight(38)
+            local fs = btn:GetFontString()
+            if fs then
+                fs:SetWordWrap(true)
+                fs:SetWidth(craftSidebarWidth - 28)
+            end
             craftSidebarButtons[idx] = btn
         end
 
@@ -780,7 +785,7 @@ local function BuildCraftSidebar(globalName, labels, activeIndex)
         end
 
         btn:Show()
-        y = y - 28
+        y = y - 42
     end
 end
 
@@ -959,9 +964,43 @@ local function ShowFrame()
     guideFrame:Show()
 end
 
-if Alchemy and Alchemy.content then
-    DisplayContent(Alchemy.content, Alchemy)
+local HUB_CONTENT = {
+    "----------------------------------------------------------------------------------------------",
+    "WELCOME",
+    "----------------------------------------------------------------------------------------------",
+    "Pick a gathering or crafting profession from the sidebar on the left to get started.",
+    "",
+    "These guides are built specifically for Turtle WoW's |cFF1EFF00Forever|r ruleset, sourced from",
+    "wow-professions.com/forever and checked in-game.",
+    "",
+    "----------------------------------------------------------------------------------------------",
+    "GATHERING",
+    "----------------------------------------------------------------------------------------------",
+    "|cFF1EFF00Herbalism|r, |cFF1EFF00Mining|r, |cFF1EFF00Skinning|r",
+    "",
+    "----------------------------------------------------------------------------------------------",
+    "CRAFTING",
+    "----------------------------------------------------------------------------------------------",
+    "|cFF1EFF00Alchemy|r, |cFF1EFF00Blacksmithing|r, |cFF1EFF00Cooking|r, |cFF1EFF00Enchanting|r,",
+    "|cFF1EFF00Engineering|r, |cFF1EFF00First Aid|r, |cFF1EFF00Fishing|r, |cFF1EFF00Fishing+Cooking|r,",
+    "|cFF1EFF00Leatherworking|r, |cFF1EFF00Lockpicking|r, |cFF1EFF00Tailoring|r",
+    "",
+    "----------------------------------------------------------------------------------------------",
+    "CAMPING & REPUTATION",
+    "----------------------------------------------------------------------------------------------",
+    "|cFF1EFF00Camping|r, |cFF1EFF00Merchant's Favor|r",
+}
+
+local HUB_DATA = { headerText = "TRADESMAN'S GUIDE" }
+
+local function ShowHub()
+    ClearAllGathering()
+    currentCraftProfession = nil
+    DisplayContent(HUB_CONTENT, HUB_DATA)
+    BuildCraftSidebar(nil, nil, nil)
 end
+
+ShowHub()
 
 SLASH_PROFGUIDE1 = "/tradeguide"
 SLASH_PROFGUIDE2 = "/tg"
