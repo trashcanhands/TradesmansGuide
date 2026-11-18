@@ -417,10 +417,10 @@ local function AddHeader(parent, text, y)
     label:SetPoint("TOP", parent, "TOPLEFT", 80, y)
     label:SetText(text)
     local rule = parent:CreateTexture(nil, "ARTWORK")
-    rule:SetColorTexture(1, 0.82, 0, 0.5)
+    rule:SetTexture("Interface\\Common\\UI-TooltipDivider-Transparent")
     rule:SetWidth(120)
-    rule:SetHeight(1)
-    rule:SetPoint("TOP", parent, "TOPLEFT", 80, y - 18)
+    rule:SetHeight(8)
+    rule:SetPoint("TOP", parent, "TOPLEFT", 80, y - 16)
 end
 
 local function AddButton(parent, name, text, y, onClick)
@@ -472,10 +472,10 @@ for index, set in ipairs(SETS) do
         if set.craftingDividerBefore == globalName then
             y = y - 8
             local divider = frame:CreateTexture(nil, "ARTWORK")
-            divider:SetColorTexture(0.5, 0.5, 0.5, 0.6)
+            divider:SetTexture("Interface\\Common\\UI-TooltipDivider-Transparent")
             divider:SetWidth(120)
-            divider:SetHeight(1)
-            divider:SetPoint("TOP", frame, "TOPLEFT", 80, y)
+            divider:SetHeight(8)
+            divider:SetPoint("TOP", frame, "TOPLEFT", 80, y + 4)
             y = y - 12
         end
         AddButton(frame, globalName .. "Button", entry[2], y, function()
