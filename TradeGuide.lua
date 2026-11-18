@@ -47,23 +47,26 @@ headerText:SetText("")
 -- Store all text lines
 local textLines = {}
 
-local craftPrevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-craftPrevButton:SetWidth(100)
-craftPrevButton:SetHeight(22)
-craftPrevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -45)
-craftPrevButton:SetText("<< Previous")
-craftPrevButton:Hide()
+local craftSidebarWidth = 170
 
-local craftNextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-craftNextButton:SetWidth(100)
-craftNextButton:SetHeight(22)
-craftNextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -10, -45)
-craftNextButton:SetText("Next >>")
-craftNextButton:Hide()
+local craftSidebar = CreateFrame("Frame", nil, contentFrame)
+craftSidebar:SetPoint("TOPLEFT", contentFrame, "TOPLEFT", 0, 0)
+craftSidebar:SetPoint("BOTTOMLEFT", contentFrame, "BOTTOMLEFT", 0, 0)
+craftSidebar:SetWidth(craftSidebarWidth)
+craftSidebar:SetFrameLevel(contentFrame:GetFrameLevel() + 10)
+craftSidebar:Hide()
 
-local craftPageIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-craftPageIndicator:SetPoint("TOP", contentChild, "TOP", 0, -50)
-craftPageIndicator:Hide()
+local craftSidebarBg = craftSidebar:CreateTexture(nil, "BACKGROUND")
+craftSidebarBg:SetColorTexture(0, 0, 0, 0.35)
+craftSidebarBg:SetAllPoints(craftSidebar)
+
+local craftSidebarEdge = craftSidebar:CreateTexture(nil, "ARTWORK")
+craftSidebarEdge:SetColorTexture(1, 0.82, 0, 0.5)
+craftSidebarEdge:SetWidth(1)
+craftSidebarEdge:SetPoint("TOPRIGHT", craftSidebar, "TOPRIGHT", 0, 0)
+craftSidebarEdge:SetPoint("BOTTOMRIGHT", craftSidebar, "BOTTOMRIGHT", 0, 0)
+
+local craftSidebarButtons = {}
 
 -- Function to clear content
 local function ClearContent()
@@ -71,9 +74,10 @@ local function ClearContent()
         line:Hide()
     end
     textLines = {}
-    craftPrevButton:Hide()
-    craftNextButton:Hide()
-    craftPageIndicator:Hide()
+    craftSidebar:Hide()
+    for _, btn in ipairs(craftSidebarButtons) do
+        btn:Hide()
+    end
 end
 
 -- Helper function to display maps (handles both single and multi-tile)
@@ -131,6 +135,15 @@ local function IsSeparatorLine(text)
     return type(text) == "string" and text:match("^%-%-+$") ~= nil
 end
 
+local function HexToRGB(hex)
+    local r = tonumber(hex:sub(1, 2), 16) / 255
+    local g = tonumber(hex:sub(3, 4), 16) / 255
+    local b = tonumber(hex:sub(5, 6), 16) / 255
+    return r, g, b
+end
+
+local WHERE_CHIP_PATTERN = "^%s*|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r%s*$"
+
 local function IsLevelsBannerStart(contentTable, i)
     local a, b, c = contentTable[i], contentTable[i + 1], contentTable[i + 2]
     if not (IsSeparatorLine(a) and IsSeparatorLine(c)) then
@@ -140,6 +153,19 @@ local function IsLevelsBannerStart(contentTable, i)
         return false
     end
     return b:find("Levels:", 1, true) ~= nil
+end
+
+local function ExtractLevelsRangeLabel(bannerText)
+    local clean = bannerText:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+    local lo, hi = clean:match("(%d+)%s*%-%s*(%d+)")
+    if lo and hi then
+        return "Levels " .. lo .. "-" .. hi
+    end
+    local single = clean:match("(%d+)")
+    if single then
+        return "Level " .. single
+    end
+    return "Levels"
 end
 
 local function ComputeCraftPages(contentTable)
@@ -152,7 +178,7 @@ local function ComputeCraftPages(contentTable)
     end
 
     if #bannerStarts == 0 then
-        return nil
+        return nil, nil
     end
 
     local pullTarget = {}
@@ -185,12 +211,14 @@ local function ComputeCraftPages(contentTable)
     end
 
     local pages = {}
+    local labels = {}
     if pageStarts[1] > 1 then
         local overview = {}
         for i = 1, pageStarts[1] - 1 do
             table.insert(overview, contentTable[i])
         end
         table.insert(pages, overview)
+        table.insert(labels, "Overview")
     end
 
     for k, s in ipairs(pageStarts) do
@@ -200,12 +228,13 @@ local function ComputeCraftPages(contentTable)
             table.insert(page, contentTable[i])
         end
         table.insert(pages, page)
+        table.insert(labels, ExtractLevelsRangeLabel(contentTable[bannerStarts[k] + 1]))
     end
 
-    return pages
+    return pages, labels
 end
 
-local function DisplayContent(contentTable, professionData, topOffset)
+local function DisplayContent(contentTable, professionData, topOffset, leftMargin)
     ClearContent()
 
     -- Set header if it exists
@@ -215,6 +244,9 @@ local function DisplayContent(contentTable, professionData, topOffset)
     else
         headerText:Hide()
     end
+
+    leftMargin = leftMargin or 10
+    local contentWidth = 840 - leftMargin
 
     local yOffset = topOffset or -40
     local i = 1
@@ -231,22 +263,22 @@ local function DisplayContent(contentTable, professionData, topOffset)
 
             local bar = contentChild:CreateTexture(nil, "BACKGROUND")
             bar:SetColorTexture(0, 0, 0, 0.45)
-            bar:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
-            bar:SetWidth(830)
+            bar:SetPoint("TOPLEFT", contentChild, "TOPLEFT", leftMargin, yOffset)
+            bar:SetWidth(contentWidth)
             bar:SetHeight(barHeight)
             table.insert(textLines, bar)
 
             local topBorder = contentChild:CreateTexture(nil, "ARTWORK")
             topBorder:SetColorTexture(1, 0.82, 0, 0.7)
             topBorder:SetPoint("BOTTOMLEFT", bar, "TOPLEFT", 0, 0)
-            topBorder:SetWidth(830)
+            topBorder:SetWidth(contentWidth)
             topBorder:SetHeight(1)
             table.insert(textLines, topBorder)
 
             local bottomBorder = contentChild:CreateTexture(nil, "ARTWORK")
             bottomBorder:SetColorTexture(1, 0.82, 0, 0.7)
             bottomBorder:SetPoint("TOPLEFT", bar, "BOTTOMLEFT", 0, 0)
-            bottomBorder:SetWidth(830)
+            bottomBorder:SetWidth(contentWidth)
             bottomBorder:SetHeight(1)
             table.insert(textLines, bottomBorder)
 
@@ -262,17 +294,117 @@ local function DisplayContent(contentTable, professionData, topOffset)
         elseif IsSeparatorLine(text) then
             local rule = contentChild:CreateTexture(nil, "ARTWORK")
             rule:SetColorTexture(1, 0.82, 0, 0.6)
-            rule:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset - 6)
-            rule:SetWidth(830)
+            rule:SetPoint("TOPLEFT", contentChild, "TOPLEFT", leftMargin, yOffset - 6)
+            rule:SetWidth(contentWidth)
             rule:SetHeight(1)
             table.insert(textLines, rule)
 
             yOffset = yOffset - 13
             i = i + 1
+        elseif text == "WHERE:" then
+            local label = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            label:SetPoint("TOPLEFT", contentChild, "TOPLEFT", leftMargin, yOffset)
+            label:SetWidth(contentWidth)
+            label:SetJustifyH("LEFT")
+            label:SetText(text)
+            label:SetTextColor(1, 1, 0.6)
+            label:Show()
+            table.insert(textLines, label)
+
+            local labelHeight = label:GetStringHeight()
+            if labelHeight < 15 then
+                labelHeight = 15
+            end
+            yOffset = yOffset - labelHeight
+            i = i + 1
+
+            local chips = {}
+            while i <= total do
+                local candidate = contentTable[i]
+                if candidate == "" then
+                    i = i + 1
+                else
+                    local color, name, loc = candidate:match(WHERE_CHIP_PATTERN)
+                    if color then
+                        table.insert(chips, { color = color, name = name, loc = loc })
+                        i = i + 1
+                    else
+                        break
+                    end
+                end
+            end
+
+            if #chips > 0 then
+                local rowHeight = 22
+                local gap = 6
+                local xCursor = leftMargin
+                local rowY = yOffset - 4
+                local maxX = leftMargin + contentWidth
+
+                for _, chip in ipairs(chips) do
+                    local r, g, b = HexToRGB(chip.color)
+                    local chipText = (chip.loc and chip.loc ~= "") and (chip.name .. "  -  " .. chip.loc) or chip.name
+
+                    local textFS = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                    textFS:SetText(chipText)
+                    textFS:SetTextColor(1, 1, 1)
+                    local textWidth = textFS:GetStringWidth()
+                    local chipWidth = textWidth + 16
+
+                    if xCursor + chipWidth > maxX and xCursor > leftMargin then
+                        xCursor = leftMargin
+                        rowY = rowY - (rowHeight + 4)
+                    end
+
+                    local chipBg = contentChild:CreateTexture(nil, "BACKGROUND")
+                    chipBg:SetColorTexture(0, 0, 0, 0.4)
+                    chipBg:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xCursor, rowY)
+                    chipBg:SetWidth(chipWidth)
+                    chipBg:SetHeight(rowHeight)
+                    table.insert(textLines, chipBg)
+
+                    local edgeTop = contentChild:CreateTexture(nil, "ARTWORK")
+                    edgeTop:SetColorTexture(r, g, b, 0.9)
+                    edgeTop:SetPoint("TOPLEFT", chipBg, "TOPLEFT", 0, 0)
+                    edgeTop:SetWidth(chipWidth)
+                    edgeTop:SetHeight(1)
+                    table.insert(textLines, edgeTop)
+
+                    local edgeBottom = contentChild:CreateTexture(nil, "ARTWORK")
+                    edgeBottom:SetColorTexture(r, g, b, 0.9)
+                    edgeBottom:SetPoint("BOTTOMLEFT", chipBg, "BOTTOMLEFT", 0, 0)
+                    edgeBottom:SetWidth(chipWidth)
+                    edgeBottom:SetHeight(1)
+                    table.insert(textLines, edgeBottom)
+
+                    local edgeLeft = contentChild:CreateTexture(nil, "ARTWORK")
+                    edgeLeft:SetColorTexture(r, g, b, 0.9)
+                    edgeLeft:SetPoint("TOPLEFT", chipBg, "TOPLEFT", 0, 0)
+                    edgeLeft:SetWidth(1)
+                    edgeLeft:SetHeight(rowHeight)
+                    table.insert(textLines, edgeLeft)
+
+                    local edgeRight = contentChild:CreateTexture(nil, "ARTWORK")
+                    edgeRight:SetColorTexture(r, g, b, 0.9)
+                    edgeRight:SetPoint("TOPRIGHT", chipBg, "TOPRIGHT", 0, 0)
+                    edgeRight:SetWidth(1)
+                    edgeRight:SetHeight(rowHeight)
+                    table.insert(textLines, edgeRight)
+
+                    textFS:ClearAllPoints()
+                    textFS:SetPoint("CENTER", chipBg, "CENTER", 0, 0)
+                    textFS:Show()
+                    table.insert(textLines, textFS)
+
+                    xCursor = xCursor + chipWidth + gap
+                end
+
+                yOffset = rowY - rowHeight - 6
+            end
         else
             local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, yOffset)
-            line:SetWidth(830)
+            line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", leftMargin, yOffset)
+            line:SetWidth(contentWidth)
             line:SetJustifyH("LEFT")
             line:SetText(text)
             line:SetTextColor(1, 1, 0.6)
@@ -546,8 +678,48 @@ local SETS = {
 
 local craftPageCache = {}
 local currentCraftProfession = nil
+local ShowCraftPage
 
-local function ShowCraftPage(globalName, pageIndex)
+local function BuildCraftSidebar(globalName, labels, activeIndex)
+    for _, btn in ipairs(craftSidebarButtons) do
+        btn:Hide()
+    end
+
+    if not labels or #labels < 2 then
+        craftSidebar:Hide()
+        return
+    end
+
+    craftSidebar:Show()
+
+    local y = -10
+    for idx, labelText in ipairs(labels) do
+        local btn = craftSidebarButtons[idx]
+        if not btn then
+            btn = CreateFrame("Button", nil, craftSidebar, "UIPanelButtonTemplate")
+            btn:SetWidth(craftSidebarWidth - 16)
+            btn:SetHeight(24)
+            craftSidebarButtons[idx] = btn
+        end
+
+        btn:SetPoint("TOPLEFT", craftSidebar, "TOPLEFT", 8, y)
+        btn:SetText(labelText)
+        btn:SetScript("OnClick", function()
+            ShowCraftPage(globalName, idx)
+        end)
+
+        if idx == activeIndex then
+            btn:LockHighlight()
+        else
+            btn:UnlockHighlight()
+        end
+
+        btn:Show()
+        y = y - 28
+    end
+end
+
+ShowCraftPage = function(globalName, pageIndex)
     local data = _G[globalName]
     if not data or not data.content then
         print("ERROR: " .. globalName .. " data not found!")
@@ -556,46 +728,33 @@ local function ShowCraftPage(globalName, pageIndex)
 
     local cached = craftPageCache[globalName]
     if not cached then
-        cached = ComputeCraftPages(data.content)
+        local pages, labels = ComputeCraftPages(data.content)
+        cached = { pages = pages, labels = labels }
         craftPageCache[globalName] = cached
     end
 
     currentCraftProfession = globalName
 
-    if not cached then
+    if not cached.pages then
         DisplayContent(data.content, data)
+        BuildCraftSidebar(globalName, nil, nil)
         contentFrame:SetVerticalScroll(0)
         return
     end
 
     if pageIndex < 1 then
         pageIndex = 1
-    elseif pageIndex > #cached then
-        pageIndex = #cached
+    elseif pageIndex > #cached.pages then
+        pageIndex = #cached.pages
     end
 
-    DisplayContent(cached[pageIndex], data, -70)
+    local hasSidebar = #cached.pages > 1
+    local leftMargin = hasSidebar and (craftSidebarWidth + 20) or 10
+
+    DisplayContent(cached.pages[pageIndex], data, -40, leftMargin)
+    BuildCraftSidebar(globalName, cached.labels, pageIndex)
     contentFrame:SetVerticalScroll(0)
-
-    craftPrevButton.pageIndex = pageIndex
-    craftNextButton.pageIndex = pageIndex
-    craftPrevButton:Show()
-    craftNextButton:Show()
-    craftPageIndicator:Show()
-    craftPageIndicator:SetText("Page " .. pageIndex .. " of " .. #cached)
 end
-
-craftPrevButton:SetScript("OnClick", function(self)
-    if currentCraftProfession then
-        ShowCraftPage(currentCraftProfession, (self.pageIndex or 1) - 1)
-    end
-end)
-
-craftNextButton:SetScript("OnClick", function(self)
-    if currentCraftProfession then
-        ShowCraftPage(currentCraftProfession, (self.pageIndex or 1) + 1)
-    end
-end)
 
 local function ShowCraft(globalName)
     ClearAllGathering()
