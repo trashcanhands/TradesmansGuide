@@ -413,14 +413,31 @@ for name, guide in pairs({ Herbalism = herbalismGuide, Mining = miningGuide, Ski
 end
 
 local function AddHeader(parent, text, y)
+    local barWidth = 130
+    local barHeight = 20
+
+    local bar = parent:CreateTexture(nil, "BACKGROUND")
+    bar:SetColorTexture(0, 0, 0, 0.45)
+    bar:SetWidth(barWidth)
+    bar:SetHeight(barHeight)
+    bar:SetPoint("TOP", parent, "TOPLEFT", 80, y)
+
+    local topBorder = parent:CreateTexture(nil, "ARTWORK")
+    topBorder:SetColorTexture(1, 0.82, 0, 0.7)
+    topBorder:SetWidth(barWidth)
+    topBorder:SetHeight(1)
+    topBorder:SetPoint("BOTTOM", bar, "TOP", 0, 0)
+
+    local bottomBorder = parent:CreateTexture(nil, "ARTWORK")
+    bottomBorder:SetColorTexture(1, 0.82, 0, 0.7)
+    bottomBorder:SetWidth(barWidth)
+    bottomBorder:SetHeight(1)
+    bottomBorder:SetPoint("TOP", bar, "BOTTOM", 0, 0)
+
     local label = parent:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-    label:SetPoint("TOP", parent, "TOPLEFT", 80, y)
+    label:SetPoint("CENTER", bar, "CENTER", 0, 0)
     label:SetText(text)
-    local rule = parent:CreateTexture(nil, "ARTWORK")
-    rule:SetTexture("Interface\\Common\\UI-TooltipDivider-Transparent")
-    rule:SetWidth(120)
-    rule:SetHeight(8)
-    rule:SetPoint("TOP", parent, "TOPLEFT", 80, y - 16)
+    label:SetTextColor(1, 1, 1)
 end
 
 local function AddButton(parent, name, text, y, onClick)
