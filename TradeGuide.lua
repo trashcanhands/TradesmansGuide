@@ -126,11 +126,17 @@ local function DisplayContent(contentTable, professionData)
         line:SetText(text)
         line:SetTextColor(1, 1, 0.6)
         line:Show()
-        
+
         table.insert(textLines, line)
         local lineHeight = line:GetStringHeight()
-        if lineHeight < 13 then
-            lineHeight = 13
+        local minHeight = 15
+        if text == "" then
+            minHeight = 24
+        elseif text:match("^%-%-+$") then
+            minHeight = 19
+        end
+        if lineHeight < minHeight then
+            lineHeight = minHeight
         end
         yOffset = yOffset - lineHeight
     end
