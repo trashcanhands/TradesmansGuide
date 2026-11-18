@@ -260,6 +260,7 @@ local function DisplayContent(contentTable, professionData, topOffset, leftMargi
 
         if isBanner then
             local barHeight = 22
+            yOffset = yOffset - 8
 
             local bar = contentChild:CreateTexture(nil, "BACKGROUND")
             bar:SetColorTexture(0, 0, 0, 0.45)
