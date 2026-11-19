@@ -113,7 +113,7 @@ FishingCooking = {
 "|cFF33FFFFFishing:|r [|cFF33FFFF130 - 205|r]  |cFF33FFFFCooking:|r [|cFF33FFFF100 - 175|r]",
 "------------------------------------------------------------------------------------------------",
 "|cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
-"Requires: Expert Fishing (character level 20, Fishing 125); Expert Cooking (Cooking 125).",
+"NOTE: Needs Expert Fishing (character level 20, Fishing 125) and Expert Cooking (Cooking 125) first.",
 "",
 "Shared step, |cFF33FF99[Booty Bay, Stranglethorn Vale]|r:",
 "      1. Boat from Ratchet (The Barrens) to Booty Bay",
