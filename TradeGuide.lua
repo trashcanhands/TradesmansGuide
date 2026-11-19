@@ -148,6 +148,52 @@ local function IsSeparatorLine(text)
     return type(text) == "string" and text:match("^%-%-+$") ~= nil
 end
 
+local TIER_WORDS = { "Apprentice", "Journeyman", "Expert", "Artisan", "Master" }
+
+local function ExtractTierWord(line)
+    for _, tier in ipairs(TIER_WORDS) do
+        if line:find("|cFF1EFF00%[" .. tier .. "%s", 1) then
+            return tier
+        end
+    end
+    return nil
+end
+
+local function RelabelTrainerLabels(lines)
+    local out = {}
+    local inTrainBlock = false
+    local tier = nil
+
+    for idx, line in ipairs(lines) do
+        local isStr = type(line) == "string"
+
+        if isStr and line == "TRAIN:" then
+            inTrainBlock = true
+            tier = nil
+        elseif isStr and (line == "ACQUIRE:" or line == "QUEST:" or IsSeparatorLine(line)) then
+            inTrainBlock = false
+            tier = nil
+        end
+
+        if inTrainBlock and not tier and isStr then
+            tier = ExtractTierWord(line)
+        end
+
+        if isStr and inTrainBlock and tier and line:match("^WHERE") then
+            local suffix = line:match("^WHERE%s*(%(.-%))")
+            if suffix then
+                out[idx] = tier .. " Trainers " .. suffix .. ":"
+            else
+                out[idx] = tier .. " Trainers:"
+            end
+        else
+            out[idx] = line
+        end
+    end
+
+    return out
+end
+
 local function HexToRGB(hex)
     local r = tonumber(hex:sub(1, 2), 16) / 255
     local g = tonumber(hex:sub(3, 4), 16) / 255
@@ -351,8 +397,8 @@ local function ComputeCraftStructure(contentTable)
 
         table.insert(brackets, {
             label = ExtractLevelsRangeLabel(contentTable[b + 1]),
-            trainerLines = trainerLines,
-            craftLines = craftLines,
+            trainerLines = RelabelTrainerLabels(trainerLines),
+            craftLines = RelabelTrainerLabels(craftLines),
         })
     end
 
