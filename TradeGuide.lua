@@ -156,6 +156,34 @@ local function HexToRGB(hex)
 end
 
 local WHERE_CHIP_PATTERN = "^%s*|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r%s*$"
+local WHERE_CHIP_PATTERN_NOFACTION = "^%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r%s*$"
+local EMBEDDED_CHIP_WITH_FACTION = "|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r"
+local EMBEDDED_CHIP_NO_FACTION = "|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r"
+
+local function ExtractEmbeddedChips(text)
+    local chips = {}
+    local changed = true
+    while changed do
+        changed = false
+        local s, e, color, name, loc = text:find(EMBEDDED_CHIP_WITH_FACTION)
+        if s then
+            table.insert(chips, { color = color, name = name, loc = loc })
+            text = text:sub(1, s - 1) .. text:sub(e + 1)
+            changed = true
+        else
+            local s2, e2, name2, loc2 = text:find(EMBEDDED_CHIP_NO_FACTION)
+            if s2 then
+                table.insert(chips, { color = "FFD700", name = name2, loc = loc2 })
+                text = text:sub(1, s2 - 1) .. text:sub(e2 + 1)
+                changed = true
+            end
+        end
+    end
+    text = text:gsub("%(%s*%)", "")
+    text = text:gsub("%s%s+", " ")
+    text = text:gsub("%s+$", "")
+    return text, chips
+end
 
 local BRACKET_BANNER_MARKERS = { "Levels:", "Fishing:", "Cooking:", "Fishing Quest", "Cooking Quest" }
 
@@ -337,6 +365,7 @@ local function ParseLevelingBlocks(lines)
     local n = #lines
     local pendingSubrange = nil
     local plainBuf = {}
+    local plainChips = {}
 
     local function flushPlain()
         while #plainBuf > 0 and plainBuf[#plainBuf] == "" do
@@ -345,10 +374,15 @@ local function ParseLevelingBlocks(lines)
         while #plainBuf > 0 and plainBuf[1] == "" do
             table.remove(plainBuf, 1)
         end
-        if #plainBuf > 0 then
-            table.insert(blocks, { type = "plain", lines = plainBuf })
+        if #plainBuf > 0 or #plainChips > 0 then
+            table.insert(blocks, {
+                type = "plain",
+                lines = plainBuf,
+                chips = (#plainChips > 0) and plainChips or nil,
+            })
         end
         plainBuf = {}
+        plainChips = {}
     end
 
     local function isStopLine(l)
@@ -366,27 +400,86 @@ local function ParseLevelingBlocks(lines)
             local card = { type = "card", subrange = pendingSubrange, title = line }
             pendingSubrange = nil
             i = i + 1
-            if lines[i] and lines[i]:match("^Requires:") then
-                local req = lines[i]
-                i = i + 1
+
+            local function gatherField(text)
+                local chips = {}
                 while not isStopLine(lines[i]) do
-                    req = req .. " " .. lines[i]
+                    local color, name, loc = lines[i]:match(WHERE_CHIP_PATTERN)
+                    if color then
+                        table.insert(chips, { color = color, name = name, loc = loc })
+                    else
+                        local name2, loc2 = lines[i]:match(WHERE_CHIP_PATTERN_NOFACTION)
+                        if name2 then
+                            table.insert(chips, { color = "FFD700", name = name2, loc = loc2 })
+                        else
+                            local cleaned, embedded = ExtractEmbeddedChips(lines[i])
+                            for _, c in ipairs(embedded) do
+                                table.insert(chips, c)
+                            end
+                            if cleaned ~= "" then
+                                text = text .. " " .. cleaned
+                            end
+                        end
+                    end
                     i = i + 1
                 end
+                return text, chips
+            end
+
+            if lines[i] and lines[i]:match("^Requires:") then
+                local req, initChips = ExtractEmbeddedChips(lines[i])
+                i = i + 1
+                local reqChips
+                req, reqChips = gatherField(req)
+                for _, c in ipairs(initChips) do
+                    table.insert(reqChips, c)
+                end
                 card.req = req
+                if #reqChips > 0 then
+                    card.chips = reqChips
+                end
             end
             while lines[i] and lines[i]:match("^NOTE:") do
-                local note = lines[i]
+                local note, initChips = ExtractEmbeddedChips(lines[i])
                 i = i + 1
-                while not isStopLine(lines[i]) do
-                    note = note .. " " .. lines[i]
-                    i = i + 1
+                local noteChips
+                note, noteChips = gatherField(note)
+                for _, c in ipairs(initChips) do
+                    table.insert(noteChips, c)
+                end
+                if #noteChips > 0 then
+                    card.chips = card.chips or {}
+                    for _, c in ipairs(noteChips) do
+                        table.insert(card.chips, c)
+                    end
                 end
                 card.note = card.note and (card.note .. "  " .. note) or note
             end
             table.insert(blocks, card)
         else
-            table.insert(plainBuf, line)
+            if type(line) ~= "string" then
+                table.insert(plainBuf, line)
+            else
+                local color, name, loc = line:match(WHERE_CHIP_PATTERN)
+                if color then
+                    table.insert(plainChips, { color = color, name = name, loc = loc })
+                else
+                    local name2, loc2 = line:match(WHERE_CHIP_PATTERN_NOFACTION)
+                    if name2 then
+                        table.insert(plainChips, { color = "FFD700", name = name2, loc = loc2 })
+                    else
+                        local cleaned, embedded = ExtractEmbeddedChips(line)
+                        for _, c in ipairs(embedded) do
+                            table.insert(plainChips, c)
+                        end
+                        if cleaned ~= "" then
+                            table.insert(plainBuf, cleaned)
+                        elseif #embedded == 0 then
+                            table.insert(plainBuf, line)
+                        end
+                    end
+                end
+            end
             i = i + 1
         end
     end
@@ -854,6 +947,86 @@ local function HighlightCraftTab(tabIndex)
     end
 end
 
+local function RenderCardChips(card, chips, baseX, y, width)
+    card.chipWidgets = card.chipWidgets or {}
+    for _, cw in ipairs(card.chipWidgets) do
+        cw.frame:Hide()
+    end
+
+    if not chips or #chips == 0 then
+        return y
+    end
+
+    local rowHeight = 18
+    local gap = 4
+    local xCursor = 0
+    local curY = y
+    local usedRow = false
+
+    for idx, chip in ipairs(chips) do
+        local cw = card.chipWidgets[idx]
+        if not cw then
+            local f = CreateFrame("Frame", nil, card)
+            local bg = f:CreateTexture(nil, "BACKGROUND")
+            bg:SetColorTexture(0, 0, 0, 0.4)
+            bg:SetAllPoints(f)
+
+            local top = f:CreateTexture(nil, "ARTWORK")
+            top:SetHeight(2)
+            top:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+            top:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+
+            local bottom = f:CreateTexture(nil, "ARTWORK")
+            bottom:SetHeight(2)
+            bottom:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 0, 0)
+            bottom:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
+
+            local left = f:CreateTexture(nil, "ARTWORK")
+            left:SetWidth(2)
+            left:SetPoint("TOPLEFT", f, "TOPLEFT", 0, 0)
+            left:SetPoint("BOTTOMLEFT", f, "BOTTOMLEFT", 0, 0)
+
+            local right = f:CreateTexture(nil, "ARTWORK")
+            right:SetWidth(2)
+            right:SetPoint("TOPRIGHT", f, "TOPRIGHT", 0, 0)
+            right:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", 0, 0)
+
+            local text = f:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+            text:SetPoint("CENTER", f, "CENTER", 0, 0)
+
+            cw = { frame = f, top = top, bottom = bottom, left = left, right = right, text = text }
+            card.chipWidgets[idx] = cw
+        end
+
+        local r, g, b = HexToRGB(chip.color)
+        cw.top:SetColorTexture(r, g, b, 0.8)
+        cw.bottom:SetColorTexture(r, g, b, 0.8)
+        cw.left:SetColorTexture(r, g, b, 0.8)
+        cw.right:SetColorTexture(r, g, b, 0.8)
+
+        local chipText = (chip.loc and chip.loc ~= "") and (chip.name .. " - " .. chip.loc) or chip.name
+        cw.text:SetText(chipText)
+        cw.text:SetTextColor(1, 1, 1)
+        local chipWidth = math.min(width, cw.text:GetStringWidth() + 12)
+
+        if usedRow and xCursor + chipWidth > width then
+            xCursor = 0
+            curY = curY - (rowHeight + 3)
+        end
+        usedRow = true
+
+        cw.frame:ClearAllPoints()
+        cw.frame:SetPoint("TOPLEFT", card, "TOPLEFT", baseX + xCursor, curY)
+        cw.frame:SetWidth(chipWidth)
+        cw.frame:SetHeight(rowHeight)
+        cw.frame:Show()
+
+        xCursor = xCursor + chipWidth + gap
+    end
+
+    return curY - rowHeight
+end
+
 local function BuildRecipeCard(index, x, y, width, cardData)
     local card = craftCardFrames[index]
     if not card then
@@ -957,6 +1130,12 @@ local function BuildRecipeCard(index, x, y, width, cardData)
         card.note:Hide()
     end
 
+    if cardData.chips and #cardData.chips > 0 then
+        cursorY = RenderCardChips(card, cardData.chips, textX, cursorY - 2, textWidth) - 4
+    else
+        RenderCardChips(card, nil, textX, cursorY, textWidth)
+    end
+
     local textBlockHeight = -cursorY + 6
     local cardHeight = math.max(36 + 20, textBlockHeight + 10)
     card:SetHeight(cardHeight)
@@ -988,6 +1167,78 @@ local function RenderPlainBlockLines(lines, x, y, width)
         y = y - lineHeight
     end
     return y
+end
+
+local function RenderChipRowFresh(chips, x, y, width)
+    if not chips or #chips == 0 then
+        return y
+    end
+
+    local rowHeight = 22
+    local gap = 6
+    local xCursor = x
+    local rowY = y - 4
+    local maxX = x + width
+
+    for _, chip in ipairs(chips) do
+        local r, g, b = HexToRGB(chip.color)
+        local chipText = (chip.loc and chip.loc ~= "") and (chip.name .. "  -  " .. chip.loc) or chip.name
+
+        local textFS = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        textFS:SetText(chipText)
+        textFS:SetTextColor(1, 1, 1)
+        local textWidth = textFS:GetStringWidth()
+        local chipWidth = textWidth + 16
+
+        if xCursor + chipWidth > maxX and xCursor > x then
+            xCursor = x
+            rowY = rowY - (rowHeight + 4)
+        end
+
+        local chipBg = contentChild:CreateTexture(nil, "BACKGROUND")
+        chipBg:SetColorTexture(0, 0, 0, 0.4)
+        chipBg:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xCursor, rowY)
+        chipBg:SetWidth(chipWidth)
+        chipBg:SetHeight(rowHeight)
+        table.insert(textLines, chipBg)
+
+        local edgeTop = contentChild:CreateTexture(nil, "ARTWORK")
+        edgeTop:SetColorTexture(r, g, b, 0.8)
+        edgeTop:SetPoint("TOPLEFT", chipBg, "TOPLEFT", 0, 0)
+        edgeTop:SetPoint("TOPRIGHT", chipBg, "TOPRIGHT", 0, 0)
+        edgeTop:SetHeight(2)
+        table.insert(textLines, edgeTop)
+
+        local edgeBottom = contentChild:CreateTexture(nil, "ARTWORK")
+        edgeBottom:SetColorTexture(r, g, b, 0.8)
+        edgeBottom:SetPoint("BOTTOMLEFT", chipBg, "BOTTOMLEFT", 0, 0)
+        edgeBottom:SetPoint("BOTTOMRIGHT", chipBg, "BOTTOMRIGHT", 0, 0)
+        edgeBottom:SetHeight(2)
+        table.insert(textLines, edgeBottom)
+
+        local edgeLeft = contentChild:CreateTexture(nil, "ARTWORK")
+        edgeLeft:SetColorTexture(r, g, b, 0.8)
+        edgeLeft:SetPoint("TOPLEFT", chipBg, "TOPLEFT", 0, 0)
+        edgeLeft:SetPoint("BOTTOMLEFT", chipBg, "BOTTOMLEFT", 0, 0)
+        edgeLeft:SetWidth(2)
+        table.insert(textLines, edgeLeft)
+
+        local edgeRight = contentChild:CreateTexture(nil, "ARTWORK")
+        edgeRight:SetColorTexture(r, g, b, 0.8)
+        edgeRight:SetPoint("TOPRIGHT", chipBg, "TOPRIGHT", 0, 0)
+        edgeRight:SetPoint("BOTTOMRIGHT", chipBg, "BOTTOMRIGHT", 0, 0)
+        edgeRight:SetWidth(2)
+        table.insert(textLines, edgeRight)
+
+        textFS:ClearAllPoints()
+        textFS:SetPoint("CENTER", chipBg, "CENTER", 0, 0)
+        textFS:Show()
+        table.insert(textLines, textFS)
+
+        xCursor = xCursor + chipWidth + gap
+    end
+
+    return rowY - rowHeight - 6
 end
 
 local function RenderBracketPills(globalName, brackets, activeIndex, x, y, width)
@@ -1106,6 +1357,9 @@ RenderLevelingTab = function(globalName, bracketIndex)
         else
             flushPendingAlone()
             y = RenderPlainBlockLines(blk.lines, leftMargin, y, contentWidth)
+            if blk.chips and #blk.chips > 0 then
+                y = RenderChipRowFresh(blk.chips, leftMargin, y, contentWidth)
+            end
             y = y - 6
         end
     end
