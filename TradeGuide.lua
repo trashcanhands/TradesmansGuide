@@ -29,8 +29,18 @@ guideFrame:SetScript("OnDragStop", function()
     TradeGuideDB.point = { point = point, relativePoint = relativePoint, x = x, y = y }
 end)
 
+local headerZoneHeight = 62
+local headerZone = CreateFrame("Frame", "GuideHeaderZone", guideFrame.Inset)
+headerZone:SetPoint("TOPLEFT", guideFrame.Inset, "TOPLEFT", 4, -4)
+headerZone:SetPoint("TOPRIGHT", guideFrame.Inset, "TOPRIGHT", -24, -4)
+headerZone:SetHeight(headerZoneHeight)
+
+local headerZoneBg = headerZone:CreateTexture(nil, "BACKGROUND")
+headerZoneBg:SetColorTexture(0, 0, 0, 0.3)
+headerZoneBg:SetAllPoints(headerZone)
+
 local contentFrame = CreateFrame("ScrollFrame", "ProfGuideScrollFrame", guideFrame, "ScrollFrameTemplate")
-contentFrame:SetPoint("TOPLEFT", guideFrame.Inset, "TOPLEFT", 4, -4)
+contentFrame:SetPoint("TOPLEFT", headerZone, "BOTTOMLEFT", 0, 0)
 contentFrame:SetPoint("BOTTOMRIGHT", guideFrame.Inset, "BOTTOMRIGHT", -24, 4)
 contentFrame.ScrollBar:SetHideIfUnscrollable(true)
 
@@ -40,23 +50,23 @@ contentChild:SetHeight(500)
 contentFrame:SetScrollChild(contentChild)
 
 local headerFont = _G["CombatLogFont"] and "CombatLogFont" or "GameFontNormalLarge"
-local headerText = contentFrame:CreateFontString(nil, "OVERLAY", headerFont)
-headerText:SetPoint("TOP", contentFrame, "TOP", 0, -6)
+local headerText = headerZone:CreateFontString(nil, "OVERLAY", headerFont)
+headerText:SetPoint("TOP", headerZone, "TOP", 0, -6)
 headerText:SetText("")
 
 -- Store all text lines
 local textLines = {}
 
 local craftTabBarHeight = 28
-local craftTabBar = CreateFrame("Frame", nil, contentFrame)
-craftTabBar:SetPoint("TOPLEFT", contentFrame, "TOPLEFT", 0, -30)
-craftTabBar:SetPoint("TOPRIGHT", contentFrame, "TOPRIGHT", 0, -30)
+local craftTabBar = CreateFrame("Frame", nil, headerZone)
+craftTabBar:SetPoint("TOPLEFT", headerZone, "TOPLEFT", 0, -30)
+craftTabBar:SetPoint("TOPRIGHT", headerZone, "TOPRIGHT", 0, -30)
 craftTabBar:SetHeight(craftTabBarHeight)
-craftTabBar:SetFrameLevel(contentFrame:GetFrameLevel() + 10)
+craftTabBar:SetFrameLevel(headerZone:GetFrameLevel() + 10)
 craftTabBar:Hide()
 
 local craftTabBarBg = craftTabBar:CreateTexture(nil, "BACKGROUND")
-craftTabBarBg:SetColorTexture(0, 0, 0, 0.3)
+craftTabBarBg:SetColorTexture(0, 0, 0, 0.5)
 craftTabBarBg:SetAllPoints(craftTabBar)
 
 local craftTabBarEdge = craftTabBar:CreateTexture(nil, "ARTWORK")
@@ -172,6 +182,10 @@ local function ExtractTierWord(line)
         if line:find("|cFF1EFF00%[" .. tier .. "%s", 1) then
             return tier
         end
+    end
+    local spec = line:match("|cFF1EFF00%[(.-) Specialization%]")
+    if spec then
+        return spec
     end
     return nil
 end
@@ -597,7 +611,7 @@ local function DisplayContent(contentTable, professionData, topOffset, leftMargi
     leftMargin = leftMargin or 10
     local contentWidth = 840 - leftMargin
 
-    local yOffset = topOffset or -40
+    local yOffset = topOffset or -14
     local i = 1
     local total = #contentTable
     while i <= total do
@@ -1044,7 +1058,7 @@ local SETS = {
 
 local craftStructureCache = {}
 local currentCraftProfession = nil
-local CRAFT_CONTENT_TOP = -74
+local CRAFT_CONTENT_TOP = -14
 local RenderLevelingTab
 local ShowLevelingBracket
 local SetActiveCraftTab
