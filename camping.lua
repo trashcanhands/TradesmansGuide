@@ -19,8 +19,6 @@ Camping = {
 "The intro quests |cFFFFD700[! The Great Outdoors]|r and |cFFFFD700[! Camping 101]|r in the starting zones are optional;",
 "camp buffs work without them. A campfire placed by a quest-giver NPC always grants Camp Tent",
 "rested experience.",
-"",
-"NOTE: SOURCE: wow-professions.com's Forever guide.",
 "------------------------------------------------------------------------------------------------",
 "",
 "------------------------------------------------------------------------------------------------",
