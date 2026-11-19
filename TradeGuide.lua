@@ -1905,9 +1905,14 @@ end
 ShowHub()
 
 local function TG_IconTest()
-    local testID = GetContainerItemID(0, 1) or 2318
-    local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(testID)
-    DEFAULT_CHAT_FRAME:AddMessage("TradeGuide IconTest: id=" .. tostring(testID) .. " name=" .. tostring(name) .. " icon=" .. tostring(icon))
+    local link = GetContainerItemLink(0, 1)
+    if not link then
+        DEFAULT_CHAT_FRAME:AddMessage("TradeGuide IconTest: no item in bag slot 1")
+        return
+    end
+    local id = link:match("item:(%d+)")
+    local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(link)
+    DEFAULT_CHAT_FRAME:AddMessage("TradeGuide IconTest: id=" .. tostring(id) .. " name=" .. tostring(name) .. " icon=" .. tostring(icon))
 end
 
 SLASH_PROFGUIDE1 = "/tradeguide"
