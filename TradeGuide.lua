@@ -463,6 +463,7 @@ local function ParseLevelingBlocks(lines)
     local plainBuf = {}
     local plainChips = {}
     local plainNotes = {}
+    local plainInNote = false
 
     local function flushPlain()
         while #plainBuf > 0 and plainBuf[#plainBuf] == "" do
@@ -482,6 +483,7 @@ local function ParseLevelingBlocks(lines)
         plainBuf = {}
         plainChips = {}
         plainNotes = {}
+        plainInNote = false
     end
 
     local function isStopLine(l)
@@ -569,7 +571,16 @@ local function ParseLevelingBlocks(lines)
                 table.insert(plainBuf, line)
             elseif line == "TRAIN:" or line == "ACQUIRE:" or line == "QUEST:" or IsSeparatorLine(line) then
             else
-                local targetBuf = line:match("^NOTE:") and plainNotes or plainBuf
+                local targetBuf
+                if line == "" then
+                    targetBuf = plainBuf
+                    plainInNote = false
+                else
+                    if line:match("^NOTE:") then
+                        plainInNote = true
+                    end
+                    targetBuf = plainInNote and plainNotes or plainBuf
+                end
                 local color, name, loc = line:match(WHERE_CHIP_PATTERN)
                 if color then
                     table.insert(plainChips, { color = color, name = name, loc = loc })
