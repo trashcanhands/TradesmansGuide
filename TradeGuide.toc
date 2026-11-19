@@ -23,4 +23,5 @@ herbalism.lua
 mining.lua
 skinning.lua
 
+ItemIcons.lua
 TradeGuide.lua

@@ -1153,6 +1153,17 @@ local function RenderCardChips(card, chips, baseX, y, width)
     return curY - rowHeight
 end
 
+local function ResolveCardIconPath(titleLine)
+    if type(titleLine) ~= "string" then
+        return nil
+    end
+    local itemName = titleLine:match("%[(.-)%]")
+    if not itemName then
+        return nil
+    end
+    return ItemIcons and ItemIcons[itemName]
+end
+
 local function BuildRecipeCard(index, x, y, width, cardData)
     local card = craftCardFrames[index]
     if not card then
@@ -1224,6 +1235,14 @@ local function BuildRecipeCard(index, x, y, width, cardData)
     local titleText = cardData.title
     if cardData.subrange then
         titleText = "|cFFFFD700[" .. cardData.subrange .. "]|r  " .. titleText
+    end
+
+    local iconPath = ResolveCardIconPath(cardData.title)
+    if iconPath then
+        card.icon:SetVertexColor(1, 1, 1, 1)
+        card.icon:SetTexture("Interface\\Icons\\" .. iconPath)
+    else
+        card.icon:SetColorTexture(0.22, 0.18, 0.1, 0.9)
     end
 
     card.title:ClearAllPoints()
