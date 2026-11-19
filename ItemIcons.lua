@@ -109,4 +109,6 @@ ItemIcons = {
   ["Fine Leather Belt"] = "INV_Belt_04",
   ["Heavy Mithril Boots"] = "INV_Boots_Plate_01",
   ["Heavy Mithril Breastplate"] = "INV_Chest_Plate10",
+  ["Gloves of Meditation"] = "INV_Gauntlets_05",
+  ["Guardian Gloves"] = "INV_Gauntlets_05",
 }
