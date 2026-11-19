@@ -89,4 +89,10 @@ ItemIcons = {
   ["Enchant Gloves - Agility"] = "Spell_Holy_GreaterHeal",
   ["Enchant Shield - Greater Stamina"] = "Spell_Holy_GreaterHeal",
   ["Explosive Sheep"] = "Spell_Nature_Polymorph",
+
+  ["Arclight Spanner"] = "INV_Misc_Wrench_01",
+  ["Barbaric Shoulders"] = "INV_Shoulder_08",
+  ["Black Mageweave Shoulders"] = "INV_Shoulder_25",
+  ["Bolt of Silk Cloth"] = "INV_Fabric_Silk_03",
+  ["Bronze Shortsword"] = "INV_Sword_04",
 }
