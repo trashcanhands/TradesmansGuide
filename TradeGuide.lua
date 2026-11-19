@@ -1905,8 +1905,9 @@ end
 ShowHub()
 
 local function TG_IconTest()
-    local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(2318)
-    DEFAULT_CHAT_FRAME:AddMessage("TradeGuide IconTest: name=" .. tostring(name) .. " icon=" .. tostring(icon))
+    local testID = GetContainerItemID(0, 1) or 2318
+    local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(testID)
+    DEFAULT_CHAT_FRAME:AddMessage("TradeGuide IconTest: id=" .. tostring(testID) .. " name=" .. tostring(name) .. " icon=" .. tostring(icon))
 end
 
 SLASH_PROFGUIDE1 = "/tradeguide"
