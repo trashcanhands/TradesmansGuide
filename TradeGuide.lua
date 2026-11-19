@@ -1906,7 +1906,12 @@ ShowHub()
 
 SLASH_PROFGUIDE1 = "/tradeguide"
 SLASH_PROFGUIDE2 = "/tg"
-SlashCmdList["PROFGUIDE"] = function()
+SlashCmdList["PROFGUIDE"] = function(msg)
+    if msg == "icontest" then
+        local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(2318)
+        print("TradeGuide IconTest: name=" .. tostring(name) .. " icon=" .. tostring(icon))
+        return
+    end
     ShowFrame()
 end
 
