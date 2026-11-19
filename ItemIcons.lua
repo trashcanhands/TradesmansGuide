@@ -95,4 +95,14 @@ ItemIcons = {
   ["Black Mageweave Shoulders"] = "INV_Shoulder_25",
   ["Bolt of Silk Cloth"] = "INV_Fabric_Silk_03",
   ["Bronze Shortsword"] = "INV_Sword_04",
+
+  ["Coarse Dynamite"] = "INV_Misc_Bomb_06",
+  ["Crimson Silk Pantaloons"] = "INV_Pants_06",
+  ["Crimson Silk Vest"] = "INV_Shirt_04",
+  ["Dark Leather Belt"] = "INV_Belt_03",
+  ["Dense Blasting Powder"] = "INV_Misc_Ammo_Gunpowder_01",
+  ["Double-stitched Woolen Shoulders"] = "INV_Shoulder_06",
+  ["Elixir of Greater Defense"] = "INV_Potion_66",
+  ["Elixir of Greater Intellect"] = "INV_Potion_63",
+  ["Elixir of Minor Defense"] = "INV_Potion_77",
 }
