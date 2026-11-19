@@ -104,5 +104,9 @@ ItemIcons = {
   ["Double-stitched Woolen Shoulders"] = "INV_Shoulder_06",
   ["Elixir of Greater Defense"] = "INV_Potion_66",
   ["Elixir of Greater Intellect"] = "INV_Potion_63",
-  ["Elixir of Minor Defense"] = "INV_Potion_77",
+  ["Elixir of Minor Force"] = "INV_Potion_77",
+  ["Embossed Leather Gloves"] = "INV_Gauntlets_05",
+  ["Fine Leather Belt"] = "INV_Belt_04",
+  ["Heavy Mithril Boots"] = "INV_Boots_Plate_01",
+  ["Heavy Mithril Breastplate"] = "INV_Chest_Plate10",
 }
