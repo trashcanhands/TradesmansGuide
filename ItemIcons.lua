@@ -111,4 +111,10 @@ ItemIcons = {
   ["Heavy Mithril Breastplate"] = "INV_Chest_Plate10",
   ["Gloves of Meditation"] = "INV_Gauntlets_05",
   ["Guardian Gloves"] = "INV_Gauntlets_05",
+
+  ["Elixir of Minor Defense"] = "INV_Potion_63",
+  ["Lesser Mana Oil"] = "INV_Potion_99",
+  ["Linen Belt"] = "INV_Belt_05",
+  ["Mageweave Bag"] = "INV_Misc_Bag_10_Black",
+  ["Minor Mana Oil"] = "INV_Potion_98",
 }
