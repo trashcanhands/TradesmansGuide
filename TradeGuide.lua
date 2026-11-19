@@ -654,12 +654,14 @@ local function DisplayContent(contentTable, professionData, topOffset, leftMargi
         elseif IsRawBlockLabel(text) then
             i = i + 1
         elseif IsChipLabelLine(text) then
+            yOffset = yOffset - 6
+
             local label = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
             label:SetPoint("TOPLEFT", contentChild, "TOPLEFT", leftMargin, yOffset)
             label:SetWidth(contentWidth)
             label:SetJustifyH("LEFT")
             label:SetText(text)
-            label:SetTextColor(1, 1, 0.6)
+            label:SetTextColor(1, 0.82, 0)
             label:Show()
             table.insert(textLines, label)
 
@@ -667,7 +669,19 @@ local function DisplayContent(contentTable, professionData, topOffset, leftMargi
             if labelHeight < 15 then
                 labelHeight = 15
             end
-            yOffset = yOffset - labelHeight
+
+            local labelWidth = label:GetStringWidth()
+            if labelWidth > contentWidth then
+                labelWidth = contentWidth
+            end
+            local labelRule = contentChild:CreateTexture(nil, "ARTWORK")
+            labelRule:SetColorTexture(1, 0.82, 0, 0.6)
+            labelRule:SetPoint("TOPLEFT", label, "BOTTOMLEFT", 0, -1)
+            labelRule:SetWidth(labelWidth)
+            labelRule:SetHeight(2)
+            table.insert(textLines, labelRule)
+
+            yOffset = yOffset - labelHeight - 5
             i = i + 1
 
             local chips = {}
@@ -1244,13 +1258,23 @@ local function BuildRecipeCard(index, x, y, width, cardData)
 end
 
 local function RenderPlainBlockLines(lines, x, y, width)
-    for _, text in ipairs(lines) do
+    for idx, text in ipairs(lines) do
+        local isLabel = IsChipLabelLine(text)
+
+        if isLabel and idx > 1 then
+            y = y - 6
+        end
+
         local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
         line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", x, y)
         line:SetWidth(width)
         line:SetJustifyH("LEFT")
         line:SetText(text)
-        line:SetTextColor(1, 1, 0.6)
+        if isLabel then
+            line:SetTextColor(1, 0.82, 0)
+        else
+            line:SetTextColor(1, 1, 0.6)
+        end
         line:Show()
 
         table.insert(textLines, line)
@@ -1262,7 +1286,22 @@ local function RenderPlainBlockLines(lines, x, y, width)
         if lineHeight < minHeight then
             lineHeight = minHeight
         end
-        y = y - lineHeight
+
+        if isLabel then
+            local textWidth = line:GetStringWidth()
+            if textWidth > width then
+                textWidth = width
+            end
+            local rule = contentChild:CreateTexture(nil, "ARTWORK")
+            rule:SetColorTexture(1, 0.82, 0, 0.6)
+            rule:SetPoint("TOPLEFT", line, "BOTTOMLEFT", 0, -1)
+            rule:SetWidth(textWidth)
+            rule:SetHeight(2)
+            table.insert(textLines, rule)
+            y = y - lineHeight - 5
+        else
+            y = y - lineHeight
+        end
     end
     return y
 end
