@@ -148,6 +148,23 @@ local function IsSeparatorLine(text)
     return type(text) == "string" and text:match("^%-%-+$") ~= nil
 end
 
+local function IsRawBlockLabel(text)
+    return text == "TRAIN:" or text == "ACQUIRE:" or text == "QUEST:"
+end
+
+local function IsChipLabelLine(text)
+    if type(text) ~= "string" then
+        return false
+    end
+    return text:match("^WHERE") ~= nil
+        or text:match("^Vendors:$") ~= nil
+        or text:match("^Vendors %(.-%):$") ~= nil
+        or text:match("^Quest Giver:$") ~= nil
+        or text:match("^Quest Giver %(.-%):$") ~= nil
+        or text:match("^%a+ Trainers:$") ~= nil
+        or text:match("^%a+ Trainers %(.-%):$") ~= nil
+end
+
 local TIER_WORDS = { "Apprentice", "Journeyman", "Expert", "Artisan", "Master" }
 
 local function ExtractTierWord(line)
@@ -161,30 +178,49 @@ end
 
 local function RelabelTrainerLabels(lines)
     local out = {}
-    local inTrainBlock = false
+    local blockType = nil
     local tier = nil
 
     for idx, line in ipairs(lines) do
         local isStr = type(line) == "string"
 
         if isStr and line == "TRAIN:" then
-            inTrainBlock = true
+            blockType = "TRAIN"
             tier = nil
-        elseif isStr and (line == "ACQUIRE:" or line == "QUEST:" or IsSeparatorLine(line)) then
-            inTrainBlock = false
+        elseif isStr and line == "ACQUIRE:" then
+            blockType = "ACQUIRE"
+            tier = nil
+        elseif isStr and line == "QUEST:" then
+            blockType = "QUEST"
+            tier = nil
+        elseif isStr and IsSeparatorLine(line) then
+            blockType = nil
             tier = nil
         end
 
-        if inTrainBlock and not tier and isStr then
+        if blockType == "TRAIN" and not tier and isStr then
             tier = ExtractTierWord(line)
         end
 
-        if isStr and inTrainBlock and tier and line:match("^WHERE") then
-            local suffix = line:match("^WHERE%s*(%(.-%))")
-            if suffix then
-                out[idx] = tier .. " Trainers " .. suffix .. ":"
+        if isStr and blockType and line:match("^WHERE") then
+            local baseLabel = nil
+            if blockType == "TRAIN" and tier then
+                baseLabel = tier .. " Trainers"
+            elseif blockType == "ACQUIRE" then
+                baseLabel = "Vendors"
+            elseif blockType == "QUEST" then
+                baseLabel = "Quest Giver"
+            end
+
+            if baseLabel then
+                local suffix = line:match("^WHERE%s*(%(.-%))")
+                if suffix then
+                    out[idx] = baseLabel .. " " .. suffix .. ":"
+                else
+                    out[idx] = baseLabel .. ":"
+                end
             else
-                out[idx] = tier .. " Trainers:"
+                out[idx] = line
             end
         else
             out[idx] = line
@@ -412,6 +448,7 @@ local function ParseLevelingBlocks(lines)
     local pendingSubrange = nil
     local plainBuf = {}
     local plainChips = {}
+    local plainNotes = {}
 
     local function flushPlain()
         while #plainBuf > 0 and plainBuf[#plainBuf] == "" do
@@ -420,15 +457,17 @@ local function ParseLevelingBlocks(lines)
         while #plainBuf > 0 and plainBuf[1] == "" do
             table.remove(plainBuf, 1)
         end
-        if #plainBuf > 0 or #plainChips > 0 then
+        if #plainBuf > 0 or #plainChips > 0 or #plainNotes > 0 then
             table.insert(blocks, {
                 type = "plain",
                 lines = plainBuf,
                 chips = (#plainChips > 0) and plainChips or nil,
+                notes = (#plainNotes > 0) and plainNotes or nil,
             })
         end
         plainBuf = {}
         plainChips = {}
+        plainNotes = {}
     end
 
     local function isStopLine(l)
@@ -505,7 +544,9 @@ local function ParseLevelingBlocks(lines)
         else
             if type(line) ~= "string" then
                 table.insert(plainBuf, line)
+            elseif line == "TRAIN:" or line == "ACQUIRE:" or line == "QUEST:" then
             else
+                local targetBuf = line:match("^NOTE:") and plainNotes or plainBuf
                 local color, name, loc = line:match(WHERE_CHIP_PATTERN)
                 if color then
                     table.insert(plainChips, { color = color, name = name, loc = loc })
@@ -519,9 +560,9 @@ local function ParseLevelingBlocks(lines)
                             table.insert(plainChips, c)
                         end
                         if cleaned ~= "" then
-                            table.insert(plainBuf, cleaned)
+                            table.insert(targetBuf, cleaned)
                         elseif #embedded == 0 then
-                            table.insert(plainBuf, line)
+                            table.insert(targetBuf, line)
                         end
                     end
                 end
@@ -601,7 +642,9 @@ local function DisplayContent(contentTable, professionData, topOffset, leftMargi
 
             yOffset = yOffset - 13
             i = i + 1
-        elseif type(text) == "string" and text:match("^WHERE") then
+        elseif IsRawBlockLabel(text) then
+            i = i + 1
+        elseif IsChipLabelLine(text) then
             local label = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
             label:SetPoint("TOPLEFT", contentChild, "TOPLEFT", leftMargin, yOffset)
             label:SetWidth(contentWidth)
@@ -1405,6 +1448,10 @@ RenderLevelingTab = function(globalName, bracketIndex)
             y = RenderPlainBlockLines(blk.lines, leftMargin, y, contentWidth)
             if blk.chips and #blk.chips > 0 then
                 y = RenderChipRowFresh(blk.chips, leftMargin, y, contentWidth)
+            end
+            if blk.notes and #blk.notes > 0 then
+                y = y - 4
+                y = RenderPlainBlockLines(blk.notes, leftMargin, y, contentWidth)
             end
             y = y - 6
         end
