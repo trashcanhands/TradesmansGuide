@@ -359,6 +359,51 @@ local function ExtractLevelsRangeLabel(bannerText)
     return "Levels"
 end
 
+local function SplitLeadingInlineTrainerBlock(craftLines)
+    local idx = 1
+    local n = #craftLines
+    while idx <= n do
+        local line = craftLines[idx]
+        if line == "TRAIN:" then
+            break
+        elseif line == "" or IsSeparatorLine(line) or (type(line) == "string" and line:find("VERIFIED", 1, true)) then
+            idx = idx + 1
+        else
+            return nil, craftLines
+        end
+    end
+    if idx > n or craftLines[idx] ~= "TRAIN:" then
+        return nil, craftLines
+    end
+
+    local closeIdx = nil
+    for j = idx + 1, n do
+        if IsSeparatorLine(craftLines[j]) then
+            closeIdx = j
+            break
+        end
+    end
+    if not closeIdx then
+        return nil, craftLines
+    end
+
+    local trainerLines = {}
+    for i = idx, closeIdx - 1 do
+        table.insert(trainerLines, craftLines[i])
+    end
+
+    local rest = {}
+    local r = closeIdx + 1
+    while craftLines[r] == "" do
+        r = r + 1
+    end
+    for i = r, n do
+        table.insert(rest, craftLines[i])
+    end
+
+    return trainerLines, rest
+end
+
 local function ComputeCraftStructure(contentTable)
     local total = #contentTable
     local bannerStarts = {}
@@ -443,6 +488,14 @@ local function ComputeCraftStructure(contentTable)
         local craftLines = {}
         for i = craftStart, craftEnd do
             table.insert(craftLines, contentTable[i])
+        end
+
+        if not tb then
+            local inlineTrainer, rest = SplitLeadingInlineTrainerBlock(craftLines)
+            if inlineTrainer then
+                trainerLines = inlineTrainer
+                craftLines = rest
+            end
         end
 
         table.insert(brackets, {
