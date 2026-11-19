@@ -237,10 +237,10 @@ local function HexToRGB(hex)
     return r, g, b
 end
 
-local WHERE_CHIP_PATTERN = "^%s*|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r%s*$"
-local WHERE_CHIP_PATTERN_NOFACTION = "^%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r%s*$"
-local EMBEDDED_CHIP_WITH_FACTION = "|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r"
-local EMBEDDED_CHIP_NO_FACTION = "|cFF33FF99%[(.-)%]|r%s*/%s*|cFF33FF99%[(.-)%]|r"
+local WHERE_CHIP_PATTERN = "^%s*|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[([^%]]-)%]|r%s*/%s*|cFF33FF99%[([^%]]-)%]|r%s*$"
+local WHERE_CHIP_PATTERN_NOFACTION = "^%s*|cFF33FF99%[([^%]]-)%]|r%s*/%s*|cFF33FF99%[([^%]]-)%]|r%s*$"
+local EMBEDDED_CHIP_WITH_FACTION = "|cFF(%x%x%x%x%x%x)%[%a%]|r%s*|cFF33FF99%[([^%]]-)%]|r%s*/%s*|cFF33FF99%[([^%]]-)%]|r"
+local EMBEDDED_CHIP_NO_FACTION = "|cFF33FF99%[([^%]]-)%]|r%s*/%s*|cFF33FF99%[([^%]]-)%]|r"
 
 local function ExtractEmbeddedChips(text)
     local chips = {}
