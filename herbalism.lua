@@ -48,6 +48,11 @@ in circles and pick them as they appear.
 
 |cFFFFD700[N]|r |cFF33FF99Zephras Isle|r
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Peacebloom" },
+                { name = "Silverleaf" },
+                { name = "Earthroot", level = 15 },
+            },
             zones = {
                 {name = "Durotar", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Durotar"}},
                 {name = "Mulgore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Mulgore"}},
@@ -74,6 +79,11 @@ ZONE OPTIONS:
 |cFF33FF99Darkshore|r - Herbs are everywhere. The loop can be extended to the upper part of the
       map or run as smaller circles in different areas. Easy and relaxed.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Mageroyal" },
+                { name = "Briarthorn" },
+                { name = "Stranglekelp", level = 85 },
+            },
             zones = {
                 {name = "Silverpine Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\SilverpineForest"}},
                 {name = "Loch Modan", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\LochModan"}},
@@ -101,6 +111,13 @@ ZONE OPTIONS:
       2. A good alternative if someone is already farming area 1. Mobs around level 25.
       3. Usually crowded, with many mobs. Only worth it above 125: it has more Kingsblood.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Bruiseweed" },
+                { name = "Wild Steelbloom" },
+                { name = "Stranglekelp" },
+                { name = "Kingsblood", level = 125 },
+                { name = "Liferoot", level = 150 },
+            },
             zones = {
                 {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\HillsbradFoothills"}},
                 {name = "Stonetalon Mountains", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\StonetalonMountains"}}
@@ -123,6 +140,13 @@ ZONE OPTIONS:
 |cFF33FF99Stranglethorn Vale|r
 |cFF33FF99Arathi Highlands|r
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Kingsblood" },
+                { name = "Liferoot" },
+                { name = "Fadeleaf" },
+                { name = "Goldthorn" },
+                { name = "Khadgar's Whisker", level = 185 },
+            },
             zones = {
                 {name = "Stranglethorn Vale", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\StranglethornVale"}},
                 {name = "Arathi Highlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\ArathiHighlands"}}
@@ -143,6 +167,10 @@ ZONE OPTIONS:
 |cFF33FF99Tanaris|r
 |cFF33FF99Searing Gorge|r
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Purple Lotus" },
+                { name = "Firebloom" },
+            },
             zones = {
                 {name = "Tanaris", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Tanaris"}},
                 {name = "Searing Gorge", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\SearingGorge"}}
@@ -161,6 +189,12 @@ ZONE:
 |cFF33FF99The Hinterlands|r - The cave marked with a red X has many Ghost Mushrooms, but you
       need Herbalism 245 to pick them.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Sungrass" },
+                { name = "Purple Lotus" },
+                { name = "Golden Sansam" },
+                { name = "Ghost Mushroom", level = 245 },
+            },
             zones = {
                 {name = "The Hinterlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\TheHinterlands"}}
             }
@@ -179,6 +213,14 @@ Herb List:
 ZONE:
 |cFF33FF99Felwood|r
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Sungrass" },
+                { name = "Gromsblood" },
+                { name = "Golden Sansam" },
+                { name = "Dreamfoil" },
+                { name = "Mountain Silversage" },
+                { name = "Plaguebloom" },
+            },
             zones = {
                 {name = "Felwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Felwood"}}
             }

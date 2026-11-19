@@ -874,6 +874,236 @@ end
 
 local gatherGuides = {}
 
+local function ParseGatheringTitle(title)
+    if type(title) ~= "string" then
+        return title, nil, nil
+    end
+    local label = title:match("%[(.-)%]")
+    if not label then
+        label = title:match("^(.-)%s*|c%x%x%x%x%x%x%x%x") or title
+        label = label:gsub("%s+$", "")
+        if label == "" then
+            label = title
+        end
+    end
+    local color, text = title:match("|c(%x%x%x%x%x%x%x%x)(.-)|r")
+    return label, text, color
+end
+
+local function SplitDescLines(desc)
+    local t = {}
+    for line in (desc .. "\n"):gmatch("(.-)\n") do
+        table.insert(t, line)
+    end
+    return t
+end
+
+local function StripNamedBlock(lines, markerPattern)
+    local out = {}
+    local skipping = false
+    for _, line in ipairs(lines) do
+        if not skipping and line:match(markerPattern) then
+            skipping = true
+        elseif skipping and line:match("^%-%-%-%-%-%-%-%-%-%-+$") then
+            skipping = false
+        elseif not skipping then
+            table.insert(out, line)
+        end
+    end
+    return out
+end
+
+local function ExtractNamedBlock(lines, markerPattern)
+    local out = {}
+    local capturing = false
+    for _, line in ipairs(lines) do
+        if not capturing and line:match(markerPattern) then
+            capturing = true
+        elseif capturing and line:match("^%-%-%-%-%-%-%-%-%-%-+$") then
+            capturing = false
+        elseif capturing then
+            table.insert(out, line)
+        end
+    end
+    while #out > 0 and out[#out] == "" do
+        table.remove(out)
+    end
+    while #out > 0 and out[1] == "" do
+        table.remove(out, 1)
+    end
+    return table.concat(out, "\n")
+end
+
+local function BuildGatheringNotes(desc)
+    if type(desc) ~= "string" then
+        return ""
+    end
+    local lines = SplitDescLines(desc)
+    lines = StripNamedBlock(lines, "^Herb List:")
+    lines = StripNamedBlock(lines, "^Ore List:")
+    lines = StripNamedBlock(lines, "^Skin List:")
+    lines = StripNamedBlock(lines, "^ZONE OPTIONS:")
+    lines = StripNamedBlock(lines, "^ZONE:")
+    while #lines > 0 and (lines[#lines] == "" or lines[#lines]:match("^%-%-%-%-%-%-%-%-%-%-+$")) do
+        table.remove(lines)
+    end
+    while #lines > 0 and (lines[1] == "" or lines[1]:match("^%-%-%-%-%-%-%-%-%-%-+$")) do
+        table.remove(lines, 1)
+    end
+    return table.concat(lines, "\n")
+end
+
+local function ExtractGatheringZoneOptions(desc)
+    if type(desc) ~= "string" then
+        return ""
+    end
+    local lines = SplitDescLines(desc)
+    local text = ExtractNamedBlock(lines, "^ZONE OPTIONS:")
+    if text == "" then
+        text = ExtractNamedBlock(lines, "^ZONE:")
+    end
+    return text
+end
+
+local function RenderPillRow(pool, items, activeIndex, x, y, width)
+    for _, pill in ipairs(pool) do
+        pill:Hide()
+    end
+
+    local gap = 6
+    local curX = x
+    local curY = y
+    local usedRow = false
+
+    for idx, item in ipairs(items) do
+        local pill = pool[idx]
+        if not pill then
+            pill = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+            pool[idx] = pill
+        end
+
+        pill:SetHeight(22)
+        pill:SetText(item.label)
+        local fs = pill:GetFontString()
+        local textWidth = 60
+        if fs then
+            fs:SetWordWrap(false)
+            textWidth = fs:GetStringWidth()
+        end
+        local pillWidth = math.min(width, math.max(60, textWidth + 24))
+        pill:SetWidth(pillWidth)
+
+        if usedRow and curX + pillWidth > x + width then
+            curX = x
+            curY = curY - 28
+        end
+        usedRow = true
+
+        pill:ClearAllPoints()
+        pill:SetPoint("TOPLEFT", contentChild, "TOPLEFT", curX, curY)
+        pill:SetScript("OnClick", item.onClick)
+
+        if idx == activeIndex then
+            pill:LockHighlight()
+        else
+            pill:UnlockHighlight()
+        end
+
+        pill:Show()
+        curX = curX + pillWidth + gap
+    end
+
+    return curY - 28
+end
+
+local function BuildMaterialCard(pool, index, x, y, width, matData, skillLabel)
+    local card = pool[index]
+    if not card then
+        card = CreateFrame("Frame", nil, contentChild)
+
+        local bg = card:CreateTexture(nil, "BACKGROUND")
+        bg:SetColorTexture(1, 1, 1, 0.05)
+        bg:SetAllPoints(card)
+
+        local icon = card:CreateTexture(nil, "ARTWORK")
+        icon:SetWidth(24)
+        icon:SetHeight(24)
+        icon:SetPoint("TOPLEFT", card, "TOPLEFT", 6, -5)
+
+        local name = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        name:SetJustifyH("LEFT")
+        name:SetTextColor(1, 1, 1)
+        name:SetPoint("TOPLEFT", card, "TOPLEFT", 36, -4)
+        name:SetPoint("TOPRIGHT", card, "TOPRIGHT", -6, -4)
+        name:SetWordWrap(false)
+
+        local level = card:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        level:SetJustifyH("LEFT")
+        level:SetTextColor(0.72, 0.68, 0.48)
+        level:SetPoint("TOPLEFT", card, "TOPLEFT", 36, -18)
+
+        card.icon = icon
+        card.name = name
+        card.level = level
+        pool[index] = card
+    end
+
+    card:ClearAllPoints()
+    card:SetPoint("TOPLEFT", contentChild, "TOPLEFT", x, y)
+    card:SetWidth(width)
+    card:SetHeight(32)
+
+    local iconPath = ItemIcons and ItemIcons[matData.name]
+    if iconPath then
+        card.icon:SetVertexColor(1, 1, 1, 1)
+        card.icon:SetTexture("Interface\\Icons\\" .. iconPath)
+    else
+        card.icon:SetColorTexture(0.22, 0.18, 0.1, 0.9)
+    end
+
+    card.name:SetText(matData.name)
+    if matData.level then
+        card.level:SetText((skillLabel or "Skill") .. " " .. matData.level)
+        card.level:Show()
+    else
+        card.level:Hide()
+    end
+
+    card:Show()
+    return card
+end
+
+local function RenderMaterialGrid(pool, materials, x, y, width, skillLabel)
+    for _, card in ipairs(pool) do
+        card:Hide()
+    end
+
+    local cardWidth = 196
+    local cardHeight = 32
+    local gapX = 6
+    local gapY = 6
+    local perRow = math.max(1, math.floor((width + gapX) / (cardWidth + gapX)))
+
+    local curX, curY = x, y
+    local col = 0
+    for idx, mat in ipairs(materials) do
+        BuildMaterialCard(pool, idx, curX, curY, cardWidth, mat, skillLabel)
+        col = col + 1
+        if col >= perRow then
+            col = 0
+            curX = x
+            curY = curY - cardHeight - gapY
+        else
+            curX = curX + cardWidth + gapX
+        end
+    end
+    if col > 0 then
+        curY = curY - cardHeight - gapY
+    end
+
+    return curY
+end
+
 local function ClearAllGathering()
     for _, guide in ipairs(gatherGuides) do
         guide.clear()
@@ -882,9 +1112,10 @@ end
 
 local function NewGatheringGuide(globalName, layout)
     local ui = {
-        textFrame = nil,
         mapFrame = nil,
-        zoneButtons = {},
+        bracketTabPool = {},
+        zonePillPool = {},
+        materialCardPool = {},
         navButtons = {},
         currentSection = 1
     }
@@ -894,8 +1125,14 @@ local function NewGatheringGuide(globalName, layout)
         if ui.headerText then
             ui.headerText:Hide()
         end
-        if ui.textFrame then
-            ui.textFrame:Hide()
+        if ui.verifiedText then
+            ui.verifiedText:Hide()
+        end
+        if ui.notesFrame then
+            ui.notesFrame:Hide()
+        end
+        if ui.zoneNoteText then
+            ui.zoneNoteText:Hide()
         end
         if ui.mapFrame then
             ui.mapFrame:Hide()
@@ -903,14 +1140,18 @@ local function NewGatheringGuide(globalName, layout)
         if ui.sectionIndicator then
             ui.sectionIndicator:Hide()
         end
-        for _, btn in ipairs(ui.zoneButtons) do
-            btn:Hide()
+        for _, pill in ipairs(ui.bracketTabPool) do
+            pill:Hide()
+        end
+        for _, pill in ipairs(ui.zonePillPool) do
+            pill:Hide()
+        end
+        for _, card in ipairs(ui.materialCardPool) do
+            card:Hide()
         end
         for _, btn in ipairs(ui.navButtons) do
             btn:Hide()
         end
-        ui.zoneButtons = {}
-        ui.navButtons = {}
     end
 
     local function ShowMap(mapData)
@@ -938,49 +1179,80 @@ local function NewGatheringGuide(globalName, layout)
 
         ui.currentSection = sectionIndex
 
-        if ui.sectionIndicator then
-            ui.sectionIndicator:SetText("Section " .. sectionIndex .. " of " .. #data.sections)
-        end
-
-        for _, btn in ipairs(ui.zoneButtons) do
-            btn:Hide()
-        end
-        ui.zoneButtons = {}
-
-        ui.textFrame:SetText(section.title .. "\n\n" .. section.description)
-
-        local y = -40 - ui.textFrame:GetStringHeight() - 14
-        local hasZones = section.zones and #section.zones > 0
-
-        if hasZones then
-            local xOffset = 20
-            local buttonWidth = 165
-            local buttonSpacing = 5
-            local maxWidth = 840
-
-            for _, zone in ipairs(section.zones) do
-                if xOffset + buttonWidth > maxWidth then
-                    xOffset = 20
-                    y = y - 27
+        local tabItems = {}
+        for idx, sec in ipairs(data.sections) do
+            local label = ParseGatheringTitle(sec.title)
+            table.insert(tabItems, {
+                label = label,
+                onClick = function()
+                    ShowSection(idx)
                 end
+            })
+        end
 
-                local btn = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-                btn:SetWidth(buttonWidth)
-                btn:SetHeight(22)
-                btn:SetPoint("TOPLEFT", contentChild, "TOPLEFT", xOffset, y)
-                btn:SetText(zone.name)
-                btn.mapPath = zone.map
+        local y = -40
+        y = RenderPillRow(ui.bracketTabPool, tabItems, sectionIndex, 20, y, 810) - 4
 
-                btn:SetScript("OnClick", function(self)
-                    ShowMap(self.mapPath)
-                end)
+        local _, verifiedText, verifiedColor = ParseGatheringTitle(section.title)
+        ui.verifiedText:ClearAllPoints()
+        ui.verifiedText:SetPoint("TOP", contentChild, "TOP", 0, y)
+        if verifiedText then
+            ui.verifiedText:SetText("|c" .. (verifiedColor or "FFFFFFFF") .. verifiedText .. "|r")
+            ui.verifiedText:Show()
+        else
+            ui.verifiedText:Hide()
+        end
+        y = y - 18
 
-                btn:Show()
-                table.insert(ui.zoneButtons, btn)
+        local notesStr = BuildGatheringNotes(section.description)
+        if notesStr ~= "" then
+            ui.notesFrame:ClearAllPoints()
+            ui.notesFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
+            ui.notesText:SetText(notesStr)
+            local h = ui.notesText:GetStringHeight() + 16
+            ui.notesFrame:SetHeight(h)
+            ui.notesFrame:Show()
+            y = y - h - 10
+        else
+            ui.notesFrame:Hide()
+        end
 
-                xOffset = xOffset + buttonWidth + buttonSpacing
+        local hasMaterials = section.materials and #section.materials > 0
+        if hasMaterials then
+            y = RenderMaterialGrid(ui.materialCardPool, section.materials, 20, y, 810, data.buttonText) - 4
+        else
+            for _, card in ipairs(ui.materialCardPool) do
+                card:Hide()
             end
-            y = y - 36
+        end
+
+        local zoneOptStr = ExtractGatheringZoneOptions(section.description)
+        if zoneOptStr ~= "" then
+            ui.zoneNoteText:ClearAllPoints()
+            ui.zoneNoteText:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
+            ui.zoneNoteText:SetText(zoneOptStr)
+            ui.zoneNoteText:Show()
+            y = y - ui.zoneNoteText:GetStringHeight() - 10
+        else
+            ui.zoneNoteText:Hide()
+        end
+
+        local hasZones = section.zones and #section.zones > 0
+        if hasZones then
+            local zoneItems = {}
+            for idx, zone in ipairs(section.zones) do
+                table.insert(zoneItems, {
+                    label = zone.name,
+                    onClick = function()
+                        ShowMap(zone.map)
+                    end
+                })
+            end
+            y = RenderPillRow(ui.zonePillPool, zoneItems, 1, 20, y, 810) - 10
+        else
+            for _, pill in ipairs(ui.zonePillPool) do
+                pill:Hide()
+            end
         end
 
         ui.prevButton:ClearAllPoints()
@@ -989,6 +1261,7 @@ local function NewGatheringGuide(globalName, layout)
         ui.nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, y)
         ui.sectionIndicator:ClearAllPoints()
         ui.sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, y - 5)
+        ui.sectionIndicator:SetText("Bracket " .. sectionIndex .. " of " .. #data.sections)
         y = y - 32
 
         ui.mapTop = y
@@ -1028,12 +1301,25 @@ local function NewGatheringGuide(globalName, layout)
             ui.headerText:Show()
         end
 
-        if not ui.textFrame then
-            ui.textFrame = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-            ui.textFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 10, -40)
-            ui.textFrame:SetWidth(830)
-            ui.textFrame:SetJustifyH("LEFT")
-            ui.textFrame:SetJustifyV("TOP")
+        if not ui.verifiedText then
+            ui.verifiedText = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormalSmall")
+        end
+
+        if not ui.notesFrame then
+            ui.notesFrame = CreateFrame("Frame", nil, contentChild, "InsetFrameTemplate")
+            ui.notesFrame:SetWidth(810)
+            ui.notesText = ui.notesFrame:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            ui.notesText:SetPoint("TOPLEFT", ui.notesFrame, "TOPLEFT", 8, -8)
+            ui.notesText:SetPoint("TOPRIGHT", ui.notesFrame, "TOPRIGHT", -8, -8)
+            ui.notesText:SetJustifyH("LEFT")
+            ui.notesText:SetJustifyV("TOP")
+        end
+
+        if not ui.zoneNoteText then
+            ui.zoneNoteText = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+            ui.zoneNoteText:SetWidth(810)
+            ui.zoneNoteText:SetJustifyH("LEFT")
+            ui.zoneNoteText:SetJustifyV("TOP")
         end
 
         if not ui.mapFrame then
@@ -1048,43 +1334,42 @@ local function NewGatheringGuide(globalName, layout)
             ui.mapFrame.textures = {}
         end
 
-        local prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-        prevButton:SetWidth(100)
-        prevButton:SetHeight(22)
-        prevButton:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, -50)
-        prevButton:SetText("<< Previous")
-        prevButton:SetScript("OnClick", function()
-            if ui.currentSection > 1 then
-                ShowSection(ui.currentSection - 1)
-            end
-        end)
-        prevButton:Show()
-        table.insert(ui.navButtons, prevButton)
+        if not ui.prevButton then
+            ui.prevButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+            ui.prevButton:SetWidth(130)
+            ui.prevButton:SetHeight(22)
+            ui.prevButton:SetText("<< Previous Bracket")
+            ui.prevButton:SetScript("OnClick", function()
+                if ui.currentSection > 1 then
+                    ShowSection(ui.currentSection - 1)
+                end
+            end)
+            table.insert(ui.navButtons, ui.prevButton)
+        end
 
-        local nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
-        nextButton:SetWidth(100)
-        nextButton:SetHeight(22)
-        nextButton:SetPoint("TOPRIGHT", contentChild, "TOPRIGHT", -20, -50)
-        nextButton:SetText("Next >>")
-        nextButton:SetScript("OnClick", function()
-            if ui.currentSection < #data.sections then
-                ShowSection(ui.currentSection + 1)
-            end
-        end)
-        nextButton:Show()
-        table.insert(ui.navButtons, nextButton)
+        if not ui.nextButton then
+            ui.nextButton = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+            ui.nextButton:SetWidth(130)
+            ui.nextButton:SetHeight(22)
+            ui.nextButton:SetText("Next Bracket >>")
+            ui.nextButton:SetScript("OnClick", function()
+                if ui.currentSection < #data.sections then
+                    ShowSection(ui.currentSection + 1)
+                end
+            end)
+            table.insert(ui.navButtons, ui.nextButton)
+        end
 
-        local sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-        sectionIndicator:SetPoint("TOP", contentChild, "TOP", 0, -55)
-        sectionIndicator:SetText("Section " .. ui.currentSection .. " of " .. #data.sections)
-        ui.sectionIndicator = sectionIndicator
-        ui.prevButton = prevButton
-        ui.nextButton = nextButton
+        if not ui.sectionIndicator then
+            ui.sectionIndicator = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        end
 
-        ui.textFrame:Show()
+        ui.prevButton:Show()
+        ui.nextButton:Show()
+        ui.sectionIndicator:Show()
         ui.mapFrame:Show()
 
-        ShowSection(1)
+        ShowSection(ui.currentSection or 1)
     end
 
     table.insert(gatherGuides, guide)

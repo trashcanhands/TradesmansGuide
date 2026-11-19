@@ -54,6 +54,9 @@ ZONE OPTIONS:
 |cFFFFD700[N]|r |cFF33FF99Zephras Isle|r - Start at Thendal Village and mine around it; respawns are very
       fast. Smelt at Shen'dar Village after a lap.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Copper Ore" },
+            },
             zones = {
                 {name = "Durotar", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Durotar"}},
                 {name = "Mulgore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\MulgoreForge"}},
@@ -94,6 +97,11 @@ Respawns are fast, so mob levels matter: outlevel the mobs before farming a cave
 NOTE: The site tested the Westfall and Hillsbrad Foothills routes only on a Horde
 character.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Tin Ore", level = 65 },
+                { name = "Silver Ore", level = 75 },
+                { name = "Incendicite Ore" },
+            },
             zones = {
                 {name = "Wetlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Wetlands"}},
                 {name = "Silverpine Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\SilverpineForest"}},
@@ -126,6 +134,10 @@ ZONE OPTIONS:
       all four caves, and low-level Alliance players should detour south of Hammerfall.
 |cFF33FF99Desolace|r - Follow the map.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Iron Ore", level = 125 },
+                { name = "Gold Ore", level = 155 },
+            },
             zones = {
                 {name = "Thousand Needles", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ThousandNeedles"}},
                 {name = "Arathi Highlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ArathiHighlands"}},
@@ -147,6 +159,10 @@ ZONE OPTIONS:
       62). Whether to skip the red-circled cave depends on your gear and class.
 |cFF33FF99Tanaris|r - Below level 60, skip the four red-circled caves.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Mithril Ore", level = 175 },
+                { name = "Truesilver Ore", level = 230 },
+            },
             zones = {
                 {name = "The Hinterlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TheHinterlands"}},
                 {name = "Tanaris", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Tanaris"}}
@@ -169,6 +185,11 @@ ZONE OPTIONS:
 |cFF33FF99Felwood|r - The red-circled cave is small, has few mobs and usually holds 2 veins. Skip
       the other two Jaedenar caves, especially Shadow Hold, unless you have stealth.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Thorium Ore", level = 245 },
+                { name = "Mithril Ore" },
+                { name = "Truesilver Ore" },
+            },
             zones = {
                 {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCrater"}},
                 {name = "Blasted Lands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BlastedLands"}},
@@ -193,6 +214,10 @@ ZONE OPTIONS:
 |cFF33FF99Burning Steppes|r - The two red-circled caves are full of level 50 mobs; lower-level
       players may want to skip them.
 ------------------------------------------------------------------------------------------------]],
+            materials = {
+                { name = "Thorium Ore", level = 275 },
+                { name = "Mithril Ore" },
+            },
             zones = {
                 {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCraterRichThorium"}},
                 {name = "Eastern Plaguelands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\EasternPlaguelands"}},
