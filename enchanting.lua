@@ -243,7 +243,7 @@ content = {
 "      |cFFFFD700[N]|r |cFF33FF99[Kania]|r / |cFF33FF99[Silithus]|r",
 "",
 "|cFFB2FF66Alternative Recipe|r (no |cFFFFFFFF[Purple Lotus]|r):",
-"      |cFFFFFFFF[Enchant Bracer - Greater Strength]|r (taught by |cFF33FF99[Annora]|r)",
+"      |cFFFFFFFF[Enchant Bracer - Greater Strength]|r (taught by |cFF33FF99[Annora]|r in Uldaman)",
 "      Requires: 1 |cFFFFFFFF[Dream Dust]|r, 2 |cFF1EFF00[Lesser Nether Essence]|r each",
 "",
 "------------------------------------------------------------------------------------------------",
