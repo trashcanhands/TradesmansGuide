@@ -206,9 +206,9 @@ content = {
 "|cFFB2FF66Alternative Recipes|r:",
 "      |cFFFFFFFF[Superior Mana Potion]|r",
 "      Requires: 110 |cFFFFFFFF[Sungrass]|r, 110 |cFFFFFFFF[Blindweed]|r, 55 |cFF9D9D9D[Crystal Vial]|r",
-"NOTE: Superior Mana Potion is 55 crafts. Use it if you skipped Stonescale Oil.",
-"NOTE: Recipe sold by:",
+"Vendors:",
 "      |cFFFF0000[H]|r |cFF33FF99[Algernon]|r / |cFF33FF99[Undercity, Tirisfal Glades]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Ulthir]|r / |cFF33FF99[Darnassus, Teldrassil]|r",
+"NOTE: Superior Mana Potion is 55 crafts. Use it if you skipped Stonescale Oil.",
 }
 }
