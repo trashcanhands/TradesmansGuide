@@ -1355,11 +1355,18 @@ local function BuildRecipeCard(index, x, y, width, cardData)
 end
 
 local function RenderPlainBlockLines(lines, x, y, width)
+    local inNote = false
     for idx, text in ipairs(lines) do
         local isLabel = IsChipLabelLine(text)
 
         if isLabel and idx > 1 then
             y = y - 6
+        end
+
+        if text == "" then
+            inNote = false
+        elseif type(text) == "string" and text:match("^NOTE:") then
+            inNote = true
         end
 
         local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
@@ -1369,6 +1376,8 @@ local function RenderPlainBlockLines(lines, x, y, width)
         line:SetText(text)
         if isLabel then
             line:SetTextColor(1, 0.82, 0)
+        elseif inNote then
+            line:SetTextColor(0.5, 0.85, 0.5)
         else
             line:SetTextColor(1, 1, 0.6)
         end
