@@ -1904,12 +1904,19 @@ end
 
 ShowHub()
 
+local function TG_IconTest()
+    local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(2318)
+    DEFAULT_CHAT_FRAME:AddMessage("TradeGuide IconTest: name=" .. tostring(name) .. " icon=" .. tostring(icon))
+end
+
 SLASH_PROFGUIDE1 = "/tradeguide"
 SLASH_PROFGUIDE2 = "/tg"
 SlashCmdList["PROFGUIDE"] = function(msg)
     if msg == "icontest" then
-        local name, _, _, _, _, _, _, _, _, icon = GetItemInfo(2318)
-        print("TradeGuide IconTest: name=" .. tostring(name) .. " icon=" .. tostring(icon))
+        local ok, err = pcall(TG_IconTest)
+        if not ok then
+            DEFAULT_CHAT_FRAME:AddMessage("TradeGuide IconTest: ERROR - " .. tostring(err))
+        end
         return
     end
     ShowFrame()
