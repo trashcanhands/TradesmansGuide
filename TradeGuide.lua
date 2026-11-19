@@ -104,6 +104,9 @@ local function ClearContent()
 end
 
 -- Helper function to display maps (handles both single and multi-tile)
+-- Fits the image to its real aspect ratio and centers it in the canvas
+-- instead of stretching it to fill the frame (the map .blp files here are
+-- a fixed 2:1 aspect, but the canvas is a slightly different 824x349).
 local function DisplayMap(mapFrame, mapData)
     -- Clear existing textures
     if mapFrame.textures then
@@ -113,11 +116,28 @@ local function DisplayMap(mapFrame, mapData)
     end
     mapFrame.textures = {}
     local canvas = mapFrame.canvas or mapFrame
-    
+    local canvasW, canvasH = canvas:GetWidth(), canvas:GetHeight()
+
+    local function FitSize(aspect)
+        local tileW, tileH
+        if canvasW / canvasH > aspect then
+            tileH = canvasH
+            tileW = tileH * aspect
+        else
+            tileW = canvasW
+            tileH = tileW / aspect
+        end
+        return tileW, tileH
+    end
+
     -- Check if multi-tile (table) or single (string)
     if type(mapData) == "table" and mapData.path then
+        local tileW, tileH = FitSize(mapData.aspect or 2.0)
         local tile = canvas:CreateTexture(nil, "ARTWORK")
-        tile:SetAllPoints(canvas)
+        tile:ClearAllPoints()
+        tile:SetWidth(tileW)
+        tile:SetHeight(tileH)
+        tile:SetPoint("CENTER", canvas, "CENTER", 0, 0)
         tile:SetTexture(mapData.path)
         if mapData.texCoord then
             tile:SetTexCoord(mapData.texCoord[1], mapData.texCoord[2], mapData.texCoord[3], mapData.texCoord[4])
@@ -125,29 +145,29 @@ local function DisplayMap(mapFrame, mapData)
         tile:Show()
         table.insert(mapFrame.textures, tile)
     elseif type(mapData) == "table" then
-        -- Multi-tile map
-        local tileWidth = canvas:GetWidth() / #mapData
-        local tileHeight = canvas:GetHeight()
-        
+        -- Multi-tile map (each tile assumed square unless mapData.aspect is given)
+        local totalW, totalH = FitSize(mapData.aspect or #mapData)
+        local tileWidth = totalW / #mapData
+        local startX = -totalW / 2
+
         for i, tilePath in ipairs(mapData) do
             local tile = canvas:CreateTexture(nil, "ARTWORK")
+            tile:ClearAllPoints()
             tile:SetWidth(tileWidth)
-            tile:SetHeight(tileHeight)
-            
-            if i == 1 then
-                tile:SetPoint("LEFT", canvas, "LEFT", 0, 0)
-            else
-                tile:SetPoint("LEFT", mapFrame.textures[i-1], "RIGHT", 0, 0)
-            end
-            
+            tile:SetHeight(totalH)
+            tile:SetPoint("LEFT", canvas, "CENTER", startX + tileWidth * (i - 1), 0)
             tile:SetTexture(tilePath)
             tile:Show()
             table.insert(mapFrame.textures, tile)
         end
     else
-        -- Single tile map
+        -- Single tile map (plain texture path string)
+        local tileW, tileH = FitSize(1.0)
         local tile = canvas:CreateTexture(nil, "ARTWORK")
-        tile:SetAllPoints(canvas)
+        tile:ClearAllPoints()
+        tile:SetWidth(tileW)
+        tile:SetHeight(tileH)
+        tile:SetPoint("CENTER", canvas, "CENTER", 0, 0)
         tile:SetTexture(mapData)
         tile:Show()
         table.insert(mapFrame.textures, tile)
