@@ -279,6 +279,14 @@ local function ComputeCraftStructure(contentTable)
         overviewEnd = bannerStarts[1] - 1
     end
 
+    local back = overviewEnd
+    while contentTable[back] == "" do
+        back = back - 1
+    end
+    if back >= 3 and IsAnyBannerStart(contentTable, back - 2) then
+        overviewEnd = back - 3
+    end
+
     local overview = {}
     for i = 1, overviewEnd do
         table.insert(overview, contentTable[i])
@@ -454,7 +462,7 @@ local function DisplayContent(contentTable, professionData, topOffset, leftMargi
 
             yOffset = yOffset - 13
             i = i + 1
-        elseif text == "WHERE:" then
+        elseif type(text) == "string" and text:match("^WHERE") then
             local label = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
             label:SetPoint("TOPLEFT", contentChild, "TOPLEFT", leftMargin, yOffset)
             label:SetWidth(contentWidth)
