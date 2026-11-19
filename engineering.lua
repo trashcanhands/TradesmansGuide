@@ -110,7 +110,7 @@ content = {
 "Craft: 5x |cFFFFFFFF[Silver Contact]|r",
 "Requires: 5 |cFF00FF00[Silver Bar]|r",
 "",
-"      [|cFF33FFFF100-105|r] |cFFB2FF66Alternative Recipes:|r",
+"|cFFB2FF66Alternative Recipes|r:",
 "      Craft: 5x |cFFFFFFFF[Flying Tiger Goggles]|r",
 "      Requires: 30 |cFFFFFFFF[Light Leather]|r, 10 |cFF00FF00[Tigerseye]|r",
 "",
