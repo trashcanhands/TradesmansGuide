@@ -40,33 +40,44 @@ contentChild:SetHeight(500)
 contentFrame:SetScrollChild(contentChild)
 
 local headerFont = _G["CombatLogFont"] and "CombatLogFont" or "GameFontNormalLarge"
-local headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
-headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
+local headerText = contentFrame:CreateFontString(nil, "OVERLAY", headerFont)
+headerText:SetPoint("TOP", contentFrame, "TOP", 0, -6)
 headerText:SetText("")
 
 -- Store all text lines
 local textLines = {}
 
-local craftSidebarWidth = 170
+local craftTabBarHeight = 28
+local craftTabBar = CreateFrame("Frame", nil, contentFrame)
+craftTabBar:SetPoint("TOPLEFT", contentFrame, "TOPLEFT", 0, -30)
+craftTabBar:SetPoint("TOPRIGHT", contentFrame, "TOPRIGHT", 0, -30)
+craftTabBar:SetHeight(craftTabBarHeight)
+craftTabBar:SetFrameLevel(contentFrame:GetFrameLevel() + 10)
+craftTabBar:Hide()
 
-local craftSidebar = CreateFrame("Frame", nil, contentFrame)
-craftSidebar:SetPoint("TOPLEFT", contentFrame, "TOPLEFT", 0, 0)
-craftSidebar:SetPoint("BOTTOMLEFT", contentFrame, "BOTTOMLEFT", 0, 0)
-craftSidebar:SetWidth(craftSidebarWidth)
-craftSidebar:SetFrameLevel(contentFrame:GetFrameLevel() + 10)
-craftSidebar:Hide()
+local craftTabBarBg = craftTabBar:CreateTexture(nil, "BACKGROUND")
+craftTabBarBg:SetColorTexture(0, 0, 0, 0.3)
+craftTabBarBg:SetAllPoints(craftTabBar)
 
-local craftSidebarBg = craftSidebar:CreateTexture(nil, "BACKGROUND")
-craftSidebarBg:SetColorTexture(0, 0, 0, 0.35)
-craftSidebarBg:SetAllPoints(craftSidebar)
+local craftTabBarEdge = craftTabBar:CreateTexture(nil, "ARTWORK")
+craftTabBarEdge:SetColorTexture(1, 0.82, 0, 0.5)
+craftTabBarEdge:SetHeight(2)
+craftTabBarEdge:SetPoint("BOTTOMLEFT", craftTabBar, "BOTTOMLEFT", 0, 0)
+craftTabBarEdge:SetPoint("BOTTOMRIGHT", craftTabBar, "BOTTOMRIGHT", 0, 0)
 
-local craftSidebarEdge = craftSidebar:CreateTexture(nil, "ARTWORK")
-craftSidebarEdge:SetColorTexture(1, 0.82, 0, 0.5)
-craftSidebarEdge:SetWidth(2)
-craftSidebarEdge:SetPoint("TOPRIGHT", craftSidebar, "TOPRIGHT", 0, 0)
-craftSidebarEdge:SetPoint("BOTTOMRIGHT", craftSidebar, "BOTTOMRIGHT", 0, 0)
+local CRAFT_TABS = { "Overview", "Leveling", "Trainers" }
+local craftTabButtons = {}
+for idx, label in ipairs(CRAFT_TABS) do
+    local btn = CreateFrame("Button", nil, craftTabBar, "UIPanelButtonTemplate")
+    btn:SetWidth(110)
+    btn:SetHeight(24)
+    btn:SetPoint("LEFT", craftTabBar, "LEFT", 6 + (idx - 1) * 114, 0)
+    btn:SetText(label)
+    craftTabButtons[idx] = btn
+end
 
-local craftSidebarButtons = {}
+local craftCardFrames = {}
+local bracketPillButtons = {}
 
 -- Function to clear content
 local function ClearContent()
@@ -74,9 +85,11 @@ local function ClearContent()
         line:Hide()
     end
     textLines = {}
-    craftSidebar:Hide()
-    for _, btn in ipairs(craftSidebarButtons) do
-        btn:Hide()
+    for _, card in ipairs(craftCardFrames) do
+        card:Hide()
+    end
+    for _, pill in ipairs(bracketPillButtons) do
+        pill:Hide()
     end
 end
 
@@ -222,7 +235,7 @@ local function ExtractLevelsRangeLabel(bannerText)
     return "Levels"
 end
 
-local function ComputeCraftPages(contentTable)
+local function ComputeCraftStructure(contentTable)
     local total = #contentTable
     local bannerStarts = {}
     for i = 1, total do
@@ -232,10 +245,10 @@ local function ComputeCraftPages(contentTable)
     end
 
     if #bannerStarts == 0 then
-        return nil, nil
+        return nil
     end
 
-    local pullTarget = {}
+    local trainerBlockFor = {}
     for i = 1, total do
         if contentTable[i] == "TRAIN:" then
             local closeIdx = nil
@@ -252,50 +265,125 @@ local function ComputeCraftPages(contentTable)
                 end
                 for _, b in ipairs(bannerStarts) do
                     if d == b then
-                        pullTarget[b] = pullTarget[b] and math.min(pullTarget[b], i - 1) or (i - 1)
+                        trainerBlockFor[b] = { startIdx = i - 1, trainIdx = i, closeIdx = closeIdx }
                     end
                 end
             end
         end
     end
 
-    local pageStarts = {}
-    for _, b in ipairs(bannerStarts) do
-        table.insert(pageStarts, pullTarget[b] or b)
+    local overviewEnd
+    if trainerBlockFor[bannerStarts[1]] then
+        overviewEnd = trainerBlockFor[bannerStarts[1]].startIdx - 1
+    else
+        overviewEnd = bannerStarts[1] - 1
     end
 
-    if pageStarts[1] then
-        local back = pageStarts[1] - 1
-        while contentTable[back] == "" do
-            back = back - 1
-        end
-        if back >= 3 and IsAnyBannerStart(contentTable, back - 2) then
-            pageStarts[1] = back - 2
-        end
+    local overview = {}
+    for i = 1, overviewEnd do
+        table.insert(overview, contentTable[i])
     end
 
-    local pages = {}
-    local labels = {}
-    if pageStarts[1] > 1 then
-        local overview = {}
-        for i = 1, pageStarts[1] - 1 do
-            table.insert(overview, contentTable[i])
+    local brackets = {}
+    for k, b in ipairs(bannerStarts) do
+        local tb = trainerBlockFor[b]
+        local trainerLines = {}
+        if tb then
+            for i = tb.trainIdx, tb.closeIdx - 1 do
+                table.insert(trainerLines, contentTable[i])
+            end
         end
-        table.insert(pages, overview)
-        table.insert(labels, "Overview")
+
+        local craftStart = b + 3
+        while contentTable[craftStart] == "" do
+            craftStart = craftStart + 1
+        end
+
+        local nextBoundary = bannerStarts[k + 1]
+        if nextBoundary and trainerBlockFor[nextBoundary] then
+            nextBoundary = trainerBlockFor[nextBoundary].startIdx
+        end
+        local craftEnd = (nextBoundary or (total + 1)) - 1
+        while craftEnd >= craftStart and (contentTable[craftEnd] == "" or IsSeparatorLine(contentTable[craftEnd])) do
+            craftEnd = craftEnd - 1
+        end
+
+        local craftLines = {}
+        for i = craftStart, craftEnd do
+            table.insert(craftLines, contentTable[i])
+        end
+
+        table.insert(brackets, {
+            label = ExtractLevelsRangeLabel(contentTable[b + 1]),
+            trainerLines = trainerLines,
+            craftLines = craftLines,
+        })
     end
 
-    for k, s in ipairs(pageStarts) do
-        local e = (pageStarts[k + 1] or (total + 1)) - 1
-        local page = {}
-        for i = s, e do
-            table.insert(page, contentTable[i])
+    return { overview = overview, brackets = brackets }
+end
+
+local function ParseLevelingBlocks(lines)
+    local blocks = {}
+    local i = 1
+    local n = #lines
+    local pendingSubrange = nil
+    local plainBuf = {}
+
+    local function flushPlain()
+        while #plainBuf > 0 and plainBuf[#plainBuf] == "" do
+            table.remove(plainBuf)
         end
-        table.insert(pages, page)
-        table.insert(labels, ExtractLevelsRangeLabel(contentTable[bannerStarts[k] + 1]))
+        while #plainBuf > 0 and plainBuf[1] == "" do
+            table.remove(plainBuf, 1)
+        end
+        if #plainBuf > 0 then
+            table.insert(blocks, { type = "plain", lines = plainBuf })
+        end
+        plainBuf = {}
     end
 
-    return pages, labels
+    local function isStopLine(l)
+        return l == nil or l == "" or l:match("^NOTE:") or l:match("^Craft:")
+            or l == "OR" or l:match("^%[|cFF%x%x%x%x%x%x")
+    end
+
+    while i <= n do
+        local line = lines[i]
+        if type(line) == "string" and line:match("^%[|cFF%x%x%x%x%x%x.-|r%]$") then
+            pendingSubrange = line:match("^%[|cFF%x%x%x%x%x%x(.-)|r%]$")
+            i = i + 1
+        elseif type(line) == "string" and line:match("^Craft:") then
+            flushPlain()
+            local card = { type = "card", subrange = pendingSubrange, title = line }
+            pendingSubrange = nil
+            i = i + 1
+            if lines[i] and lines[i]:match("^Requires:") then
+                local req = lines[i]
+                i = i + 1
+                while not isStopLine(lines[i]) do
+                    req = req .. " " .. lines[i]
+                    i = i + 1
+                end
+                card.req = req
+            end
+            while lines[i] and lines[i]:match("^NOTE:") do
+                local note = lines[i]
+                i = i + 1
+                while not isStopLine(lines[i]) do
+                    note = note .. " " .. lines[i]
+                    i = i + 1
+                end
+                card.note = card.note and (card.note .. "  " .. note) or note
+            end
+            table.insert(blocks, card)
+        else
+            table.insert(plainBuf, line)
+            i = i + 1
+        end
+    end
+    flushPlain()
+    return blocks
 end
 
 local function DisplayContent(contentTable, professionData, topOffset, leftMargin)
@@ -741,99 +829,388 @@ local SETS = {
     },
 }
 
-local craftPageCache = {}
+local craftStructureCache = {}
 local currentCraftProfession = nil
-local ShowCraftPage
+local CRAFT_CONTENT_TOP = -74
+local RenderLevelingTab
+local ShowLevelingBracket
+local SetActiveCraftTab
 
-local function BuildCraftSidebar(globalName, labels, activeIndex)
-    for _, btn in ipairs(craftSidebarButtons) do
-        btn:Hide()
-    end
-
-    if not labels or #labels < 2 then
-        craftSidebar:Hide()
-        return
-    end
-
-    craftSidebar:Show()
-
-    local y = -10
-    for idx, labelText in ipairs(labels) do
-        local btn = craftSidebarButtons[idx]
-        if not btn then
-            btn = CreateFrame("Button", nil, craftSidebar, "UIPanelButtonTemplate")
-            btn:SetWidth(craftSidebarWidth - 16)
-            btn:SetHeight(38)
-            local fs = btn:GetFontString()
-            if fs then
-                fs:SetWordWrap(true)
-                fs:SetWidth(craftSidebarWidth - 28)
-            end
-            craftSidebarButtons[idx] = btn
-        end
-
-        btn:SetPoint("TOPLEFT", craftSidebar, "TOPLEFT", 8, y)
-        btn:SetText(labelText)
-        btn:SetScript("OnClick", function()
-            ShowCraftPage(globalName, idx)
-        end)
-
-        if idx == activeIndex then
+local function HighlightCraftTab(tabIndex)
+    for idx, btn in ipairs(craftTabButtons) do
+        if idx == tabIndex then
             btn:LockHighlight()
         else
             btn:UnlockHighlight()
         end
-
-        btn:Show()
-        y = y - 42
     end
 end
 
-ShowCraftPage = function(globalName, pageIndex)
+local function BuildRecipeCard(index, x, y, width, cardData)
+    local card = craftCardFrames[index]
+    if not card then
+        card = CreateFrame("Frame", nil, contentChild)
+
+        local bg = card:CreateTexture(nil, "BACKGROUND")
+        bg:SetColorTexture(1, 1, 1, 0.05)
+        bg:SetAllPoints(card)
+
+        local top = card:CreateTexture(nil, "ARTWORK")
+        top:SetColorTexture(1, 0.82, 0, 0.45)
+        top:SetHeight(2)
+        top:SetPoint("TOPLEFT", card, "TOPLEFT", 0, 0)
+        top:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 0)
+
+        local bottom = card:CreateTexture(nil, "ARTWORK")
+        bottom:SetColorTexture(1, 0.82, 0, 0.45)
+        bottom:SetHeight(2)
+        bottom:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 0, 0)
+        bottom:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 0)
+
+        local left = card:CreateTexture(nil, "ARTWORK")
+        left:SetColorTexture(1, 0.82, 0, 0.45)
+        left:SetWidth(2)
+        left:SetPoint("TOPLEFT", card, "TOPLEFT", 0, 0)
+        left:SetPoint("BOTTOMLEFT", card, "BOTTOMLEFT", 0, 0)
+
+        local right = card:CreateTexture(nil, "ARTWORK")
+        right:SetColorTexture(1, 0.82, 0, 0.45)
+        right:SetWidth(2)
+        right:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, 0)
+        right:SetPoint("BOTTOMRIGHT", card, "BOTTOMRIGHT", 0, 0)
+
+        local icon = card:CreateTexture(nil, "ARTWORK")
+        icon:SetColorTexture(0.22, 0.18, 0.1, 0.9)
+        icon:SetWidth(36)
+        icon:SetHeight(36)
+        icon:SetPoint("TOPLEFT", card, "TOPLEFT", 10, -10)
+
+        local title = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        title:SetJustifyH("LEFT")
+        title:SetJustifyV("TOP")
+        title:SetTextColor(1, 1, 1)
+
+        local req = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        req:SetJustifyH("LEFT")
+        req:SetJustifyV("TOP")
+        req:SetTextColor(0.85, 0.8, 0.55)
+
+        local note = card:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        note:SetJustifyH("LEFT")
+        note:SetJustifyV("TOP")
+        note:SetTextColor(0.5, 0.85, 0.5)
+
+        card.icon = icon
+        card.title = title
+        card.req = req
+        card.note = note
+        craftCardFrames[index] = card
+    end
+
+    card:ClearAllPoints()
+    card:SetPoint("TOPLEFT", contentChild, "TOPLEFT", x, y)
+    card:SetWidth(width)
+
+    local textX = 10 + 36 + 10
+    local textWidth = width - textX - 10
+
+    local titleText = cardData.title
+    if cardData.subrange then
+        titleText = "|cFFFFD700[" .. cardData.subrange .. "]|r  " .. titleText
+    end
+
+    card.title:ClearAllPoints()
+    card.title:SetPoint("TOPLEFT", card, "TOPLEFT", textX, -10)
+    card.title:SetWidth(textWidth)
+    card.title:SetText(titleText)
+    card.title:Show()
+
+    local cursorY = -10 - card.title:GetStringHeight() - 4
+
+    if cardData.req then
+        card.req:ClearAllPoints()
+        card.req:SetPoint("TOPLEFT", card, "TOPLEFT", textX, cursorY)
+        card.req:SetWidth(textWidth)
+        card.req:SetText(cardData.req)
+        card.req:Show()
+        cursorY = cursorY - card.req:GetStringHeight() - 4
+    else
+        card.req:Hide()
+    end
+
+    if cardData.note then
+        card.note:ClearAllPoints()
+        card.note:SetPoint("TOPLEFT", card, "TOPLEFT", textX, cursorY)
+        card.note:SetWidth(textWidth)
+        card.note:SetText(cardData.note)
+        card.note:Show()
+        cursorY = cursorY - card.note:GetStringHeight() - 4
+    else
+        card.note:Hide()
+    end
+
+    local textBlockHeight = -cursorY + 6
+    local cardHeight = math.max(36 + 20, textBlockHeight + 10)
+    card:SetHeight(cardHeight)
+    card.icon:Show()
+    card:Show()
+
+    return cardHeight
+end
+
+local function RenderPlainBlockLines(lines, x, y, width)
+    for _, text in ipairs(lines) do
+        local line = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        line:SetPoint("TOPLEFT", contentChild, "TOPLEFT", x, y)
+        line:SetWidth(width)
+        line:SetJustifyH("LEFT")
+        line:SetText(text)
+        line:SetTextColor(1, 1, 0.6)
+        line:Show()
+
+        table.insert(textLines, line)
+        local lineHeight = line:GetStringHeight()
+        local minHeight = 15
+        if text == "" then
+            minHeight = 24
+        end
+        if lineHeight < minHeight then
+            lineHeight = minHeight
+        end
+        y = y - lineHeight
+    end
+    return y
+end
+
+local function RenderBracketPills(globalName, brackets, activeIndex, x, y, width)
+    for _, pill in ipairs(bracketPillButtons) do
+        pill:Hide()
+    end
+
+    local gap = 6
+    local curX = x
+    local curY = y
+    local usedRow = false
+
+    for idx, bracket in ipairs(brackets) do
+        local pill = bracketPillButtons[idx]
+        if not pill then
+            pill = CreateFrame("Button", nil, contentChild, "UIPanelButtonTemplate")
+            bracketPillButtons[idx] = pill
+        end
+
+        pill:SetHeight(22)
+        pill:SetText(bracket.label)
+        local fs = pill:GetFontString()
+        local textWidth = 60
+        if fs then
+            fs:SetWordWrap(false)
+            textWidth = fs:GetStringWidth()
+        end
+        local pillWidth = math.min(width, math.max(60, textWidth + 24))
+        pill:SetWidth(pillWidth)
+
+        if usedRow and curX + pillWidth > x + width then
+            curX = x
+            curY = curY - 28
+        end
+        usedRow = true
+
+        pill:ClearAllPoints()
+        pill:SetPoint("TOPLEFT", contentChild, "TOPLEFT", curX, curY)
+        pill:SetScript("OnClick", function()
+            ShowLevelingBracket(globalName, idx)
+        end)
+
+        if idx == activeIndex then
+            pill:LockHighlight()
+        else
+            pill:UnlockHighlight()
+        end
+
+        pill:Show()
+        curX = curX + pillWidth + gap
+    end
+
+    return curY - 28
+end
+
+RenderLevelingTab = function(globalName, bracketIndex)
+    local data = _G[globalName]
+    local struct = craftStructureCache[globalName]
+    if not data or not struct then
+        return
+    end
+
+    if bracketIndex < 1 then
+        bracketIndex = 1
+    elseif bracketIndex > #struct.brackets then
+        bracketIndex = #struct.brackets
+    end
+    struct.lastBracket = bracketIndex
+
+    ClearContent()
+
+    if data.headerText then
+        headerText:SetText(data.headerText)
+        headerText:Show()
+    else
+        headerText:Hide()
+    end
+
+    local leftMargin = 10
+    local contentWidth = 840 - leftMargin
+
+    local y = RenderBracketPills(globalName, struct.brackets, bracketIndex, leftMargin, CRAFT_CONTENT_TOP, contentWidth)
+    y = y - 10
+
+    local bracket = struct.brackets[bracketIndex]
+    local blocks = ParseLevelingBlocks(bracket.craftLines)
+
+    local gap = 10
+    local cardWidth = (contentWidth - gap) / 2
+    local cardIdx = 0
+    local pendingLeft = nil
+
+    local function placeCard(cardData, colX, width)
+        cardIdx = cardIdx + 1
+        return BuildRecipeCard(cardIdx, colX, y, width, cardData)
+    end
+
+    local function flushPendingAlone()
+        if pendingLeft then
+            local h = placeCard(pendingLeft, leftMargin, cardWidth)
+            y = y - h - gap
+            pendingLeft = nil
+        end
+    end
+
+    for _, blk in ipairs(blocks) do
+        if blk.type == "card" then
+            if pendingLeft then
+                local leftH = placeCard(pendingLeft, leftMargin, cardWidth)
+                local rightH = placeCard(blk, leftMargin + cardWidth + gap, cardWidth)
+                y = y - math.max(leftH, rightH) - gap
+                pendingLeft = nil
+            else
+                pendingLeft = blk
+            end
+        else
+            flushPendingAlone()
+            y = RenderPlainBlockLines(blk.lines, leftMargin, y, contentWidth)
+            y = y - 6
+        end
+    end
+    flushPendingAlone()
+
+    contentChild:SetHeight(math.abs(y) + 20)
+    contentFrame:UpdateScrollChildRect()
+
+    HighlightCraftTab(2)
+end
+
+ShowLevelingBracket = function(globalName, bracketIndex)
+    local struct = craftStructureCache[globalName]
+    if not struct then
+        return
+    end
+    struct.activeTab = 2
+    RenderLevelingTab(globalName, bracketIndex)
+    contentFrame:SetVerticalScroll(0)
+end
+
+local function BuildTrainersContent(struct)
+    local lines = {}
+    local any = false
+    local sep = "------------------------------------------------------------------------------------------------"
+    for _, bracket in ipairs(struct.brackets) do
+        if #bracket.trainerLines > 0 then
+            any = true
+            table.insert(lines, sep)
+            table.insert(lines, bracket.label)
+            table.insert(lines, sep)
+            for _, l in ipairs(bracket.trainerLines) do
+                table.insert(lines, l)
+            end
+            table.insert(lines, "")
+        end
+    end
+    if not any then
+        table.insert(lines, "No separate trainer listings for this profession.")
+    end
+    return lines
+end
+
+local function RenderOverviewTab(globalName)
+    local data = _G[globalName]
+    local struct = craftStructureCache[globalName]
+    DisplayContent(struct.overview, data, CRAFT_CONTENT_TOP, 10)
+    contentFrame:SetVerticalScroll(0)
+end
+
+local function RenderTrainersTab(globalName)
+    local data = _G[globalName]
+    local struct = craftStructureCache[globalName]
+    local lines = BuildTrainersContent(struct)
+    DisplayContent(lines, data, CRAFT_CONTENT_TOP, 10)
+    contentFrame:SetVerticalScroll(0)
+end
+
+SetActiveCraftTab = function(globalName, tabIndex)
+    local struct = craftStructureCache[globalName]
+    if not struct then
+        return
+    end
+    struct.activeTab = tabIndex
+    HighlightCraftTab(tabIndex)
+
+    if tabIndex == 1 then
+        RenderOverviewTab(globalName)
+    elseif tabIndex == 2 then
+        RenderLevelingTab(globalName, struct.lastBracket or 1)
+        contentFrame:SetVerticalScroll(0)
+    elseif tabIndex == 3 then
+        RenderTrainersTab(globalName)
+    end
+end
+
+local function ShowCraftProfession(globalName)
+    ClearAllGathering()
     local data = _G[globalName]
     if not data or not data.content then
         print("ERROR: " .. globalName .. " data not found!")
         return
     end
 
-    local cached = craftPageCache[globalName]
-    if not cached then
-        local pages, labels = ComputeCraftPages(data.content)
-        cached = { pages = pages, labels = labels }
-        craftPageCache[globalName] = cached
-    end
-
     currentCraftProfession = globalName
 
-    if not cached.pages then
+    local struct = craftStructureCache[globalName]
+    if struct == nil then
+        struct = ComputeCraftStructure(data.content)
+        craftStructureCache[globalName] = struct or false
+    end
+
+    if not struct then
+        craftTabBar:Hide()
         DisplayContent(data.content, data)
-        BuildCraftSidebar(globalName, nil, nil)
         contentFrame:SetVerticalScroll(0)
         return
     end
 
-    if pageIndex < 1 then
-        pageIndex = 1
-    elseif pageIndex > #cached.pages then
-        pageIndex = #cached.pages
+    craftTabBar:Show()
+    for idx, btn in ipairs(craftTabButtons) do
+        btn:SetScript("OnClick", function()
+            SetActiveCraftTab(globalName, idx)
+        end)
     end
 
-    local hasSidebar = #cached.pages > 1
-    local leftMargin = hasSidebar and (craftSidebarWidth + 20) or 10
-
-    DisplayContent(cached.pages[pageIndex], data, -40, leftMargin)
-    BuildCraftSidebar(globalName, cached.labels, pageIndex)
-    contentFrame:SetVerticalScroll(0)
-end
-
-local function ShowCraft(globalName)
-    ClearAllGathering()
-    ShowCraftPage(globalName, 1)
+    SetActiveCraftTab(globalName, struct.activeTab or 1)
 end
 
 local gatherActions = {}
 for name, guide in pairs({ Herbalism = herbalismGuide, Mining = miningGuide, Skinning = skinningGuide }) do
     gatherActions[name] = function()
+        craftTabBar:Hide()
         guide.display()
         contentFrame:SetVerticalScroll(0)
     end
@@ -923,7 +1300,7 @@ for index, set in ipairs(SETS) do
             y = y - 12
         end
         AddButton(frame, globalName .. "Button", entry[2], y, function()
-            ShowCraft(globalName)
+            ShowCraftProfession(globalName)
         end)
         y = y - 28
     end
@@ -996,8 +1373,8 @@ local HUB_DATA = { headerText = "TRADESMAN'S GUIDE" }
 local function ShowHub()
     ClearAllGathering()
     currentCraftProfession = nil
+    craftTabBar:Hide()
     DisplayContent(HUB_CONTENT, HUB_DATA)
-    BuildCraftSidebar(nil, nil, nil)
 end
 
 ShowHub()
