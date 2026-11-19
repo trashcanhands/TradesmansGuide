@@ -524,27 +524,36 @@ local function ParseLevelingBlocks(lines)
                     card.chips = reqChips
                 end
             end
-            while lines[i] and lines[i]:match("^NOTE:") do
-                local note, initChips = ExtractEmbeddedChips(lines[i])
-                i = i + 1
-                local noteChips
-                note, noteChips = gatherField(note)
-                for _, c in ipairs(initChips) do
-                    table.insert(noteChips, c)
-                end
-                if #noteChips > 0 then
-                    card.chips = card.chips or {}
-                    for _, c in ipairs(noteChips) do
-                        table.insert(card.chips, c)
+            local function consumeNotes()
+                while lines[i] and lines[i]:match("^NOTE:") do
+                    local note, initChips = ExtractEmbeddedChips(lines[i])
+                    i = i + 1
+                    local noteChips
+                    note, noteChips = gatherField(note)
+                    for _, c in ipairs(initChips) do
+                        table.insert(noteChips, c)
                     end
+                    if #noteChips > 0 then
+                        card.chips = card.chips or {}
+                        for _, c in ipairs(noteChips) do
+                            table.insert(card.chips, c)
+                        end
+                    end
+                    card.note = card.note and (card.note .. "  " .. note) or note
                 end
-                card.note = card.note and (card.note .. "  " .. note) or note
             end
+
+            consumeNotes()
+            while lines[i] == "" and type(lines[i + 1]) == "string" and lines[i + 1]:match("^NOTE:") do
+                i = i + 1
+                consumeNotes()
+            end
+
             table.insert(blocks, card)
         else
             if type(line) ~= "string" then
                 table.insert(plainBuf, line)
-            elseif line == "TRAIN:" or line == "ACQUIRE:" or line == "QUEST:" then
+            elseif line == "TRAIN:" or line == "ACQUIRE:" or line == "QUEST:" or IsSeparatorLine(line) then
             else
                 local targetBuf = line:match("^NOTE:") and plainNotes or plainBuf
                 local color, name, loc = line:match(WHERE_CHIP_PATTERN)
