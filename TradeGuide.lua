@@ -934,6 +934,31 @@ local function ExtractNamedBlock(lines, markerPattern)
     return table.concat(out, "\n")
 end
 
+local function IsWhereChipLine(line)
+    local color, name, loc = line:match(WHERE_CHIP_PATTERN)
+    if color then
+        return true
+    end
+    local name2, loc2 = line:match(WHERE_CHIP_PATTERN_NOFACTION)
+    return name2 ~= nil
+end
+
+local function StripChipLines(lines)
+    local out = {}
+    local lastWasChip = false
+    for _, line in ipairs(lines) do
+        if IsWhereChipLine(line) then
+            lastWasChip = true
+        elseif line == "" and lastWasChip then
+            -- drop the blank spacer line that separated faction groups
+        else
+            lastWasChip = false
+            table.insert(out, line)
+        end
+    end
+    return out
+end
+
 local function BuildGatheringNotes(desc)
     if type(desc) ~= "string" then
         return ""
@@ -944,6 +969,7 @@ local function BuildGatheringNotes(desc)
     lines = StripNamedBlock(lines, "^Skin List:")
     lines = StripNamedBlock(lines, "^ZONE OPTIONS:")
     lines = StripNamedBlock(lines, "^ZONE:")
+    lines = StripChipLines(lines)
     while #lines > 0 and (lines[#lines] == "" or lines[#lines]:match("^%-%-%-%-%-%-%-%-%-%-+$")) do
         table.remove(lines)
     end
@@ -963,6 +989,84 @@ local function ExtractGatheringZoneOptions(desc)
         text = ExtractNamedBlock(lines, "^ZONE:")
     end
     return text
+end
+
+local function ExtractChipSegments(lines)
+    local segments = {}
+    local textBuf = {}
+
+    local function flushText()
+        while #textBuf > 0 and textBuf[#textBuf] == "" do
+            table.remove(textBuf)
+        end
+        while #textBuf > 0 and textBuf[1] == "" do
+            table.remove(textBuf, 1)
+        end
+        if #textBuf > 0 then
+            table.insert(segments, { kind = "text", text = table.concat(textBuf, "\n") })
+        end
+        textBuf = {}
+    end
+
+    local currentChips = nil
+
+    local function flushChips()
+        if currentChips and #currentChips > 0 then
+            table.insert(segments, { kind = "chips", chips = currentChips })
+        end
+        currentChips = nil
+    end
+
+    for _, line in ipairs(lines) do
+        if line:match("^%-%-%-%-%-%-%-%-%-%-+$") then
+            flushChips()
+        else
+            local color, name, loc = line:match(WHERE_CHIP_PATTERN)
+            local isChip = color ~= nil
+            if not isChip then
+                local name2, loc2 = line:match(WHERE_CHIP_PATTERN_NOFACTION)
+                if name2 then
+                    isChip, color, name, loc = true, "FFD700", name2, loc2
+                end
+            end
+
+            if isChip then
+                if not currentChips then
+                    flushText()
+                    currentChips = {}
+                end
+                table.insert(currentChips, { color = color, name = name, loc = loc })
+            elseif line == "" and currentChips then
+                table.insert(currentChips, { blank = true })
+            else
+                flushChips()
+                table.insert(textBuf, line)
+            end
+        end
+    end
+    flushChips()
+    flushText()
+
+    return segments
+end
+
+local function ExtractApprenticeChips(bracketOneDescription)
+    if type(bracketOneDescription) ~= "string" then
+        return {}
+    end
+    local lines = SplitDescLines(bracketOneDescription)
+    local appText = ExtractNamedBlock(lines, "^TRAIN:.*Apprentice")
+    local appLines = SplitDescLines(appText)
+    local segs = ExtractChipSegments(appLines)
+    local chips = {}
+    for _, seg in ipairs(segs) do
+        if seg.kind == "chips" then
+            for _, c in ipairs(seg.chips) do
+                table.insert(chips, c)
+            end
+        end
+    end
+    return chips
 end
 
 local function RenderPillRow(pool, items, activeIndex, x, y, width)
@@ -1104,6 +1208,98 @@ local function RenderMaterialGrid(pool, materials, x, y, width, skillLabel)
     return curY
 end
 
+local function BuildChipWidget(pool, index)
+    local chip = pool[index]
+    if not chip then
+        chip = CreateFrame("Frame", nil, contentChild)
+
+        local bg = chip:CreateTexture(nil, "BACKGROUND")
+        bg:SetColorTexture(0, 0, 0, 0.4)
+        bg:SetAllPoints(chip)
+
+        local edgeTop = chip:CreateTexture(nil, "ARTWORK")
+        edgeTop:SetHeight(2)
+        edgeTop:SetPoint("TOPLEFT", chip, "TOPLEFT", 0, 0)
+        edgeTop:SetPoint("TOPRIGHT", chip, "TOPRIGHT", 0, 0)
+
+        local edgeBottom = chip:CreateTexture(nil, "ARTWORK")
+        edgeBottom:SetHeight(2)
+        edgeBottom:SetPoint("BOTTOMLEFT", chip, "BOTTOMLEFT", 0, 0)
+        edgeBottom:SetPoint("BOTTOMRIGHT", chip, "BOTTOMRIGHT", 0, 0)
+
+        local edgeLeft = chip:CreateTexture(nil, "ARTWORK")
+        edgeLeft:SetWidth(2)
+        edgeLeft:SetPoint("TOPLEFT", chip, "TOPLEFT", 0, 0)
+        edgeLeft:SetPoint("BOTTOMLEFT", chip, "BOTTOMLEFT", 0, 0)
+
+        local edgeRight = chip:CreateTexture(nil, "ARTWORK")
+        edgeRight:SetWidth(2)
+        edgeRight:SetPoint("TOPRIGHT", chip, "TOPRIGHT", 0, 0)
+        edgeRight:SetPoint("BOTTOMRIGHT", chip, "BOTTOMRIGHT", 0, 0)
+
+        local text = chip:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+        text:SetTextColor(1, 1, 1)
+
+        chip.edgeTop = edgeTop
+        chip.edgeBottom = edgeBottom
+        chip.edgeLeft = edgeLeft
+        chip.edgeRight = edgeRight
+        chip.text = text
+        pool[index] = chip
+    end
+    return chip
+end
+
+-- Pooled chip grid for Trainers-page NPC lists. Unlike DisplayContent's
+-- inline chip rendering (which creates fresh widgets every call and relies
+-- on ClearContent() to clean them up), this draws from a shared pool keyed
+-- by a running startIndex, since the Gathering tab's ShowSection() redraws
+-- repeatedly without an intervening ClearContent().
+local function RenderChipGrid(pool, startIndex, chips, x, y, width)
+    local gap = 6
+    local rowHeight = 22
+    local curX, curY = x, y
+    local idx = startIndex
+
+    for _, chipData in ipairs(chips) do
+        if chipData.blank then
+            curX = x
+            curY = curY - (rowHeight + 4)
+        else
+            local chip = BuildChipWidget(pool, idx)
+
+            local r, g, b = HexToRGB(chipData.color)
+            chip.edgeTop:SetColorTexture(r, g, b, 0.9)
+            chip.edgeBottom:SetColorTexture(r, g, b, 0.9)
+            chip.edgeLeft:SetColorTexture(r, g, b, 0.9)
+            chip.edgeRight:SetColorTexture(r, g, b, 0.9)
+
+            local chipText = (chipData.loc and chipData.loc ~= "") and (chipData.name .. "  -  " .. chipData.loc) or chipData.name
+            chip.text:SetText(chipText)
+            local textWidth = chip.text:GetStringWidth()
+            local chipWidth = textWidth + 16
+
+            if curX > x and curX + chipWidth > x + width then
+                curX = x
+                curY = curY - (rowHeight + 4)
+            end
+
+            chip:ClearAllPoints()
+            chip:SetPoint("TOPLEFT", contentChild, "TOPLEFT", curX, curY)
+            chip:SetWidth(chipWidth)
+            chip:SetHeight(rowHeight)
+            chip.text:ClearAllPoints()
+            chip.text:SetPoint("CENTER", chip, "CENTER", 0, 0)
+            chip:Show()
+
+            curX = curX + chipWidth + gap
+            idx = idx + 1
+        end
+    end
+
+    return idx, curY - (rowHeight + 4)
+end
+
 local function ClearAllGathering()
     for _, guide in ipairs(gatherGuides) do
         guide.clear()
@@ -1116,6 +1312,8 @@ local function NewGatheringGuide(globalName, layout)
         bracketTabPool = {},
         zonePillPool = {},
         materialCardPool = {},
+        trainerTextPool = {},
+        trainerChipPool = {},
         navButtons = {},
         currentSection = 1
     }
@@ -1148,6 +1346,12 @@ local function NewGatheringGuide(globalName, layout)
         end
         for _, card in ipairs(ui.materialCardPool) do
             card:Hide()
+        end
+        for _, text in ipairs(ui.trainerTextPool) do
+            text:Hide()
+        end
+        for _, chip in ipairs(ui.trainerChipPool) do
+            chip:Hide()
         end
         for _, btn in ipairs(ui.navButtons) do
             btn:Hide()
@@ -1204,37 +1408,101 @@ local function NewGatheringGuide(globalName, layout)
         end
         y = y - 18
 
-        local notesStr = BuildGatheringNotes(section.description)
-        if notesStr ~= "" then
-            ui.notesFrame:ClearAllPoints()
-            ui.notesFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
-            ui.notesText:SetText(notesStr)
-            local h = ui.notesText:GetStringHeight() + 16
-            ui.notesFrame:SetHeight(h)
-            ui.notesFrame:Show()
-            y = y - h - 10
-        else
-            ui.notesFrame:Hide()
-        end
+        local isTrainersPage = (ParseGatheringTitle(section.title) == "Trainers")
 
-        local hasMaterials = section.materials and #section.materials > 0
-        if hasMaterials then
-            y = RenderMaterialGrid(ui.materialCardPool, section.materials, 20, y, 810, data.buttonText) - 4
-        else
+        if isTrainersPage then
+            ui.notesFrame:Hide()
+
+            local segments = {}
+            local apprenticeChips = ExtractApprenticeChips(data.sections[1].description)
+            if #apprenticeChips > 0 then
+                table.insert(segments, { kind = "text", text = "Apprentice trainers:" })
+                table.insert(segments, { kind = "chips", chips = apprenticeChips })
+            end
+            local ownSegments = ExtractChipSegments(SplitDescLines(section.description))
+            for _, seg in ipairs(ownSegments) do
+                table.insert(segments, seg)
+            end
+
+            local textIdx = 0
+            local chipIdx = 1
+            for _, seg in ipairs(segments) do
+                if seg.kind == "text" then
+                    textIdx = textIdx + 1
+                    local fs = ui.trainerTextPool[textIdx]
+                    if not fs then
+                        fs = contentChild:CreateFontString(nil, "OVERLAY", "GameFontNormal")
+                        fs:SetWidth(810)
+                        fs:SetJustifyH("LEFT")
+                        fs:SetJustifyV("TOP")
+                        fs:SetTextColor(1, 1, 0.6)
+                        ui.trainerTextPool[textIdx] = fs
+                    end
+                    fs:ClearAllPoints()
+                    fs:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
+                    fs:SetText(seg.text)
+                    fs:Show()
+                    y = y - fs:GetStringHeight() - 8
+                else
+                    chipIdx, y = RenderChipGrid(ui.trainerChipPool, chipIdx, seg.chips, 20, y, 810)
+                    y = y - 6
+                end
+            end
+
+            for i = textIdx + 1, #ui.trainerTextPool do
+                ui.trainerTextPool[i]:Hide()
+            end
+            for i = chipIdx, #ui.trainerChipPool do
+                ui.trainerChipPool[i]:Hide()
+            end
+
             for _, card in ipairs(ui.materialCardPool) do
                 card:Hide()
             end
-        end
-
-        local zoneOptStr = ExtractGatheringZoneOptions(section.description)
-        if zoneOptStr ~= "" then
-            ui.zoneNoteText:ClearAllPoints()
-            ui.zoneNoteText:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
-            ui.zoneNoteText:SetText(zoneOptStr)
-            ui.zoneNoteText:Show()
-            y = y - ui.zoneNoteText:GetStringHeight() - 10
-        else
             ui.zoneNoteText:Hide()
+            for _, pill in ipairs(ui.zonePillPool) do
+                pill:Hide()
+            end
+        else
+            local notesStr = BuildGatheringNotes(section.description)
+            if notesStr ~= "" then
+                ui.notesFrame:ClearAllPoints()
+                ui.notesFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
+                ui.notesText:SetText(notesStr)
+                local h = ui.notesText:GetStringHeight() + 16
+                ui.notesFrame:SetHeight(h)
+                ui.notesFrame:Show()
+                y = y - h - 10
+            else
+                ui.notesFrame:Hide()
+            end
+
+            local hasMaterials = section.materials and #section.materials > 0
+            if hasMaterials then
+                y = RenderMaterialGrid(ui.materialCardPool, section.materials, 20, y, 810, data.buttonText) - 4
+            else
+                for _, card in ipairs(ui.materialCardPool) do
+                    card:Hide()
+                end
+            end
+
+            local zoneOptStr = ExtractGatheringZoneOptions(section.description)
+            if zoneOptStr ~= "" then
+                ui.zoneNoteText:ClearAllPoints()
+                ui.zoneNoteText:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
+                ui.zoneNoteText:SetText(zoneOptStr)
+                ui.zoneNoteText:Show()
+                y = y - ui.zoneNoteText:GetStringHeight() - 10
+            else
+                ui.zoneNoteText:Hide()
+            end
+
+            for i = 1, #ui.trainerTextPool do
+                ui.trainerTextPool[i]:Hide()
+            end
+            for i = 1, #ui.trainerChipPool do
+                ui.trainerChipPool[i]:Hide()
+            end
         end
 
         local hasZones = section.zones and #section.zones > 0
