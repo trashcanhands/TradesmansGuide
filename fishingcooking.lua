@@ -217,13 +217,13 @@ FishingCooking = {
   },
   vendorRecipes = {
     {
-      title = "Recipe: |cFFFFFFFF[Slitherskin Mackerel]|r",
+      title = "|cFFFFFFFF[Slitherskin Mackerel Recipe]|r",
       chips = {
         { color = "FF0000", name = "Zansoa", loc = "Sen'jin Village, Durotar" },
       },
     },
     {
-      title = "Recipe: |cFFFFFFFF[Brilliant Smallfish]|r",
+      title = "|cFFFFFFFF[Brilliant Smallfish Recipe]|r",
       note = "Starting-zone recipe; pick whichever vendor matches your starting route.",
       chips = {
         { color = "FF0000", name = "Harn Longcast", loc = "Bloodhoof Village, Mulgore" },
@@ -235,7 +235,7 @@ FishingCooking = {
       },
     },
     {
-      title = "Recipe: |cFFFFFFFF[Longjaw Mud Snapper]|r",
+      title = "|cFFFFFFFF[Longjaw Mud Snapper Recipe]|r",
       note = "Several starting-zone vendors also carry this; also sold later in Thunder Bluff/Undercity.",
       chips = {
         { color = "FF0000", name = "Harn Longcast", loc = "Bloodhoof Village, Mulgore" },
@@ -247,7 +247,7 @@ FishingCooking = {
       },
     },
     {
-      title = "Recipe: |cFFFFFFFF[Bristle Whisker Catfish]|r",
+      title = "|cFFFFFFFF[Bristle Whisker Catfish Recipe]|r",
       note = "No Orgrimmar vendor - buy on the Auction House or in Thunder Bluff instead.",
       chips = {
         { color = "FF0000", name = "Naal Mistrunner", loc = "Thunder Bluff" },
@@ -256,20 +256,20 @@ FishingCooking = {
       },
     },
     {
-      title = "|cFF1EFF00[Expert Fishing - The Bass and You]|r",
+      title = "|cFF1EFF00[Expert Fishing: The Bass And You]|r",
       req = "Cost: 1 Gold",
       chips = {
         { color = "FFD700", name = "Old Man Heming", loc = "Booty Bay, Stranglethorn Vale" },
       },
     },
     {
-      title = "Recipe: |cFFFFFFFF[Mithril Head Trout]|r",
+      title = "|cFFFFFFFF[Mithril Head Trout Recipe]|r",
       chips = {
         { color = "FFD700", name = "Kelsey Yance", loc = "Booty Bay, Stranglethorn Vale" },
       },
     },
     {
-      title = "Recipe: |cFFFFFFFF[Filet of Redgill]|r",
+      title = "|cFFFFFFFF[Filet of Redgill Recipe]|r",
       chips = {
         { color = "FFD700", name = "Kelsey Yance", loc = "Booty Bay, Stranglethorn Vale" },
       },
@@ -283,7 +283,7 @@ FishingCooking = {
       },
     },
     {
-      title = "Recipe: |cFFFFFFFF[Nightfin Soup]|r",
+      title = "|cFFFFFFFF[Nightfin Soup Recipe]|r",
       chips = {
         { color = "FFD700", name = "Gikkix", loc = "Steamwheedle Port, Tanaris" },
       },

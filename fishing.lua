@@ -120,7 +120,7 @@ Fishing = {
   },
   vendorRecipes = {
     {
-      title = "|cFF1EFF00[Expert Fishing - The Bass and You]|r",
+      title = "|cFF1EFF00[Expert Fishing: The Bass And You]|r",
       req = "Cost: 1 Gold",
       note = "Also requires Character Level 20 and Fishing 125. Also sold on the Auction House.",
       chips = {

@@ -157,6 +157,16 @@ ItemIcons = {
   ["Spotted Yellowtail"] = "INV_Misc_Fish_01",
   ["Strider Stew"] = "INV_Misc_Bowl_01",
 
+  ["Brilliant Smallfish Recipe"] = "INV_SCROLL_03",
+  ["Bristle Whisker Catfish Recipe"] = "INV_SCROLL_03",
+  ["Expert Cookbook"] = "INV_MISC_BOOK_08",
+  ["Expert Fishing: The Bass And You"] = "INV_MISC_BOOK_08",
+  ["Filet of Redgill Recipe"] = "INV_SCROLL_03",
+  ["Longjaw Mud Snapper Recipe"] = "INV_SCROLL_03",
+  ["Mithril Head Trout Recipe"] = "INV_SCROLL_03",
+  ["Nightfin Soup Recipe"] = "INV_Misc_Bowl_01",
+  ["Slitherskin Mackerel Recipe"] = "INV_SCROLL_03",
+
   ["Peacebloom"] = "INV_Misc_Flower_02",
   ["Silverleaf"] = "INV_Misc_Herb_10",
   ["Earthroot"] = "INV_Misc_Herb_07",
