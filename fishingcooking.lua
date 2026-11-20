@@ -217,13 +217,13 @@ FishingCooking = {
   },
   vendorRecipes = {
     {
-      title = "|cFFFFFFFF[Slitherskin Mackerel Recipe]|r",
+      title = "|cFFFFFFFF[Recipe: Slitherskin Mackerel]|r",
       chips = {
         { color = "FF0000", name = "Zansoa", loc = "Sen'jin Village, Durotar" },
       },
     },
     {
-      title = "|cFFFFFFFF[Brilliant Smallfish Recipe]|r",
+      title = "|cFFFFFFFF[Recipe: Brilliant Smallfish]|r",
       note = "Starting-zone recipe; pick whichever vendor matches your starting route.",
       chips = {
         { color = "FF0000", name = "Harn Longcast", loc = "Bloodhoof Village, Mulgore" },
@@ -235,7 +235,7 @@ FishingCooking = {
       },
     },
     {
-      title = "|cFFFFFFFF[Longjaw Mud Snapper Recipe]|r",
+      title = "|cFFFFFFFF[Recipe: Longjaw Mud Snapper]|r",
       note = "Several starting-zone vendors also carry this; also sold later in Thunder Bluff/Undercity.",
       chips = {
         { color = "FF0000", name = "Harn Longcast", loc = "Bloodhoof Village, Mulgore" },
@@ -247,7 +247,7 @@ FishingCooking = {
       },
     },
     {
-      title = "|cFFFFFFFF[Bristle Whisker Catfish Recipe]|r",
+      title = "|cFFFFFFFF[Recipe: Bristle Whisker Catfish]|r",
       note = "No Orgrimmar vendor - buy on the Auction House or in Thunder Bluff instead.",
       chips = {
         { color = "FF0000", name = "Naal Mistrunner", loc = "Thunder Bluff" },
@@ -263,13 +263,13 @@ FishingCooking = {
       },
     },
     {
-      title = "|cFFFFFFFF[Mithril Head Trout Recipe]|r",
+      title = "|cFFFFFFFF[Recipe: Mithril Head Trout]|r",
       chips = {
         { color = "FFD700", name = "Kelsey Yance", loc = "Booty Bay, Stranglethorn Vale" },
       },
     },
     {
-      title = "|cFFFFFFFF[Filet of Redgill Recipe]|r",
+      title = "|cFFFFFFFF[Recipe: Filet of Redgill]|r",
       chips = {
         { color = "FFD700", name = "Kelsey Yance", loc = "Booty Bay, Stranglethorn Vale" },
       },
@@ -283,7 +283,7 @@ FishingCooking = {
       },
     },
     {
-      title = "|cFFFFFFFF[Nightfin Soup Recipe]|r",
+      title = "|cFFFFFFFF[Recipe: Nightfin Soup]|r",
       chips = {
         { color = "FFD700", name = "Gikkix", loc = "Steamwheedle Port, Tanaris" },
       },
