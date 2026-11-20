@@ -42,6 +42,8 @@ Lockpicking = {
 "|cFFFF8000UNVERIFIED: assumed unchanged from Classic, not yet confirmed in Forever|r",
 "|cFF33FF99[Ashenvale]|r - Zoram Strand",
 "Pick the |cFFFFFFFF[Waterlogged Footlocker]|r chests along the shore. They are on land.",
+"NOTE: Higher-level Waterlogged Footlockers also exist in the water (open from 110), but",
+"if there's no competition the shore alone is enough to reach 150.",
 "------------------------------------------------------------------------------------------------",
 "",
 "------------------------------------------------------------------------------------------------",

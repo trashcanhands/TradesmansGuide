@@ -82,7 +82,7 @@ Fishing = {
 "------------------------------------------------------------------------------------------------",
 "ACQUIRE:",
 "      |cFF1EFF00[Expert Fishing - The Bass and You]|r (Requires Character Level 20;",
-"      Fishing 125; Raises Cap [150] > [225])",
+"      Fishing 125; 1 Gold; Raises Cap [150] > [225])",
 "WHERE:",
 "      |cFFFFD700[N]|r |cFF33FF99[Old Man Heming]|r / |cFF33FF99[Booty Bay, Stranglethorn Vale]|r",
 "      Also sold on the |cFFFFFF00[Auction House]|r",

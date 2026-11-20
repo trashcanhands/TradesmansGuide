@@ -56,10 +56,10 @@ ZONE OPTIONS:
       are green, but respawns are fast.
       |cFFFF0000[H]|r only: pick up |cFFFFFFFF[Keen Skinning Knife]|r (+3 Skinning) from the quest
       |cFFFFD700[! Unwelcome Guests]|r in The Barrens.
-|cFF33FF99Loch Modan|r [75-125] - Skin Elder Mountain Boars and Black Bear Patriarchs (level
-      16-17). Loch Crocolisks are skinnable too; pull them at the shore. At about 125
-      head north to the Wetlands.
-|cFF33FF99Wetlands|r [125-150] - Skin Mottled Scytheclaws and Mottled Razormaws (level 25-27).
+|cFF33FF99Loch Modan|r [75-130] - Skin Elder Mountain Boars and Black Bear Patriarchs (level
+      16-17). Loch Crocolisks are skinnable too; pull them at the shore. Stay until 130;
+      most Wetlands raptors cannot be skinned yet.
+|cFF33FF99Wetlands|r [130-150] - Skin Mottled Scytheclaws and Mottled Razormaws (level 25-27).
       Some are always at Whelgar's Excavation Site.
 ------------------------------------------------------------------------------------------------]],
             zones = {
@@ -75,9 +75,12 @@ TRAIN: |cFF1EFF00[Artisan Skinning]|r (Requires Skinning 200; 5 Gold; Raises Cap
 Trainers: see the Trainers section.
 ------------------------------------------------------------------------------------------------
 ZONE OPTIONS (pick one):
-|cFF33FF99Hillsbrad Foothills|r - Foothill Caverns, on the Alterac border. Skin Cave Yetis and
-      Ferocious Yetis (level 30-32). They respawn fast, so you can stay inside the cave.
-      Horde come from Tarren Mill, Alliance from Southshore.
+|cFF33FF99Hillsbrad Foothills|r [150-160] - In front of the cave, skin Vicious Gray Bears and
+      Starving Mountain Lions (level 22-24). At 150 only the level 30 Cave Yetis inside
+      are skinnable yet.
+|cFF33FF99Hillsbrad Foothills|r [160-225] - Foothill Caverns, on the Alterac border. Skin Cave
+      Yetis and Ferocious Yetis (level 30-32). They respawn fast, so you can stay inside
+      the cave. Horde come from Tarren Mill, Alliance from Southshore.
 |cFF33FF99Duskwood|r - The Rotting Orchard. Skin Nightbane Worgen, Nightbane Shadow Weavers and
       Nightbane Dark Runners (level 26-29). Start at spot 1 on the map, clear the mobs
       outside and inside Roland's Doom, then work the Rotting Orchard until they respawn.

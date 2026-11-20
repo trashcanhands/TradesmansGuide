@@ -39,6 +39,8 @@ MerchantsFavor = {
 "",
 "Crate level requirements: Apprentice and Journeyman 10, Expert 20, Artisan 35.",
 "NOTE: Sealed crates give no reputation.",
+"NOTE: A white-quality Waylaid Crate gives exactly half the Merchant's Favor of a green",
+"one (Apprentice 2.5, Journeyman 5, Expert 7.5).",
 "------------------------------------------------------------------------------------------------",
 "APPRENTICE CRATES - what each accepts (Merchant's Favor reward)",
 "------------------------------------------------------------------------------------------------",

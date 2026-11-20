@@ -85,10 +85,10 @@ Respawns are fast, so mob levels matter: outlevel the mobs before farming a cave
       outlevel them or they keep respawning on top of you.
 |cFFFF0000[H]|r |cFF33FF99Silverpine Forest|r - The cave has 3 vein spawn points with about a 2-minute
       respawn. Mobs are level 21-22; outlevel them.
-|cFFFF0000[H]|r |cFF33FF99Hillsbrad Foothills|r - Fast respawns. Best if you are above the mobs (level 22-26).
-      The route loops around Tarren Mill, a Horde town.
 |cFF33FF99Westfall|r - Several Tin Veins in the cave plus veins outside (mobs level 13-15).
       Popular, so expect competition.
+|cFFFF0000[H]|r |cFF33FF99Hillsbrad Foothills|r - Fast respawns. Best if you are above the mobs (level 22-26).
+      The route loops around Tarren Mill, a Horde town.
 |cFF33FF99The Barrens|r - A straightforward route that is easy to follow. Popular, so expect
       competition.
 |cFF33FF99Ashenvale|r - No caves and few people, but the route may not support several miners
