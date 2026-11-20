@@ -31,8 +31,6 @@ The finished layout should look like this:
 ```
 AddOns/
   TradeGuide/
-    TradeGuide.toc
-    TradeGuide.lua
 	alchemy.lua
 	blacksmithing.lua
 	camping.lua
@@ -49,6 +47,9 @@ AddOns/
 	herbalism.lua
 	mining.lua
 	skinning.lua
+	ItemIcons.lua
+	TradeGuide.lua
+	TradeGuide.toc
     Maps/
       Herbalism/
       Mining/
