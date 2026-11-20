@@ -184,6 +184,8 @@ FirstAid = {
 "      |cFFFFFFFF/target Pexmit|r",
 "      |cFFFFFFFF/tm !8|r",
 "NOTE: Also a reward from |cFFFFD700[! A Rest Without Pain]|r in Elderwild, Mount Hyjal.",
+"NOTE: Horde-only alternative: |cFF33FF99[Ortak Lomgok]|r / |cFF33FF99[Elderwild, Mount Hyjal]|r gives it as a reward",
+"after you complete his prerequisite quest, |cFFFFD700[! Herbs for the Bruised and Weary]|r.",
 "------------------------------------------------------------------------------------------------",
 "[|cFF33FFFF275-300|r]",
 "Craft: 30x |cFFFFFFFF[Major Healing Potion]|r",
