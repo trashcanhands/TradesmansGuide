@@ -117,5 +117,15 @@ Fishing = {
 "|cFF33FF99The Hinterlands|r, |cFF33FF99Tanaris|r, |cFF33FF99Un'Goro Crater|r,",
 "|cFF33FF99Western Plaguelands|r.",
 "------------------------------------------------------------------------------------------------"
+  },
+  vendorRecipes = {
+    {
+      title = "|cFF1EFF00[Expert Fishing - The Bass and You]|r",
+      req = "Cost: 1 Gold",
+      note = "Also requires Character Level 20 and Fishing 125. Also sold on the Auction House.",
+      chips = {
+        { color = "FFD700", name = "Old Man Heming", loc = "Booty Bay, Stranglethorn Vale" },
+      },
+    },
   }
 }

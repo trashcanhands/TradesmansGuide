@@ -280,5 +280,14 @@ Cooking = {
 "NOTE: Fish turn green at 285; Nightfin Soup stays orange until 290.",
 "",
 "------------------------------------------------------------------------------------------------"
+    },
+    vendorRecipes = {
+        {
+            title = "|cFF1EFF00[Expert Cookbook]|r",
+            chips = {
+                { color = "FF0000", name = "Wulan", loc = "Shadowprey Village, Desolace" },
+                { color = "66B2FF", name = "Shandrina", loc = "Silverwind Refuge, Ashenvale" },
+            },
+        },
     }
 }

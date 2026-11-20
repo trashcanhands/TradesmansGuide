@@ -191,5 +191,14 @@ FirstAid = {
 "Craft: 30x |cFFFFFFFF[Major Healing Potion]|r",
 "Requires: 30 |cFFFFFFFF[Golden Sansam]|r, 90 |cFF9D9D9D[Soothing Spices]|r, 30 |cFF9D9D9D[Crystal Vial]|r",
 "------------------------------------------------------------------------------------------------"
+  },
+  vendorRecipes = {
+    {
+      title = "|cFF1EFF00[Manual: Major Healing Potion]|r",
+      req = "Cost: 8 Gold",
+      chips = {
+        { color = "FFD700", name = "Pexmit", loc = "Dae'gun, Mount Hyjal" },
+      },
+    },
   }
 }

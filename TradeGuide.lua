@@ -75,7 +75,7 @@ craftTabBarEdge:SetHeight(2)
 craftTabBarEdge:SetPoint("BOTTOMLEFT", craftTabBar, "BOTTOMLEFT", 0, 0)
 craftTabBarEdge:SetPoint("BOTTOMRIGHT", craftTabBar, "BOTTOMRIGHT", 0, 0)
 
-local CRAFT_TABS = { "Overview", "Leveling", "Trainers" }
+local CRAFT_TABS = { "Overview", "Leveling", "Trainers", "Vendors" }
 local craftTabButtons = {}
 for idx, label in ipairs(CRAFT_TABS) do
     local btn = CreateFrame("Button", nil, craftTabBar, "UIPanelButtonTemplate")
@@ -2238,6 +2238,39 @@ local function RenderTrainersTab(globalName)
     contentFrame:SetVerticalScroll(0)
 end
 
+-- For profession guides that list purchased recipes/items rather than
+-- trained ones (e.g. FishingCooking), data.vendorRecipes replaces the
+-- Trainers tab with recipe cards (same BuildRecipeCard/RenderCardChips
+-- widgets as the Leveling tab) showing each item's selling vendor(s).
+local function RenderVendorsTab(globalName)
+    local data = _G[globalName]
+    ClearContent()
+
+    if data.headerText then
+        headerText:SetText(data.headerText)
+        headerText:Show()
+    else
+        headerText:Hide()
+    end
+
+    local leftMargin = 10
+    local contentWidth = 840 - leftMargin
+    local y = CRAFT_CONTENT_TOP
+    local gap = 10
+
+    for idx, cardData in ipairs(data.vendorRecipes) do
+        local h = BuildRecipeCard(idx, leftMargin, y, contentWidth, cardData)
+        y = y - h - gap
+    end
+    for i = #data.vendorRecipes + 1, #craftCardFrames do
+        craftCardFrames[i]:Hide()
+    end
+
+    contentChild:SetHeight(math.abs(y) + 20)
+    contentFrame:UpdateScrollChildRect()
+    contentFrame:SetVerticalScroll(0)
+end
+
 SetActiveCraftTab = function(globalName, tabIndex)
     local struct = craftStructureCache[globalName]
     if not struct then
@@ -2246,13 +2279,20 @@ SetActiveCraftTab = function(globalName, tabIndex)
     struct.activeTab = tabIndex
     HighlightCraftTab(tabIndex)
 
+    local data = _G[globalName]
     if tabIndex == 1 then
         RenderOverviewTab(globalName)
     elseif tabIndex == 2 then
         RenderLevelingTab(globalName, struct.lastBracket or 1)
         contentFrame:SetVerticalScroll(0)
     elseif tabIndex == 3 then
-        RenderTrainersTab(globalName)
+        if data.vendorRecipes and not struct.hasTrainers then
+            RenderVendorsTab(globalName)
+        else
+            RenderTrainersTab(globalName)
+        end
+    elseif tabIndex == 4 then
+        RenderVendorsTab(globalName)
     end
 end
 
@@ -2279,7 +2319,29 @@ local function ShowCraftProfession(globalName)
         return
     end
 
+    if struct.hasTrainers == nil then
+        local any = false
+        for _, bracket in ipairs(struct.brackets) do
+            if #bracket.trainerLines > 0 then
+                any = true
+                break
+            end
+        end
+        struct.hasTrainers = any
+    end
+
     craftTabBar:Show()
+    if data.vendorRecipes and not struct.hasTrainers then
+        craftTabButtons[3]:SetText("Vendors")
+        craftTabButtons[4]:Hide()
+    elseif data.vendorRecipes then
+        craftTabButtons[3]:SetText("Trainers")
+        craftTabButtons[4]:SetText("Vendors")
+        craftTabButtons[4]:Show()
+    else
+        craftTabButtons[3]:SetText("Trainers")
+        craftTabButtons[4]:Hide()
+    end
     for idx, btn in ipairs(craftTabButtons) do
         btn:SetScript("OnClick", function()
             SetActiveCraftTab(globalName, idx)

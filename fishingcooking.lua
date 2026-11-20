@@ -214,5 +214,79 @@ FishingCooking = {
 "Redgill too - you might reach 300 with them. If you still don't reach 300, fish a bit",
 "more outside the afternoon, or buy a few Raw Nightfin Snapper on the |cFFFFFF00[Auction House]|r.",
 "------------------------------------------------------------------------------------------------",
-  }
+  },
+  vendorRecipes = {
+    {
+      title = "Recipe: |cFFFFFFFF[Slitherskin Mackerel]|r",
+      chips = {
+        { color = "FF0000", name = "Zansoa", loc = "Sen'jin Village, Durotar" },
+      },
+    },
+    {
+      title = "Recipe: |cFFFFFFFF[Brilliant Smallfish]|r",
+      note = "Starting-zone recipe; pick whichever vendor matches your starting route.",
+      chips = {
+        { color = "FF0000", name = "Harn Longcast", loc = "Bloodhoof Village, Mulgore" },
+        { color = "FF0000", name = "Martine Tramblay", loc = "Death's Watch Waystation, Tirisfal Glades" },
+        { color = "FFD700", name = "Nyalah Brightfire", loc = "Valanaar, Zephras Isle" },
+        { color = "66B2FF", name = "Tharynn Bouden", loc = "Goldshire, Elwynn Forest" },
+        { color = "66B2FF", name = "Gretta Ganter", loc = "Iceflow Lake, Dun Morogh" },
+        { color = "66B2FF", name = "Nyoma", loc = "Dolanaar, Teldrassil" },
+      },
+    },
+    {
+      title = "Recipe: |cFFFFFFFF[Longjaw Mud Snapper]|r",
+      note = "Several starting-zone vendors also carry this; also sold later in Thunder Bluff/Undercity.",
+      chips = {
+        { color = "FF0000", name = "Harn Longcast", loc = "Bloodhoof Village, Mulgore" },
+        { color = "FFD700", name = "Nyalah Brightfire", loc = "Valanaar, Zephras Isle" },
+        { color = "66B2FF", name = "Tharynn Bouden", loc = "Goldshire, Elwynn Forest" },
+        { color = "66B2FF", name = "Nyoma", loc = "Dolanaar, Teldrassil" },
+        { color = "FF0000", name = "Naal Mistrunner", loc = "Thunder Bluff" },
+        { color = "FF0000", name = "Lizbeth Cromwell", loc = "Undercity" },
+      },
+    },
+    {
+      title = "Recipe: |cFFFFFFFF[Bristle Whisker Catfish]|r",
+      note = "No Orgrimmar vendor - buy on the Auction House or in Thunder Bluff instead.",
+      chips = {
+        { color = "FF0000", name = "Naal Mistrunner", loc = "Thunder Bluff" },
+        { color = "FF0000", name = "Ronald Burch", loc = "Undercity" },
+        { color = "66B2FF", name = "Catherine Leland", loc = "Stormwind City" },
+      },
+    },
+    {
+      title = "|cFF1EFF00[Expert Fishing - The Bass and You]|r",
+      req = "Cost: 1 Gold",
+      chips = {
+        { color = "FFD700", name = "Old Man Heming", loc = "Booty Bay, Stranglethorn Vale" },
+      },
+    },
+    {
+      title = "Recipe: |cFFFFFFFF[Mithril Head Trout]|r",
+      chips = {
+        { color = "FFD700", name = "Kelsey Yance", loc = "Booty Bay, Stranglethorn Vale" },
+      },
+    },
+    {
+      title = "Recipe: |cFFFFFFFF[Filet of Redgill]|r",
+      chips = {
+        { color = "FFD700", name = "Kelsey Yance", loc = "Booty Bay, Stranglethorn Vale" },
+      },
+    },
+    {
+      title = "|cFF1EFF00[Expert Cookbook]|r",
+      note = "Only need one of these - whichever matches your 130-205 route variant.",
+      chips = {
+        { color = "FF0000", name = "Wulan", loc = "Shadowprey Village, Desolace" },
+        { color = "66B2FF", name = "Shandrina", loc = "Mystral Lake, Ashenvale" },
+      },
+    },
+    {
+      title = "Recipe: |cFFFFFFFF[Nightfin Soup]|r",
+      chips = {
+        { color = "FFD700", name = "Gikkix", loc = "Steamwheedle Port, Tanaris" },
+      },
+    },
+  },
 }
