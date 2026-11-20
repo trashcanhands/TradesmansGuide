@@ -196,6 +196,7 @@ content = {
 "Requires: 44 |cFFFFFFFF[Bolt of Runecloth]|r, 44 |cFFFFFFFF[Rugged Leather]|r, 11 |cFF9D9D9D[Rune Thread]|r",
 "NOTE: Pattern (1 Gold 60 Silver) sold by:",
 "      |cFFFFD700[N]|r |cFF33FF99[Qia]|r / |cFF33FF99[Everlook, Winterspring]|r",
+"NOTE: Blizzard updated Qia's stock to unlimited (was Limited supply)",
 "",
 "[|cFF33FFFF250-280|r]",
 "Craft: 39x |cFFFFFFFF[Runecloth Cuffs]|r",
