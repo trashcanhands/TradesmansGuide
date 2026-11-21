@@ -15,6 +15,12 @@ ItemIcons = {
   ["Medium Leather"] = "INV_Misc_LeatherScrap_05",
   ["Heavy Leather"] = "INV_Misc_LeatherScrap_07",
 
+  ["Linen Cloth"] = "INV_Fabric_Linen_01",
+  ["Wool Cloth"] = "INV_Fabric_Wool_01",
+  ["Silk Cloth"] = "INV_Fabric_Silk_01",
+  ["Mageweave Cloth"] = "INV_Fabric_Mageweave_01",
+  ["Runecloth"] = "INV_Fabric_Purple_01",
+
   ["Linen Bandage"] = "INV_Misc_Bandage_15",
   ["Heavy Linen Bandage"] = "INV_Misc_Bandage_18",
   ["Wool Bandage"] = "INV_Misc_Bandage_14",

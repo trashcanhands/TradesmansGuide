@@ -22,6 +22,7 @@ merchantsfavor.lua
 herbalism.lua
 mining.lua
 skinning.lua
+clothfarming.lua
 
 ItemIcons.lua
 TradeGuide.lua

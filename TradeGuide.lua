@@ -1667,13 +1667,14 @@ end
 local herbalismGuide = NewGatheringGuide("Herbalism", { mapHeight = 355 })
 local miningGuide = NewGatheringGuide("Mining", { mapHeight = 355 })
 local skinningGuide = NewGatheringGuide("Skinning", { mapHeight = 355 })
+local clothFarmingGuide = NewGatheringGuide("ClothFarming", { mapHeight = 355 })
 
 local SETS = {
     {
         tab = "Forever Updated",
         tabName = "ForeverTabButton",
         tip = "Guides sourced specifically for Forever",
-        gathering = { "Herbalism", "Mining", "Skinning" },
+        gathering = { "Herbalism", "Mining", "Skinning", { "ClothFarming", "Cloth Farming" } },
         crafting = {
             { "Alchemy", "Alchemy" },
             { "Blacksmithing", "Blacksmithing" },
@@ -2352,7 +2353,7 @@ local function ShowCraftProfession(globalName)
 end
 
 local gatherActions = {}
-for name, guide in pairs({ Herbalism = herbalismGuide, Mining = miningGuide, Skinning = skinningGuide }) do
+for name, guide in pairs({ Herbalism = herbalismGuide, Mining = miningGuide, Skinning = skinningGuide, ClothFarming = clothFarmingGuide }) do
     gatherActions[name] = function()
         craftTabBar:Hide()
         guide.display()
@@ -2424,8 +2425,14 @@ for index, set in ipairs(SETS) do
     local y = -80
     AddHeader(frame, "GATHERING:", y)
     y = y - 34
-    for _, name in ipairs(set.gathering) do
-        AddButton(frame, name .. "Button", name, y, gatherActions[name])
+    for _, entry in ipairs(set.gathering) do
+        local globalName, label
+        if type(entry) == "table" then
+            globalName, label = entry[1], entry[2]
+        else
+            globalName, label = entry, entry
+        end
+        AddButton(frame, globalName .. "Button", label, y, gatherActions[globalName])
         y = y - 28
     end
 
@@ -2513,7 +2520,7 @@ local HUB_CONTENT = {
     "----------------------------------------------------------------------------------------------",
     "GATHERING",
     "----------------------------------------------------------------------------------------------",
-    "|cFF1EFF00Herbalism|r, |cFF1EFF00Mining|r, |cFF1EFF00Skinning|r",
+    "|cFF1EFF00Herbalism|r, |cFF1EFF00Mining|r, |cFF1EFF00Skinning|r, |cFF1EFF00Cloth Farming|r",
     "",
     "----------------------------------------------------------------------------------------------",
     "CRAFTING",
