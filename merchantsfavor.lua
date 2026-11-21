@@ -164,7 +164,7 @@ MerchantsFavor = {
 "      Legionite Glaive [300] and Enriched Thorium Breastplate, Helm and Leggings [300],",
 "            120 Favor",
 "------------------------------------------------------------------------------------------------",
-"COOKING - 6 recipes, all mana drinks",
+"COOKING - 6 recipes, all smoothies that give Spirit",
 "WHERE:",
 "      |cFFFF0000[H]|r |cFF33FF99[Aza'bek]|r      |cFF66B2FF[A]|r |cFF33FF99[Kalsey Sanden]|r",
 "      30 Favor, no reputation: Venomous Smoothie [25], Slimy Smoothie [100], Mrrggl",
