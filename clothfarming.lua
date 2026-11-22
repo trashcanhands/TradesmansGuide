@@ -75,11 +75,26 @@ ZONE OPTIONS:
     {
       title = "Mageweave Cloth  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
       description = [[Enemy levels: 38-50
-Best farming levels: 45-50]],
+Best farming levels: 45-50
+Both spots below work for either faction.
+------------------------------------------------------------------------------------------------
+ZONE OPTIONS:
+|cFF33FF99Tanaris - Dunemaul Compound|r
+      Dunemaul Ogres here (level 45-48) drop |cFFFFFFFF[Mageweave Cloth]|r. Large numbers
+      of mostly melee Ogres, grouped close together and fairly easy to kill, so respawns
+      rarely slow you down. A fair distance southwest of Gadgetzan, but still the nearest
+      spot to sell loot and use the mailbox.
+
+|cFF33FF99Feralas - High Wilderness|r
+      The higher-level Gordunni Ogres in these camps (level 44-47) drop |cFFFFFFFF[Mageweave
+      Cloth]|r. Large numbers of mostly melee Ogres, fairly easy to kill. Can get busy with
+      questing players, and it's a reasonable trip to the nearest mailbox either way.]],
       materials = {
         { name = "Mageweave Cloth" },
       },
       zones = {
+        {name = "Tanaris", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\DunemaulCompound", aspect = 1.5}},
+        {name = "Feralas", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\HighWilderness", aspect = 1.5}},
       }
     },
     {
