@@ -6,11 +6,23 @@ ClothFarming = {
     {
       title = "Linen Cloth  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
       description = [[Enemy levels: 5-20
-Best farming levels: 10-15]],
+Best farming levels: 10-15
+------------------------------------------------------------------------------------------------
+ZONE OPTIONS:
+|cFF66B2FF[A]|r |cFF33FF99Westfall - Jangolode Mine|r
+      Both the Kobolds and the Defias in the cave drop |cFFFFFFFF[Linen Cloth]|r. Fairly close
+      to Sentinel Hill, so it's not a long trip to a mailbox once your bags are full.
+
+|cFFFF0000[H]|r |cFF33FF99The Barrens - Lushwater Oasis|r
+      Kill the Kolkar Centaur there. Large numbers of them with very few casters, so
+      they're fairly easy to take down. Also near the Crossroads to send off loot once
+      your bags are full.]],
       materials = {
         { name = "Linen Cloth" },
       },
       zones = {
+        {name = "Westfall", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\Westfall", aspect = 1.5}},
+        {name = "The Barrens", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\TheBarrens", aspect = 1.5}},
       }
     },
     {
