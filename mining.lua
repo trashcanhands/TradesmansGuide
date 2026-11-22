@@ -19,7 +19,7 @@ NOTE: SOURCE: wow-professions.com's Forever guide, which is based on the Forever
 The site has not yet tested the higher levels on live.
 ------------------------------------------------------------------------------------------------
 TRAIN: |cFF1EFF00[Apprentice Mining]|r (10 Copper)
-      |cFFFF0000[H]|r |cFF33FF99[Norzsh]|r / |cFF33FF99[Valley of Trials, Durotar]|r
+      |cFFFF0000[H]|r |cFF33FF99[Norzsh]|r / |cFF33FF99[The Den, Durotar]|r
       |cFFFF0000[H]|r |cFF33FF99[Vartha Rockmane]|r / |cFF33FF99[Camp Narache, Mulgore]|r
       |cFFFF0000[H]|r |cFF33FF99[Walter Mason]|r / |cFF33FF99[Deathknell, Tirisfal Glades]|r
 
@@ -94,7 +94,7 @@ Respawns are fast, so mob levels matter: outlevel the mobs before farming a cave
 |cFF33FF99Ashenvale|r - No caves and few people, but the route may not support several miners
       at once. An Iron Deposit sometimes spawns in place of Tin; you cannot mine it yet.
 |cFF33FF99Stonetalon Mountains|r - Follow the map.
-NOTE: The site tested the Westfall and Hillsbrad Foothills routes only on a Horde
+NOTE: The site tested the Hillsbrad Foothills route only on a Horde
 character.
 ------------------------------------------------------------------------------------------------]],
             materials = {

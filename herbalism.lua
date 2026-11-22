@@ -267,6 +267,9 @@ Skill bonuses:
 |cFFFFFFFF[Goldthorn Tea]|r +15. The recipe is sold by Henry Stern in Razorfen Downs and needs
       Cooking 175: take the left path at the start, go to the stables at the end,
       break the walls and talk to him.
+|cFFFF0000[H]|r |cFFFFFFFF[Apothecary Gloves]|r +2, from the quest |cFF1EFF00[Serpentbloom]|r, given by
+      |cFF33FF99[Apothecary Zamah]|r in Thunder Bluff; the herbs it requires are picked up in
+      Wailing Caverns.
 ------------------------------------------------------------------------------------------------]]
         },
         {

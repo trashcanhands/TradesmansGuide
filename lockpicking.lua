@@ -69,6 +69,12 @@ Lockpicking = {
 "the upper part needs 225. Pick the lower ones until they stop giving skill, then move",
 "to the upper part - those carry you all the way to 300. They stay yellow until 290, so",
 "the last 10 points take longer.",
+"",
+"|cFFFF8000UNVERIFIED: assumed unchanged from Classic, not yet confirmed in Forever|r",
+"ALTERNATIVE: |cFF33FF99[Lost Rigger Cove, Tanaris]|r - the pirate camp on Tanaris's east",
+"coast, east of the Caverns of Time. The |cFFFFFFFF[Dented Footlocker]|r here are the same",
+"as the ones on the upper part of the Slag Pit (needs 225). Use this if the Slag Pit",
+"is crowded.",
 "------------------------------------------------------------------------------------------------"
   }
 }
