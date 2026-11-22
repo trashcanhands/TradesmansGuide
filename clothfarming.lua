@@ -51,11 +51,25 @@ ZONE OPTIONS:
     {
       title = "Silk Cloth  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
       description = [[Enemy levels: 28-40
-Best farming levels: 35-40]],
+Best farming levels: 35-40
+Both spots below are in Arathi Highlands and work for either faction.
+------------------------------------------------------------------------------------------------
+ZONE OPTIONS:
+|cFF33FF99Northfold Manor|r - better for |cFF66B2FFAlliance|r
+      Syndicate humanoids here (level 30-33) drop |cFFFFFFFF[Silk Cloth]|r. Plenty of them
+      around the manor, grouped close together and mostly easy kills, so you can keep
+      farming without much travel. Reasonably close to Refuge Pointe for the mailbox.
+
+|cFF33FF99Drywhisker Gorge|r - better for |cFFFF0000Horde|r
+      Drywhisker Kobolds here (level 35-38) drop |cFFFFFFFF[Silk Cloth]|r. Plenty of them
+      both outside and in the cave, so respawns rarely slow you down. Extremely close to
+      Hammerfall for selling loot and using the mailbox.]],
       materials = {
         { name = "Silk Cloth" },
       },
       zones = {
+        {name = "Northfold Manor", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\NorthfoldManor", aspect = 1.5}},
+        {name = "Drywhisker Gorge", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\DrywhiskerGorge", aspect = 1.5}},
       }
     },
     {
