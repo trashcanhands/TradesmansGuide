@@ -100,11 +100,25 @@ ZONE OPTIONS:
     {
       title = "Runecloth  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
       description = [[Enemy levels: 50-60+
-Best farming levels: 55-60]],
+Best farming levels: 55-60
+Both spots below work for either faction.
+------------------------------------------------------------------------------------------------
+ZONE OPTIONS:
+|cFF33FF99The Hinterlands - Corin's Crossing|r
+      Undead here (level 54-57) drop |cFFFFFFFF[Runecloth]|r. Plenty of them packed into
+      the town with a decent respawn rate - mix of melee and casters, so focus the melee
+      mobs where you can. Relatively close to Light's Hope Chapel to sell loot, repair,
+      and use the mailbox.
+
+|cFF33FF99Azshara|r
+      Blood Elf Surveyors here are a great source of |cFFFFFFFF[Runecloth]|r too. No
+      nearby vendor or mailbox though, so it's a bit less efficient than Corin's Crossing.]],
       materials = {
         { name = "Runecloth" },
       },
       zones = {
+        {name = "The Hinterlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\CorinsCrossing", aspect = 1.5}},
+        {name = "Azshara", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\ClothFarming\\Azshara", aspect = 1.5}},
       }
     },
   }
