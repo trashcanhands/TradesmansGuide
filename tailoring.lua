@@ -15,7 +15,7 @@ content = {
 "108 |cFF9D9D9D[Red Dye]|r",
 "100 |cFF9D9D9D[Silken Thread]|r",
 "720 |cFFFFFFFF[Mageweave Cloth]|r",
-"48 |cFF9D9D9D[Heavy Silken Thread]|r",
+"44 |cFF9D9D9D[Heavy Silken Thread]|r",
 "3585 |cFFFFFFFF[Runecloth]|r",
 "276 |cFFFFFFFF[Rugged Leather]|r",
 "74 |cFF9D9D9D[Rune Thread]|r",

@@ -316,7 +316,7 @@ the listed veins, rather than being mined directly.
 New Bars:
 |cFFFFFFFF[Heavy Thorium Bar]|r: smelted from Heavy Thorium Ore at a Molten Foundry,
 skill 300.
-|cFFFFFFFF[Azerothium Bar]|r: smelted from Pitchblende at a Forge, skill 275.
+|cFFFFFFFF[Azerothium Bar]|r: smelted from 2x Pitchblende and 1x Coal at a Forge, skill 275.
 NOTE: Alchemists can transmute Heavy Thorium Bar into the existing Legionite Bar.
 
 Other new spawns: Poor Copper Veins in the starting areas; Chunks of Amber
