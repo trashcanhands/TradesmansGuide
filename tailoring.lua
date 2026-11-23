@@ -215,8 +215,6 @@ content = {
 "a quest from Kal'tinzan in Elderwild, Mount Hyjal. Needs Character Level 54 and",
 "6 |cFFFFFFFF[Bolt of Runecloth]|r.",
 "",
-"NOTE: Turns yellow at 265, you may need a few more.",
-"",
 "|cFFB2FF66Alternative Recipe|r if you can't get the Cuffs pattern: buy |cFF1EFF00[Pattern: Runecloth",
 "Shoulders]|r on the |cFFFFFF00[Auction House]|r instead, and make these two in sequence:",
 "      Craft: 19x |cFFFFFFFF[Runecloth Gloves]|r (until skill 260)",
