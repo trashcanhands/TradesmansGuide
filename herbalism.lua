@@ -12,8 +12,6 @@ Preface
 Professions window and put it on your action bar. You can only track one thing at a
 time, so not herbs and minerals together, and tracking turns off when you die.
 The routes favor Herbalism speed, so they do not always pick the best herbs for Alchemy.
-NOTE: SOURCE: wow-professions.com's Forever guide, which is based on the Forever beta.
-The site has not yet tested the higher levels on live.
 ------------------------------------------------------------------------------------------------
 TRAIN: |cFF1EFF00[Apprentice Herbalism]|r (10 Copper)
       |cFFFF0000[H]|r |cFF33FF99[Zor'la]|r / |cFF33FF99[Valley of Trials, Durotar]|r
@@ -124,11 +122,8 @@ ZONE OPTIONS:
             }
         },
         {
-            title = "Levels: [170-205]  |cFFFF8000UNVERIFIED: wow-professions.com route, not yet tested on live|r",
+            title = "Levels: [170-205]  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
-NOTE: These are the standard Classic routes. The beta level cap was 30, so the site
-could not test them and plans to revise this section after leveling on live.
-------------------------------------------------------------------------------------------------
 Herb List:
 |cFFFFFFFF[Kingsblood]|r
 |cFFFFFFFF[Liferoot]|r
@@ -153,7 +148,7 @@ ZONE OPTIONS:
             }
         },
         {
-            title = "Levels: [205-230]  |cFFFF8000UNVERIFIED: wow-professions.com route, not yet tested on live|r",
+            title = "Levels: [205-230]  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
 TRAIN: |cFF1EFF00[Artisan Herbalism]|r (Requires Herbalism 200; 5 Gold; Raises Cap [225] > [300])
 Learn it before you leave: neither Tanaris nor Searing Gorge has a trainer, and
@@ -177,7 +172,7 @@ ZONE OPTIONS:
             }
         },
         {
-            title = "Levels: [230-270]  |cFFFF8000UNVERIFIED: wow-professions.com route, not yet tested on live|r",
+            title = "Levels: [230-270]  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 |cFFFFFFFF[Sungrass]|r
@@ -200,7 +195,7 @@ ZONE:
             }
         },
         {
-            title = "Levels: [270-300]  |cFFFF8000UNVERIFIED: wow-professions.com route, not yet tested on live|r",
+            title = "Levels: [270-300]  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
 Herb List:
 |cFFFFFFFF[Sungrass]|r

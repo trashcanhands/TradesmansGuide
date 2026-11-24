@@ -7,7 +7,7 @@ Fishing = {
 "------------------------------------------------------------------------------------------------",
 "|cFFFFFFFF[Fishing Pole]|r (Fishing Supply / Trade Supply vendor)",
 "|cFFFFFFFF[Shiny Bauble]|r (Fishing Supply / Trade Supply vendor)",
-"|cFFFFFFFF[Nightcrawlers]|r (min skill 50, if fish keep escaping)",
+"|cFFFFFFFF[Nightcrawlers]|r (if fish keep escaping)",
 "|cFFFFFFFF[Bright Baubles]|r (needed from skill ~150 onward — Dustwallow Marsh and",
 "other Expert Fishing zones, Feralas for the Artisan quest, and the 225-300 zones:",
 "Felwood, The Hinterlands, Tanaris, Un'Goro Crater, Western Plaguelands)",

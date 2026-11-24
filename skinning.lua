@@ -14,8 +14,6 @@ You need Skinning equal to 5 x the mob's level (a level 30 mob needs 150). Below
 it differs: mobs level 1-10 need 1, a level 11 mob needs 10, and each level after that
 adds 10 (level 15 needs 50, level 19 needs 90).
 |cFFFFFFFF[Enchant Gloves - Skinning]|r lets you skin mobs one level higher.
-NOTE: SOURCE: wow-professions.com's Forever guide, which is based on the Forever beta.
-The site has not yet tested the higher levels on live.
 ------------------------------------------------------------------------------------------------
 TRAIN: |cFF1EFF00[Apprentice Skinning]|r (10 Copper)
       |cFFFF0000[H]|r |cFF33FF99[Kagil]|r / |cFF33FF99[The Den, Durotar]|r

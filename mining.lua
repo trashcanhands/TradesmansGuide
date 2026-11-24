@@ -15,8 +15,6 @@ Professions window and put it on your action bar. You can only track one thing a
 time, so not minerals and herbs together, and tracking turns off when you die.
 With gold to spare you can skip to about 105 by smelting bought ore: see the Smelting
 section.
-NOTE: SOURCE: wow-professions.com's Forever guide, which is based on the Forever beta.
-The site has not yet tested the higher levels on live.
 ------------------------------------------------------------------------------------------------
 TRAIN: |cFF1EFF00[Apprentice Mining]|r (10 Copper)
       |cFFFF0000[H]|r |cFF33FF99[Norzsh]|r / |cFF33FF99[The Den, Durotar]|r
@@ -113,11 +111,8 @@ character.
             }
         },
         {
-            title = "Levels: [125-175]  |cFFFF8000UNVERIFIED: wow-professions.com route, not yet tested on live|r",
+            title = "Levels: [125-175]  |cFF1EFF00VERIFIED: wow-professions.com Forever guide|r",
             description = [[------------------------------------------------------------------------------------------------
-NOTE: The site could not test Arathi Highlands or Desolace: the beta level cap was 30.
-It plans to revise this section after leveling higher on live.
-------------------------------------------------------------------------------------------------
 Ore List:
 |cFFFFFFFF[Iron Deposit]|r (Mining 125)
 |cFFFFFFFF[Gold Vein]|r (Mining 155)
