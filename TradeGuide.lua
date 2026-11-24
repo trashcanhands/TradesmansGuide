@@ -2502,7 +2502,7 @@ local HUB_CONTENT = {
     "----------------------------------------------------------------------------------------------",
     "Pick a gathering or crafting profession from the sidebar on the left to get started.",
     "",
-    "These guides are built specifically for Turtle WoW's |cFF1EFF00Forever|r ruleset, sourced from",
+    "These guides are built specifically for |cFF1EFF00WOW:Forever|r, sourced from",
     "wow-professions.com/forever and checked in-game.",
     "",
     "----------------------------------------------------------------------------------------------",
