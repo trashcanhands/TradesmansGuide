@@ -200,6 +200,7 @@ content = {
 "Requires: 44 |cFFFFFFFF[Bolt of Runecloth]|r, 44 |cFFFFFFFF[Rugged Leather]|r, 11 |cFF9D9D9D[Rune Thread]|r",
 "NOTE: Pattern (1 Gold 60 Silver) sold by:",
 "      |cFFFFD700[N]|r |cFF33FF99[Qia]|r / |cFF33FF99[Everlook, Winterspring]|r",
+"NOTE: Blizzard updated Qia's stock to unlimited (was Limited supply)",
 "",
 "|cFFB2FF66Alternative Recipe|r if you own |cFF1EFF00[Pattern: Brightcloth Cloak]|r (world drop):",
 "      Craft: 11x |cFFFFFFFF[Brightcloth Cloak]|r",
