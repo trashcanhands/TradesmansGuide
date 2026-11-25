@@ -7,7 +7,7 @@ content = {
 "------------------------------------------------------------------------------------------------",
 "105 |cFFFFFFFF[Ruined Leather Scraps]|r",
 "20 |cFFFFFFFF[Light Hide]|r",
-"282 |cFFFFFFFF[Light Leather]|r",
+"247 |cFFFFFFFF[Light Leather]|r",
 "124 |cFF9D9D9D[Coarse Thread]|r",
 "152 |cFFFFFFFF[Medium Leather]|r",
 "122 |cFF9D9D9D[Fine Thread]|r",
