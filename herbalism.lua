@@ -52,13 +52,13 @@ in circles and pick them as they appear.
                 { name = "Earthroot", level = 15 },
             },
             zones = {
-                {name = "Durotar", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Durotar"}},
-                {name = "Mulgore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Mulgore"}},
-                {name = "Tirisfal Glades", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\TirisfalGlades"}},
-                {name = "Elwynn Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\ElwynnForest"}},
-                {name = "Dun Morogh", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\DunMorogh"}},
-                {name = "Teldrassil", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Teldrassil"}},
-                {name = "Zephras Isle", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\ZephrasIsle"}}
+                {name = "Durotar", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Durotar", aspect = 1.5}},
+                {name = "Mulgore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Mulgore", aspect = 1.5}},
+                {name = "Tirisfal Glades", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\TirisfalGlades", aspect = 1.5}},
+                {name = "Elwynn Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\ElwynnForest", aspect = 1.5}},
+                {name = "Dun Morogh", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\DunMorogh", aspect = 1.5}},
+                {name = "Teldrassil", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Teldrassil", aspect = 1.5}},
+                {name = "Zephras Isle", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\ZephrasIsle", aspect = 1.5}}
             }
         },
         {
@@ -83,9 +83,9 @@ ZONE OPTIONS:
                 { name = "Stranglekelp", level = 85 },
             },
             zones = {
-                {name = "Silverpine Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\SilverpineForest"}},
-                {name = "Loch Modan", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\LochModan"}},
-                {name = "Darkshore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Darkshore"}}
+                {name = "Silverpine Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\SilverpineForest", aspect = 1.5}},
+                {name = "Loch Modan", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\LochModan", aspect = 1.5}},
+                {name = "Darkshore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Darkshore", aspect = 1.5}}
             }
         },
         {
@@ -117,8 +117,8 @@ ZONE OPTIONS:
                 { name = "Liferoot", level = 150 },
             },
             zones = {
-                {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\HillsbradFoothills"}},
-                {name = "Stonetalon Mountains", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\StonetalonMountains"}}
+                {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\HillsbradFoothills", aspect = 1.5}},
+                {name = "Stonetalon Mountains", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\StonetalonMountains", aspect = 1.5}}
             }
         },
         {
@@ -143,8 +143,8 @@ ZONE OPTIONS:
                 { name = "Khadgar's Whisker", level = 185 },
             },
             zones = {
-                {name = "Stranglethorn Vale", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\StranglethornVale"}},
-                {name = "Arathi Highlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\ArathiHighlands"}}
+                {name = "Stranglethorn Vale", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\StranglethornVale", aspect = 1.5306}},
+                {name = "Arathi Highlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\ArathiHighlands", aspect = 1.5306}}
             }
         },
         {
@@ -167,8 +167,8 @@ ZONE OPTIONS:
                 { name = "Firebloom" },
             },
             zones = {
-                {name = "Tanaris", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Tanaris"}},
-                {name = "Searing Gorge", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\SearingGorge"}}
+                {name = "Tanaris", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Tanaris", aspect = 1.5306}},
+                {name = "Searing Gorge", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\SearingGorge", aspect = 1.5306}}
             }
         },
         {
@@ -191,7 +191,7 @@ ZONE:
                 { name = "Ghost Mushroom", level = 245 },
             },
             zones = {
-                {name = "The Hinterlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\TheHinterlands"}}
+                {name = "The Hinterlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\TheHinterlands", aspect = 1.5306}}
             }
         },
         {
@@ -217,7 +217,7 @@ ZONE:
                 { name = "Plaguebloom" },
             },
             zones = {
-                {name = "Felwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Felwood"}}
+                {name = "Felwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Herbalism\\Felwood", aspect = 1.5306}}
             }
         },
         {
