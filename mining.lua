@@ -83,17 +83,19 @@ Respawns are fast, so mob levels matter: outlevel the mobs before farming a cave
       outlevel them or they keep respawning on top of you.
 |cFFFF0000[H]|r |cFF33FF99Silverpine Forest|r - The cave has 3 vein spawn points with about a 2-minute
       respawn. Mobs are level 21-22; outlevel them.
-|cFF33FF99Westfall|r - Several Tin Veins in the cave plus veins outside (mobs level 13-15).
-      Popular, so expect competition.
-|cFFFF0000[H]|r |cFF33FF99Hillsbrad Foothills|r - Fast respawns. Best if you are above the mobs (level 22-26).
-      The route loops around Tarren Mill, a Horde town.
+|cFF33FF99Westfall|r - Several Tin Veins in the cave respawn very fast; there are veins outside
+      too, so once you clear the cave you can mine those next. Mobs are level 13-15, and in
+      Forever they respawn much faster than normal - outlevel them by quite a few levels, or
+      they will keep respawning right on top of you.
+|cFFFF0000[H]|r |cFF33FF99Hillsbrad Foothills|r - Best if you prefer mining the normal way, but expect more
+      competition since this is a popular area. The route loops around Tarren Mill, a Horde
+      town; not clear how it works for Alliance, though you can probably avoid the guards.
+      Only tested on a Horde character.
 |cFF33FF99The Barrens|r - A straightforward route that is easy to follow. Popular, so expect
       competition.
 |cFF33FF99Ashenvale|r - No caves and few people, but the route may not support several miners
       at once. An Iron Deposit sometimes spawns in place of Tin; you cannot mine it yet.
 |cFF33FF99Stonetalon Mountains|r - Follow the map.
-NOTE: The site tested the Hillsbrad Foothills route only on a Horde
-character.
 ------------------------------------------------------------------------------------------------]],
             materials = {
                 { name = "Tin Ore", level = 65 },
