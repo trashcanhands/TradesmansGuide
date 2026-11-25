@@ -56,12 +56,12 @@ ZONE OPTIONS:
                 { name = "Copper Ore" },
             },
             zones = {
-                {name = "Durotar", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Durotar"}},
-                {name = "Mulgore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\MulgoreForge"}},
-                {name = "Tirisfal Glades", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TirisfalGlades"}},
-                {name = "Elwynn Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ElwynnForest"}},
-                {name = "Dun Morogh", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\DunMorogh"}},
-                {name = "Teldrassil", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Teldrassil"}},
+                {name = "Durotar", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Durotar", aspect = 1.5}},
+                {name = "Mulgore", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\MulgoreForge", aspect = 1.5}},
+                {name = "Tirisfal Glades", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TirisfalGlades", aspect = 1.5}},
+                {name = "Elwynn Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ElwynnForest", aspect = 1.5}},
+                {name = "Dun Morogh", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\DunMorogh", aspect = 1.5}},
+                {name = "Teldrassil", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Teldrassil", aspect = 1.5}},
                 {name = "Zephras Isle", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ZephrasIsle"}}
             }
         },
@@ -104,12 +104,12 @@ Respawns are fast, so mob levels matter: outlevel the mobs before farming a cave
             },
             zones = {
                 {name = "Wetlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Wetlands"}},
-                {name = "Silverpine Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\SilverpineForest"}},
+                {name = "Silverpine Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\SilverpineForest", aspect = 1.5}},
                 {name = "Westfall", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Westfall"}},
-                {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\HillsbradFoothills"}},
-                {name = "The Barrens", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TheBarrens"}},
-                {name = "Ashenvale", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Ashenvale"}},
-                {name = "Stonetalon Mountains", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\StonetalonMountains"}}
+                {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\HillsbradFoothills", aspect = 1.5}},
+                {name = "The Barrens", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TheBarrens", aspect = 1.5}},
+                {name = "Ashenvale", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Ashenvale", aspect = 1.5}},
+                {name = "Stonetalon Mountains", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\StonetalonMountains", aspect = 1.5}}
             }
         },
         {
@@ -136,9 +136,9 @@ ZONE OPTIONS:
                 { name = "Gold Ore", level = 155 },
             },
             zones = {
-                {name = "Thousand Needles", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ThousandNeedles"}},
-                {name = "Arathi Highlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ArathiHighlands"}},
-                {name = "Desolace", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Desolace"}}
+                {name = "Thousand Needles", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ThousandNeedles", aspect = 1.5}},
+                {name = "Arathi Highlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ArathiHighlands", aspect = 1.5}},
+                {name = "Desolace", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Desolace", aspect = 1.5}}
             }
         },
         {
@@ -161,8 +161,8 @@ ZONE OPTIONS:
                 { name = "Truesilver Ore", level = 230 },
             },
             zones = {
-                {name = "The Hinterlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TheHinterlands"}},
-                {name = "Tanaris", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Tanaris"}}
+                {name = "The Hinterlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TheHinterlands", aspect = 1.5}},
+                {name = "Tanaris", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Tanaris", aspect = 1.5}}
             }
         },
         {
@@ -189,8 +189,8 @@ ZONE OPTIONS:
             },
             zones = {
                 {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCrater"}},
-                {name = "Blasted Lands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BlastedLands"}},
-                {name = "Felwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Felwood"}}
+                {name = "Blasted Lands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BlastedLands", aspect = 1.5}},
+                {name = "Felwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Felwood", aspect = 1.5}}
             }
         },
         {
@@ -217,9 +217,9 @@ ZONE OPTIONS:
             },
             zones = {
                 {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCraterRichThorium"}},
-                {name = "Eastern Plaguelands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\EasternPlaguelands"}},
+                {name = "Eastern Plaguelands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\EasternPlaguelands", aspect = 1.5}},
                 {name = "Winterspring", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Winterspring"}},
-                {name = "Burning Steppes", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BurningSteppes"}}
+                {name = "Burning Steppes", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BurningSteppes", aspect = 1.5}}
             }
         },
         {
