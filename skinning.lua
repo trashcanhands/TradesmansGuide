@@ -37,8 +37,8 @@ Any starting zone works until about level 10.
       (level 1-2)
 ------------------------------------------------------------------------------------------------]],
             zones = {
-                {name = "Durotar (Horde)", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\Durotar"}},
-                {name = "Elwynn Forest (Alliance)", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\ElwynnForest"}}
+                {name = "Durotar (Horde)", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\Durotar", aspect = 1.5}},
+                {name = "Elwynn Forest (Alliance)", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\ElwynnForest", aspect = 1.5}}
             }
         },
         {
@@ -61,9 +61,9 @@ ZONE OPTIONS:
       Some are always at Whelgar's Excavation Site.
 ------------------------------------------------------------------------------------------------]],
             zones = {
-                {name = "The Barrens", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\TheBarrens"}},
-                {name = "Loch Modan", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\LochModan"}},
-                {name = "Wetlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\Wetlands"}}
+                {name = "The Barrens", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\TheBarrens", aspect = 1.6667}},
+                {name = "Loch Modan", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\LochModan", aspect = 1.6667}},
+                {name = "Wetlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\Wetlands", aspect = 1.6667}}
             }
         },
         {
@@ -85,8 +85,8 @@ ZONE OPTIONS (pick one):
       Duskwood is an Alliance zone; Horde can reach it from Grom'gol.
 ------------------------------------------------------------------------------------------------]],
             zones = {
-                {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\HillsbradFoothills"}},
-                {name = "Duskwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\Duskwood"}}
+                {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\HillsbradFoothills", aspect = 1.6667}},
+                {name = "Duskwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\Duskwood", aspect = 1.6667}}
             }
         },
         {
@@ -100,7 +100,7 @@ NOTE: Hulking Feral Scars (level 46) aren't skinnable until skill 230; farm the
       level 43-45 mobs until then.
 ------------------------------------------------------------------------------------------------]],
             zones = {
-                {name = "Feralas", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\FeralasFeralScarVale"}}
+                {name = "Feralas", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\FeralasFeralScarVale", aspect = 1.5306}}
             }
         },
         {
@@ -112,7 +112,7 @@ ZONE:
       Pterrordaxes (level 50-55).
 ------------------------------------------------------------------------------------------------]],
             zones = {
-                {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\UnGoroCrater"}}
+                {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\UnGoroCrater", aspect = 1.6667}}
             }
         },
         {

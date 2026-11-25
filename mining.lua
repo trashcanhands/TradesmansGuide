@@ -62,7 +62,7 @@ ZONE OPTIONS:
                 {name = "Elwynn Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ElwynnForest", aspect = 1.5}},
                 {name = "Dun Morogh", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\DunMorogh", aspect = 1.5}},
                 {name = "Teldrassil", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Teldrassil", aspect = 1.5}},
-                {name = "Zephras Isle", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ZephrasIsle"}}
+                {name = "Zephras Isle", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\ZephrasIsle", aspect = 1.5}}
             }
         },
         {
@@ -103,9 +103,9 @@ Respawns are fast, so mob levels matter: outlevel the mobs before farming a cave
                 { name = "Incendicite Ore" },
             },
             zones = {
-                {name = "Wetlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Wetlands"}},
+                {name = "Wetlands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Wetlands", aspect = 1.5}},
                 {name = "Silverpine Forest", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\SilverpineForest", aspect = 1.5}},
-                {name = "Westfall", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Westfall"}},
+                {name = "Westfall", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Westfall", aspect = 1.5}},
                 {name = "Hillsbrad Foothills", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\HillsbradFoothills", aspect = 1.5}},
                 {name = "The Barrens", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\TheBarrens", aspect = 1.5}},
                 {name = "Ashenvale", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Ashenvale", aspect = 1.5}},
@@ -188,7 +188,7 @@ ZONE OPTIONS:
                 { name = "Truesilver Ore" },
             },
             zones = {
-                {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCrater"}},
+                {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCrater", aspect = 1.5}},
                 {name = "Blasted Lands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BlastedLands", aspect = 1.5}},
                 {name = "Felwood", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Felwood", aspect = 1.5}}
             }
@@ -216,9 +216,9 @@ ZONE OPTIONS:
                 { name = "Mithril Ore" },
             },
             zones = {
-                {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCraterRichThorium"}},
+                {name = "Un'Goro Crater", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\UnGoroCraterRichThorium", aspect = 1.5}},
                 {name = "Eastern Plaguelands", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\EasternPlaguelands", aspect = 1.5}},
-                {name = "Winterspring", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Winterspring"}},
+                {name = "Winterspring", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\Winterspring", aspect = 1.5}},
                 {name = "Burning Steppes", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Mining\\BurningSteppes", aspect = 1.5}}
             }
         },
