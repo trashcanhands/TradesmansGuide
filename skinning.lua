@@ -96,6 +96,8 @@ ZONE:
 |cFF33FF99Feralas|r - Mount up and go to the yeti cave at Feral Scar Vale in southern Feralas.
       Skin Feral Scar Yetis, Enraged Feral Scars and Hulking Feral Scars (level 43-46).
       Horde come from Camp Mojache, Alliance from Feathermoon Stronghold.
+NOTE: Hulking Feral Scars (level 46) aren't skinnable until skill 230; farm the
+      level 43-45 mobs until then.
 ------------------------------------------------------------------------------------------------]],
             zones = {
                 {name = "Feralas", map = {path = "Interface\\AddOns\\TradeGuide\\Maps\\Skinning\\FeralasFeralScarVale"}}
