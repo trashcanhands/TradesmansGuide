@@ -1344,9 +1344,6 @@ local function NewGatheringGuide(globalName, layout)
     local guide = { ui = ui }
 
     function guide.clear()
-        if ui.headerText then
-            ui.headerText:Hide()
-        end
         if ui.verifiedText then
             ui.verifiedText:Hide()
         end
@@ -1418,7 +1415,7 @@ local function NewGatheringGuide(globalName, layout)
             })
         end
 
-        local y = -40
+        local y = -14
         y = RenderPillRow(ui.bracketTabPool, tabItems, sectionIndex, 20, y, 810) - 4
 
         local _, verifiedText, verifiedColor = ParseGatheringTitle(section.title)
@@ -1574,23 +1571,17 @@ local function NewGatheringGuide(globalName, layout)
         ClearContent()
         ClearAllGathering()
 
-        if headerText then
-            headerText:Hide()
-        end
-
         local data = _G[globalName]
         if not data or not data.sections then
             print("ERROR: " .. globalName .. " data not found!")
             return
         end
 
-        if not ui.headerText then
-            ui.headerText = contentChild:CreateFontString(nil, "OVERLAY", headerFont)
-            ui.headerText:SetPoint("TOP", contentChild, "TOP", 0, -10)
-        end
         if data.headerText then
-            ui.headerText:SetText(data.headerText)
-            ui.headerText:Show()
+            headerText:SetText(data.headerText)
+            headerText:Show()
+        else
+            headerText:Hide()
         end
 
         if not ui.verifiedText then
