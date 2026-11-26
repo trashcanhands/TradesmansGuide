@@ -257,6 +257,7 @@ content = {
 "NOTE: Yellow from skill 295; make a few more if you don't reach 300",
 "NOTE: Schematic binds when picked up (don't buy with an alt and mail it). Sold by:",
 "      |cFFFFD700[N]|r |cFF33FF99[Xizzer Fizzbolt]|r / |cFF33FF99[Everlook, Winterspring]|r",
+"      |cFFFFD700[N]|r |cFF33FF99[Kor'gar]|r / |cFF33FF99[Riverglades]|r",
 "NOTE: If selling Thorium Grenades well, make about 8 each of Widgets and Grenades (plus 10",
 "more Dense Blasting Powder) until 290, then only 12 Thorium Tubes are needed to finish.",
 "",
