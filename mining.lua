@@ -292,7 +292,7 @@ Mining Pick vendors:
 ------------------------------------------------------------------------------------------------
 Skill bonuses:
 |cFFFFFFFF[Enchant Gloves - Mining]|r +2 and |cFFFFFFFF[Enchant Gloves - Advanced Mining]|r +5, from an enchanter
-|cFFFFFFFF[Goblin Mining Helmet]|r +5, made by Engineers (Engineering 205)
+|cFFFFFFFF[Goblin Mining Helmet]|r +5, made by Engineers; requires Engineering 205 to wear
 |cFFFFFFFF[Miner's Cape]|r +2, drops from Miner Johnson in The Deadmines
 |cFF66B2FF[A]|r only: |cFFFFFFFF[Twilight Mine Light]|r +4, reward from the quest |cFFFFD700[! A Miner Problem]|r in Riverglades
 A +5 bonus lets you mine Iron Deposits at 120 instead of 125.
@@ -306,8 +306,8 @@ New Ore:
 in Mount Hyjal.
 
 Scarce Materials:
-|cFFFFFFFF[Pyrite]|r (from Copper/Tin/Iron veins), |cFFFFFFFF[Bauxite]|r (from Mithril veins),
-and |cFFFFFFFF[Pitchblende]|r (from Thorium veins) - a chance to get one while mining
+|cFFFFFFFF[Pyrite]|r (from Copper/Tin/Silver/Iron veins), |cFFFFFFFF[Bauxite]|r (from Mithril veins),
+and |cFFFFFFFF[Pitchblende]|r (from Thorium/Truesilver veins) - a chance to get one while mining
 the listed veins, rather than being mined directly.
 
 New Bars:

@@ -238,6 +238,7 @@ Journeyman, Expert and Artisan trainers:
       |cFF66B2FF[A]|r |cFF33FF99[Shylamiir]|r / |cFF33FF99[The Park, Stormwind City]|r
       |cFF66B2FF[A]|r |cFF33FF99[Reyna Stonebranch]|r / |cFF33FF99[The Great Forge, Ironforge]|r
       |cFF66B2FF[A]|r |cFF33FF99[Firodren Mooncaller]|r / |cFF33FF99[The Temple Gardens, Darnassus]|r
+      |cFF66B2FF[A]|r |cFF33FF99[Edward Egan]|r / |cFF33FF99[Dalaran, Alterac Mountains]|r
       |cFF66B2FF[A]|r |cFF33FF99[Herbalist Pomeroy]|r / |cFF33FF99[Elwynn Forest]|r
       |cFF66B2FF[A]|r |cFF33FF99[Malorne Bladeleaf]|r / |cFF33FF99[Dolanaar, Teldrassil]|r
       |cFF66B2FF[A]|r |cFF33FF99[Kali Healtouch]|r / |cFF33FF99[Thelsamar, Loch Modan]|r
