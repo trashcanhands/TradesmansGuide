@@ -1403,6 +1403,7 @@ local function NewGatheringGuide(globalName, layout)
         end
 
         ui.currentSection = sectionIndex
+        ui.activeZoneIndex = 1
 
         local tabItems = {}
         for idx, sec in ipairs(data.sections) do
@@ -1533,11 +1534,19 @@ local function NewGatheringGuide(globalName, layout)
                 table.insert(zoneItems, {
                     label = zone.name,
                     onClick = function()
+                        ui.activeZoneIndex = idx
                         ShowMap(zone.map)
+                        for pidx, pill in ipairs(ui.zonePillPool) do
+                            if pidx == idx then
+                                pill:LockHighlight()
+                            else
+                                pill:UnlockHighlight()
+                            end
+                        end
                     end
                 })
             end
-            y = RenderPillRow(ui.zonePillPool, zoneItems, 1, 20, y, 810) - 10
+            y = RenderPillRow(ui.zonePillPool, zoneItems, ui.activeZoneIndex, 20, y, 810) - 10
         else
             for _, pill in ipairs(ui.zonePillPool) do
                 pill:Hide()
@@ -1558,7 +1567,7 @@ local function NewGatheringGuide(globalName, layout)
             ui.mapFrame:ClearAllPoints()
             ui.mapFrame:SetPoint("TOPLEFT", contentChild, "TOPLEFT", 20, y)
             ui.mapFrame:Show()
-            ShowMap(section.zones[1].map)
+            ShowMap(section.zones[ui.activeZoneIndex].map)
         else
             ui.mapFrame:Hide()
             contentChild:SetHeight(math.abs(y) + 20)
