@@ -278,8 +278,9 @@ New Herbs:
 Death Lotus can be found on any herb in Mount Hyjal while wearing the Lotus
 Claw glove enchant. Frilled Lichen comes from Earthroot, Mageroyal,
 Briarthorn or Stranglekelp; Rosecap from Kingsblood, Fadeleaf or Goldthorn
-(the site says probably a few more). Marefoil, Demonsage and Stranglevine's
-locations are not yet known.
+(the site says probably a few more). Marefoil comes from a rare glowing
+Dreamfoil and Demonsage from a rare glowing Mountain Silversage, both in
+Mount Hyjal. Stranglevine's location is not yet known.
 
 NOTE: the site states three of these six are "Scarce" materials - a chance
 to get one while picking other herbs, rather than being picked directly -
@@ -292,7 +293,8 @@ Camping items for Campfires:
       |cFFFFFFFF[Incense Candle]|r: skill 20, from the trainer
       |cFFFFFFFF[Greenhouse]|r: skill 140, blueprint dropped by |cFF33FF99[Shadetooth]|r /
       |cFF33FF99[Excavation Site, Wetlands]|r
-      |cFFFFFFFF[Seed Hybridizer]|r: skill 300, from a Blueprint (drop source not yet known)
+      |cFFFFFFFF[Seed Hybridizer]|r: skill 300, blueprint dropped by |cFF33FF99[Tendris Warpwood]|r /
+      |cFF33FF99[Dire Maul]|r
 ------------------------------------------------------------------------------------------------]]
         }
     }

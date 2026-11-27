@@ -310,6 +310,11 @@ Scarce Materials:
 and |cFFFFFFFF[Pitchblende]|r (from Thorium/Truesilver veins) - a chance to get one while mining
 the listed veins, rather than being mined directly.
 
+Pitchblende can also be mined directly from |cFF1EFF00[Dark Iron Deposit]|r nodes (not a
+tracked leveling-route zone in this guide), found in Burning Steppes, Searing
+Gorge, Alterac Valley, Arathi Basin, Blackrock Depths, Blackrock Spire, and
+Molten Core.
+
 New Bars:
 |cFFFFFFFF[Heavy Thorium Bar]|r: smelted from Heavy Thorium Ore at a Molten Foundry,
 skill 300.
