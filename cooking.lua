@@ -49,6 +49,7 @@ Cooking = {
 "      |cFF66B2FF[A]|r |cFF33FF99[Daryl Riknussun]|r / |cFF33FF99[Ironforge, Dun Morogh]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Stephen Ryback]|r / |cFF33FF99[Stormwind City, Elwynn Forest]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Katherine Lee]|r / |cFF33FF99[Dalaran, Alterac Mountains]|r",
+"      |cFF66B2FF[A]|r |cFF33FF99[Paige]|r / |cFF33FF99[Dalaran, Alterac Mountains]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Cook Ghilm]|r / |cFF33FF99[Gol'Bolar Quarry, Dun Morogh]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Gremlock Pilsnor]|r / |cFF33FF99[Kharanos, Dun Morogh]|r",
 "      |cFF66B2FF[A]|r |cFF33FF99[Tomas]|r / |cFF33FF99[Goldshire, Elwynn Forest]|r",

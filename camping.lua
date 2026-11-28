@@ -178,7 +178,7 @@ Camping = {
 "",
 "      [300] |cFF1EFF00[Trapper's Workbench]|r: a workbench holding one trap",
 "      Materials: 2 |cFFFFFFFF[Simple Wood]|r, 4 |cFFFFFFFF[Heavy Leather]|r, 1 |cFFFFFFFF[Iron Bar]|r",
-"      Blueprint dropped by |cFF33FF99[The Beast]|r / |cFF33FF99[Upper Blackrock Spire]|r or",
+"      Blueprint dropped by |cFF33FF99[The Beast]|r / |cFF33FF99[Upper Blackrock Spire]|r and",
 "      |cFF33FF99[Houndmaster Loksey]|r / |cFF33FF99[Scarlet Monastery]|r",
 "",
 "|cFF33FFFFCooking|r",
